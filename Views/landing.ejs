@@ -1,0 +1,851 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="My Small CRM - CRM for Small Businesses" name="description" />
+    <meta content="Themesbrand" name="author" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
+
+    <!--Swiper slider css-->
+    <link href="assets/libs/swiper/swiper-bundle.min.css" rel="stylesheet" type="text/css" />
+
+    <%- include ('./Layout/head-css.ejs') %>
+
+</head>
+
+<body data-bs-spy="scroll" data-bs-target="#navbar-example">
+
+    <!-- Begin page -->
+    <div class="layout-wrapper landing">
+        <nav class="navbar navbar-expand-lg navbar-landing fixed-top" id="navbar">
+            <div class="container">
+                <a class="navbar-brand" href="index">
+                    <img src="assets/images/logo-dark.png" class="card-logo card-logo-dark" alt="logo dark" height="17">
+                    <img src="assets/images/logo-light.png" class="card-logo card-logo-light" alt="logo light"
+                        height="17">
+                </a>
+                <button class="navbar-toggler py-0 fs-20 text-body" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="mdi mdi-menu"></i>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto mt-2 mt-lg-0" id="navbar-example">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#hero">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#services">Services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#features">Features</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#reviews">Reviews</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#contact">Contact</a>
+                        </li>
+                    </ul>
+
+                    <div class="">
+                        <a href="auth-signin-basic" class="btn btn-link fw-medium text-decoration-none text-dark">Sign
+                            in</a>
+                        <a href="auth-signup-basic" class="btn btn-primary">Sign Up</a>
+                    </div>
+                </div>
+
+            </div>
+        </nav>
+        <!-- end navbar -->
+
+       <!-- start hero section -->
+       <section class="section pb-0 hero-section" id="hero">
+        <div class="bg-overlay bg-overlay-pattern"></div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-sm-10">
+                    <div class="text-center mt-lg-5 pt-5">
+                        <h1 class="display-6 fw-bold mb-3 lh-base">The better way to manage your website with <span class="text-success">My Small CRM </span></h1>
+                        <p class="lead text-muted lh-base">To automate your workflows, shorten your sales cycles, and win more business. </p>
+
+                        <div class="d-flex gap-2 justify-content-center mt-4">
+                            <a href="auth-signup-basic.html" class="btn btn-primary">Get Started</a>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 mt-sm-5 pt-sm-5 mb-sm-n5 demo-carousel">
+                        <div class="demo-img-patten-top d-none d-sm-block">
+                            <img src="assets/images/landing/img-pattern.png" class="d-block img-fluid" alt="...">
+                        </div>
+                        <div class="demo-img-patten-bottom d-none d-sm-block">
+                            <img src="assets/images/landing/img-pattern.png" class="d-block img-fluid" alt="...">
+                        </div>
+                        <div class="carousel slide carousel-fade" data-bs-ride="carousel">
+                            <div class="carousel-inner shadow-lg p-2 bg-white rounded">
+                                <div class="carousel-item active" data-bs-interval="2000">
+                                    <img src="assets/images/demos/default.png" class="d-block w-100" alt="...">
+                                </div>
+                                <div class="carousel-item" data-bs-interval="2000">
+                                    <img src="assets/images/demos/saas.png" class="d-block w-100" alt="...">
+                                </div>
+                                <div class="carousel-item" data-bs-interval="2000">
+                                    <img src="assets/images/demos/material.png" class="d-block w-100" alt="...">
+                                </div>
+                                <div class="carousel-item" data-bs-interval="2000">
+                                    <img src="assets/images/demos/minimal.png" class="d-block w-100" alt="...">
+                                </div>
+                                <div class="carousel-item" data-bs-interval="2000">
+                                    <img src="assets/images/demos/creative.png" class="d-block w-100" alt="...">
+                                </div>
+                                <div class="carousel-item" data-bs-interval="2000">
+                                    <img src="assets/images/demos/modern.png" class="d-block w-100" alt="...">
+                                </div>
+                                <div class="carousel-item" data-bs-interval="2000">
+                                    <img src="assets/images/demos/interactive.png" class="d-block w-100" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container -->
+        <div class="position-absolute start-0 end-0 bottom-0 hero-shape-svg">
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1440 120">
+                <g mask="url(&quot;#SvgjsMask1003&quot;)" fill="none">
+                    <path d="M 0,118 C 288,98.6 1152,40.4 1440,21L1440 140L0 140z">
+                    </path>
+                </g>
+            </svg>
+        </div>
+        <!-- end shape -->
+    </section>
+    <!-- end hero section -->
+
+        
+        <!-- start services -->
+        <section class="section" id="services">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="text-center mb-5">
+                            <h1 class="mb-3 ff-secondary fw-bold lh-base">My Small CRM specializes in organizing your sales for your small business.</h1>
+                            <p class="text-muted">By providing small businesses with the features they need at their fingertips. No gimmicks.</p>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                </div>
+                <!-- end row -->
+
+                <div class="row g-3">
+                    <div class="col-lg-4">
+                        <div class="d-flex p-3">
+                            <div class="flex-shrink-0 me-3">
+                                <div class="avatar-sm icon-effect">
+                                    <div class="avatar-title bg-transparent text-success rounded-circle">
+                                        <i class=" ri-account-circle-line fs-36"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h5 class="fs-18">Account Management</h5>
+                                <p class="text-muted my-3">My Small CRM offers a range of tools to manage customer and lead information inside your business.</p>
+                                <div>
+                                    <a href="#" class="fs-13 fw-medium">Learn More <i class="ri-arrow-right-s-line align-bottom"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                    <div class="col-lg-4">
+                        <div class="d-flex p-3">
+                            <div class="flex-shrink-0 me-3">
+                                <div class="avatar-sm icon-effect">
+                                    <div class="avatar-title bg-transparent text-success rounded-circle">
+                                        <i class="ri-line-chart-line fs-36"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h5 class="fs-18">Reports and Dashboards</h5>
+                                <p class="text-muted my-3">Get insights on your business performance and deals in real time.</p>
+                                <div>
+                                    <a href="#" class="fs-13 fw-medium">Learn More <i class="ri-arrow-right-s-line align-bottom"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                    <div class="col-lg-4">
+                        <div class="d-flex p-3">
+                            <div class="flex-shrink-0 me-3">
+                                <div class="avatar-sm icon-effect">
+                                    <div class="avatar-title bg-transparent text-success rounded-circle">
+                                        <i class="ri-calendar-line fs-36"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h5 class="fs-18">Scheduling Made Easy</h5>
+                                <p class="text-muted my-3">Scheduling software which allows you to assign tasks in the future, never forgetting client actions.</p>
+                                <div>
+                                    <a href="#" class="fs-13 fw-medium">Learn More <i class="ri-arrow-right-s-line align-bottom"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                    <div class="col-lg-4">
+                        <div class="d-flex p-3">
+                            <div class="flex-shrink-0 me-3">
+                                <div class="avatar-sm icon-effect">
+                                    <div class="avatar-title bg-transparent text-success rounded-circle">
+                                        <i class="ri-briefcase-line fs-36"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h5 class="fs-18">Deal Management</h5>
+                                <p class="text-muted my-3">Keep track of important deals and stages for all your leads.</p>
+                                <div>
+                                    <a href="#" class="fs-13 fw-medium">Learn More <i class="ri-arrow-right-s-line align-bottom"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                    <div class="col-lg-4">
+                        <div class="d-flex p-3">
+                            <div class="flex-shrink-0 me-3">
+                                <div class="avatar-sm icon-effect">
+                                    <div class="avatar-title bg-transparent text-success rounded-circle">
+                                        <i class="ri-mail-line fs-36"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h5 class="fs-18">Email Integration</h5>
+                                <p class="text-muted my-3">Keep your emails and CRM all in one place.</p>
+                                <div>
+                                    <a href="#" class="fs-13 fw-medium">Learn More <i class="ri-arrow-right-s-line align-bottom"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                    <div class="col-lg-4">
+                        <div class="d-flex p-3">
+                            <div class="flex-shrink-0 me-3">
+                                <div class="avatar-sm icon-effect">
+                                    <div class="avatar-title bg-transparent text-success rounded-circle">
+                                        <i class="ri-smartphone-line fs-36"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h5 class="fs-18">Cross Platform Compatility</h5>
+                                <p class="text-muted my-3">Access your CRM from any of your devices.</p>
+                                <div>
+                                    <a href="#" class="fs-13 fw-medium">Learn More <i class="ri-arrow-right-s-line align-bottom"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- end container -->
+        </section>
+        <!-- end services -->
+
+        <!-- start features -->
+        <section class="section bg-light py-5" id="features">
+            <div class="container">
+                <div class="row align-items-center gy-4">
+                    <div class="col-lg-6 col-sm-7 mx-auto">
+                        <div>
+                            <img src="assets/images/landing/features/img-1.png" alt="" class="img-fluid mx-auto">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="text-muted">
+                            <div class="avatar-sm icon-effect mb-4">
+                                <div class="avatar-title bg-transparent rounded-circle text-success h1">
+                                    <i class="ri-collage-line fs-36"></i>
+                                </div>
+                            </div>
+                            <h3 class="mb-3 fs-20">Keep Track of What You Need for Your Small Business</h3>
+                            <p class="mb-4 fs-16">Our lead tracking software allow you to pay attention to keep track of leads, deal cycles, and follow ups, all in one application.</p>
+
+                            <div class="row pt-3">
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <h4>5</h4>
+                                        <p>Dashboards</p>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <h4>150+</h4>
+                                        <p>Pages</p>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="text-center">
+                                        <h4>7+</h4>
+                                        <p>Functional Apps</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- end container -->
+        </section>
+        <!-- end features -->
+
+
+         <!-- start cta -->
+         <section class="py-5 bg-primary position-relative">
+            <div class="bg-overlay bg-overlay-pattern opacity-50"></div>
+            <div class="container">
+                <div class="row align-items-center gy-4">
+                    <div class="col-sm">
+                        <div>
+                            <h4 class="text-white mb-0 fw-semibold">Track all your customer data with My Small CRM</h4>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                    <div class="col-sm-auto">
+                        <div>
+                            <a href="https://1.envato.market/velzon-admin" target="_blank" class="btn bg-gradient btn-danger"><i class=" ri-send-plane-fill align-middle me-1"></i> Try Today</a>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- end container -->
+        </section>
+        <!-- end cta -->
+
+        <!-- start features -->
+        <section class="section">
+            <div class="container">
+                <div class="row align-items-center gy-4">
+                    <div class="col-lg-6 order-2 order-lg-1">
+                        <div class="text-muted">
+                            <h5 class="fs-12 text-uppercase text-success">Dashboards</h5>
+                            <h4 class="mb-3">Real-Time Analytics and Reporting</h4>
+                            <p class="mb-4 ff-secondary">Our real=time reporting allows you to keep up to date with your customer activities, deals, and business forecasts.</p>
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <div class="vstack gap-2">
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-shrink-0 me-2">
+                                                <div class="avatar-xs icon-effect">
+                                                    <div
+                                                        class="avatar-title bg-transparent text-success rounded-circle h2">
+                                                        <i class="ri-check-fill"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <h5 class="fs-14 mb-0">Annual Profit</h5>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-shrink-0 me-2">
+                                                <div class="avatar-xs icon-effect">
+                                                    <div
+                                                        class="avatar-title bg-transparent text-success rounded-circle h2">
+                                                        <i class="ri-check-fill"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <h5 class="fs-14 mb-0">Annual Deals</h5>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-shrink-0 me-2">
+                                                <div class="avatar-xs icon-effect">
+                                                    <div
+                                                        class="avatar-title bg-transparent text-success rounded-circle h2">
+                                                        <i class="ri-check-fill"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <h5 class="fs-14 mb-0">Campaigns Sent</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                    <div class="vstack gap-2">
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-shrink-0 me-2">
+                                                <div class="avatar-xs icon-effect">
+                                                    <div
+                                                        class="avatar-title bg-transparent text-success rounded-circle h2">
+                                                        <i class="ri-check-fill"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <h5 class="fs-14 mb-0">Deal Status</h5>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-shrink-0 me-2">
+                                                <div class="avatar-xs icon-effect">
+                                                    <div
+                                                        class="avatar-title bg-transparent text-success rounded-circle h2">
+                                                        <i class="ri-check-fill"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1">
+                                                <h5 class="fs-14 mb-0">Closed Deals</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-4">
+                                <a href="index" class="btn btn-primary">Try Now <i
+                                        class="ri-arrow-right-line align-middle ms-1"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                    <div class="col-lg-6 col-sm-7 col-10 ms-auto order-1 order-lg-2">
+                        <div>
+                            <img src="assets/images/landing/features/img-2.png" alt="" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+
+                <div class="row align-items-center mt-5 pt-lg-5 gy-4">
+                    <div class="col-lg-6 col-sm-7 col-10 mx-auto">
+                        <div>
+                            <img src="assets/images/landing/features/img-3.png" alt="" class="img-fluid">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="text-muted ps-lg-5">
+                            <h5 class="fs-12 text-uppercase text-success">Scheduling</h5>
+                            <h4 class="mb-3">Built-In scheduling to keep up to date with your leads</h4>
+                            <p class="mb-4">Use our built in scheduling tools to remind you when to engage with your leads.</p>
+                            <div class="vstack gap-2">
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0 me-2">
+                                        <div class="avatar-xs icon-effect">
+                                            <div class="avatar-title bg-transparent text-success rounded-circle h2">
+                                                <i class="ri-check-fill"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <p class="mb-0">Notifications</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0 me-2">
+                                        <div class="avatar-xs icon-effect">
+                                            <div class="avatar-title bg-transparent text-success rounded-circle h2">
+                                                <i class="ri-check-fill"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <p class="mb-0">Calendar Plugin</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0 me-2">
+                                        <div class="avatar-xs icon-effect">
+                                            <div class="avatar-title bg-transparent text-success rounded-circle h2">
+                                                <i class="ri-check-fill"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex-grow-1">
+                                        <p class="mb-0">Task list for each day</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- end container -->
+        </section>
+        <!-- end features -->
+
+
+        <!-- start review -->
+        <section class="section bg-primary" id="reviews">
+            <div class="bg-overlay bg-overlay-pattern"></div>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <div class="text-center">
+                            <div>
+                                <i class="ri-double-quotes-l text-success display-3"></i>
+                            </div>
+                            <h4 class="text-white mb-5"><span class="text-success">19k</span>+ Satisfied clients</h4>
+
+                            <!-- Swiper -->
+                            <div class="swiper client-review-swiper rounded" dir="ltr">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <div class="row justify-content-center">
+                                            <div class="col-10">
+                                                <div class="text-white-50">
+                                                    <p class="fs-20 ff-secondary mb-4">" I am givng 5 stars. Theme is
+                                                        great and everyone one stuff everything in theme. Future request
+                                                        should not affect current
+                                                        state of theme. "</p>
+
+                                                    <div>
+                                                        <h5 class="text-white">gregoriusus</h5>
+                                                        <p>- Skote User</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- end slide -->
+                                    <div class="swiper-slide">
+                                        <div class="row justify-content-center">
+                                            <div class="col-10">
+                                                <div class="text-white-50">
+                                                    <p class="fs-20 ff-secondary mb-4">" Awesome support. Had few issues
+                                                        while setting up because of my device, the support team helped
+                                                        me fix them up in a day.
+                                                        Everything looks clean and good. Highly recommended! "</p>
+
+                                                    <div>
+                                                        <h5 class="text-white">GeekyGreenOwl</h5>
+                                                        <p>- Skote User</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- end slide -->
+                                    <div class="swiper-slide">
+                                        <div class="row justify-content-center">
+                                            <div class="col-10">
+                                                <div class="text-white-50">
+                                                    <p class="fs-20 ff-secondary mb-4">" Amazing template, Redux store
+                                                        and components is nicely designed.
+                                                        It's a great start point for an admin based project. Clean Code
+                                                        and good documentation. Template is
+                                                        completely in React and absolutely no usage of jQuery "</p>
+
+                                                    <div>
+                                                        <h5 class="text-white">sreeks456</h5>
+                                                        <p>- Veltrix User</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- end slide -->
+                                </div>
+                                <div class="swiper-button-next bg-white rounded-circle"></div>
+                                <div class="swiper-button-prev bg-white rounded-circle"></div>
+                                <div class="swiper-pagination position-relative mt-2"></div>
+                            </div>
+                            <!-- end slider -->
+                        </div>
+                    </div>
+                    <!-- end col -->
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- end container -->
+        </section>
+        <!-- end review -->
+
+
+
+        <!-- start Work Process -->
+        <section class="section">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="text-center mb-5">
+                            <h3 class="mb-3 fw-semibold">How My Small CRM Works</h3>
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+
+                <div class="row text-center">
+                    <div class="col-lg-4">
+                        <div class="process-card mt-4">
+                            <div class="process-arrow-img d-none d-lg-block">
+                                <img src="assets/images/landing/process-arrow-img.png" alt="" class="img-fluid">
+                            </div>
+                            <div class="avatar-sm icon-effect mx-auto mb-4">
+                                <div class="avatar-title bg-transparent text-success rounded-circle h1">
+                                    <i class="ri-quill-pen-line"></i>
+                                </div>
+                            </div>
+
+                            <h5>Sign Up</h5>
+                            <p class="text-muted ff-secondary">Signing up will be a breeze. Just click the sign up button at the top of the website. You can sign up. with your email.</p>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                    <div class="col-lg-4">
+                        <div class="process-card mt-4">
+                            <div class="process-arrow-img d-none d-lg-block">
+                                <img src="assets/images/landing/process-arrow-img.png" alt="" class="img-fluid">
+                            </div>
+                            <div class="avatar-sm icon-effect mx-auto mb-4">
+                                <div class="avatar-title bg-transparent text-success rounded-circle h1">
+                                    <i class="ri-user-follow-line"></i>
+                                </div>
+                            </div>
+
+                            <h5>Create Leads</h5>
+                            <p class="text-muted ff-secondary">After signing up, you can import all your leads into our system seamlessly.</p>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                    <div class="col-lg-4">
+                        <div class="process-card mt-4">
+                            <div class="avatar-sm icon-effect mx-auto mb-4">
+                                <div class="avatar-title bg-transparent text-success rounded-circle h1">
+                                    <i class="ri-database-line"></i>
+                                </div>
+                            </div>
+
+                            <h5>Track Lead Data</h5>
+                            <p class="text-muted ff-secondary">Get up to date information on deals, lead engagement, and task follow ups!</p>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- end container -->
+        </section>
+        <!-- end Work Process -->
+
+       
+        <!-- start contact -->
+        <section class="section" id="contact">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="text-center mb-5">
+                            <h3 class="mb-3 fw-semibold">Get In Touch</h3>
+                            <p class="text-muted mb-4 ff-secondary">Have questions? We got answers. Please fill out a form below for more information or support.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+
+                <div class="row gy-4">
+                    <div class="col-lg-4">
+                        <div>
+                            <div class="mt-4">
+                                <h5 class="fs-13 text-muted text-uppercase">Office Address 1:</h5>
+                                <div class="ff-secondary fw-semibold">4461 Cedar Street Moro, <br />AR 72368</div>
+                            </div>
+                            <div class="mt-4">
+                                <h5 class="fs-13 text-muted text-uppercase">Office Address 2:</h5>
+                                <div class="ff-secondary fw-semibold">2467 Swick Hill Street <br />New Orleans, LA</div>
+                            </div>
+                            <div class="mt-4">
+                                <h5 class="fs-13 text-muted text-uppercase">Working Hours:</h5>
+                                <div class="ff-secondary fw-semibold">9:00am to 6:00pm</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                    <div class="col-lg-8">
+                        <div>
+                            <form>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="mb-4">
+                                            <label for="name" class="form-label fs-13">Name</label>
+                                            <input name="name" id="name" type="text"
+                                                class="form-control bg-light border-light" placeholder="Your name*">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="mb-4">
+                                            <label for="email" class="form-label fs-13">Email</label>
+                                            <input name="email" id="email" type="email"
+                                                class="form-control bg-light border-light" placeholder="Your email*">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-4">
+                                            <label for="subject" class="form-label fs-13">Subject</label>
+                                            <input type="text" class="form-control bg-light border-light" id="subject"
+                                                name="subject" placeholder="Your Subject.." />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <label for="comments" class="form-label fs-13">Message</label>
+                                            <textarea name="comments" id="comments" rows="3"
+                                                class="form-control bg-light border-light"
+                                                placeholder="Your message..."></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 text-end">
+                                        <input type="submit" id="submit" name="send" class="submitBnt btn btn-primary"
+                                            value="Send Message">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- end container -->
+        </section>
+        <!-- end contact -->
+
+         <!-- start cta -->
+         <section class="py-5 bg-primary position-relative">
+            <div class="bg-overlay bg-overlay-pattern opacity-50"></div>
+            <div class="container">
+                <div class="row align-items-center gy-4">
+                    <div class="col-sm">
+                        <div>
+                            <h4 class="text-white mb-0 fw-semibold">Track all your customer data with My Small CRM</h4>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                    <div class="col-sm-auto">
+                        <div>
+                            <a href="https://1.envato.market/velzon-admin" target="_blank" class="btn bg-gradient btn-danger"><i class=" ri-send-plane-fill align-middle me-1"></i> Try Today</a>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                </div>
+                <!-- end row -->
+            </div>
+            <!-- end container -->
+        </section>
+        <!-- end cta -->
+
+        <!-- Start footer -->
+        <footer class="custom-footer bg-dark py-5 position-relative">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 mt-4">
+                        <div>
+                            <div>
+                                <img src="assets/images/logo-light.png" alt="logo light" height="17">
+                            </div>
+                            <div class="mt-4 fs-13">
+                                <p>My Small CRM - The CRM for small businesses.</p>
+                                <p class="ff-secondary">To automate your workflows, shorten your sales cycles, and win more business. </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-7 ms-lg-auto">
+                        <div class="row justify-content-center
+                        ">
+                            <div class="col-sm-4 mt-4">
+                                <h5 class="text-white mb-0">Company</h5>
+                                <div class="text-muted mt-3">
+                                    <ul class="list-unstyled ff-secondary footer-list">
+                                        <li><a href="pages-profile">About Us</a></li>
+                                        <li><a href="pages-gallery">Gallery</a></li>
+                                        <li><a href="apps-projects-overview">Projects</a></li>
+                                        <li><a href="pages-timeline">Timeline</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row text-center text-sm-start align-items-center mt-5">
+                    <div class="col-sm-6">
+
+                        <div>
+                            <p class="copy-rights mb-0">
+                                <script>
+                                    document.write(new Date().getFullYear())
+                                </script> © Lucas Faustman.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="text-sm-end mt-3 mt-sm-0">
+                            <ul class="list-inline mb-0 footer-social-link">
+
+                                <li class="list-inline-item">
+                                    <a href="https://github.com/LucasFaustman" class="avatar-xs d-block">
+                                        <div class="avatar-title rounded-circle">
+                                            <i class="ri-github-fill"></i>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="https://www.linkedin.com/in/lucasfaustman/" class="avatar-xs d-block">
+                                        <div class="avatar-title rounded-circle">
+                                            <i class="ri-linkedin-fill"></i>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- end footer -->
+
+    </div>
+    <!-- end layout wrapper -->
+
+
+    <%- include ('./Layout/vendor-scripts.ejs') %>
+
+
+    <!--Swiper slider js-->
+    <script src="assets/libs/swiper/swiper-bundle.min.js"></script>
+
+    <!-- landing init -->
+    <script src="assets/js/pages/landing.init.js"></script>
+</body>
+
+</html>
