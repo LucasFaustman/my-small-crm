@@ -1,15 +1,16 @@
 const express = require('express');
 const route = express.Router();
 
-route.get('/auth-signin-basic', (req, res, next) => {
-    res.render('auth-signin-basic', { title: 'Sign In', layout: 'layout/layout-WithoutNav' });
-})
+
+// route.get('/login', (req, res, next) => {
+//     res.render('login', { title: 'Sign In', layout: 'layout/layout-WithoutNav' });
+// })
 route.get('/auth-signin-cover', (req, res, next) => {
     res.render('auth-signin-cover', { title: 'Sign In', layout: 'layout/layout-WithoutNav' });
 })
-route.get('/auth-signup-basic', (req, res, next) => {
-    res.render('auth-signup-basic', { title: 'Sign Up', layout: 'layout/layout-WithoutNav' });
-})
+// route.get('/signup', (req, res, next) => {
+//     res.render('signup', { title: 'Sign Up', layout: 'layout/layout-WithoutNav' });
+// })
 route.get('/auth-signup-cover', (req, res, next) => {
     res.render('auth-signup-cover', { title: 'Sign Up', layout: 'layout/layout-WithoutNav' });
 })
