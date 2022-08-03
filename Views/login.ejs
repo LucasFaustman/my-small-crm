@@ -45,40 +45,44 @@
                                     <div class="mb-3">
                                         <label for="useremail" class="form-label">Email <span
                                                 class="text-danger">*</span></label>
-                                        <input type="email"  name = "email"class="form-control" id="useremail"
+                                        <input type="email"  
+                                        name = "email" 
+                                        class="form-control" 
+                                        id="useremail"
                                             placeholder="Enter email address" required>
                                         <div class="invalid-feedback">
                                             Please enter email
                                         </div>
                                     </div>
-
+                                    
                                     <div class="mb-3">
-                                        <div class="float-end">
+                                        <!-- <div class="float-end">
                                             <a href="auth-pass-reset-basic" class="text-muted">Forgot password?</a>
-                                        </div>
+                                        </div> -->
                                         <label class="form-label" for="password-input">Password</label>
                                         <div class="position-relative auth-pass-inputgroup mb-3">
                                             <input type="password" class="form-control pe-5"
                                                 placeholder="Enter password" id="password-input"
-                                                name = "password">
+                                                name = "password">                                            
                                             <button
                                                 class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted"
                                                 type="button" id="password-addon"><i
                                                     class="ri-eye-fill align-middle"></i></button>
+                                                    <div class = 'password error'></div>
                                         </div>
                                     </div>
-
-                                    <div class="form-check">
+                                    <!-- remember me section -->
+                                    <!-- <div class="form-check">
                                         <input class="form-check-input" type="checkbox" value=""
                                             id="auth-remember-check">
                                         <label class="form-check-label" for="auth-remember-check">Remember me</label>
-                                    </div>
+                                    </div> -->
 
                                     <div class="mt-4">
                                         <button class="btn btn-success w-100" type="submit">Sign In</button>
                                     </div>
-
-                                    <div class="mt-4 text-center">
+                                    <!-- sign in with -->
+                                    <!-- <div class="mt-4 text-center">
                                         <div class="signin-other-title">
                                             <h5 class="fs-13 mb-4 title">Sign In with</h5>
                                         </div>
@@ -96,7 +100,7 @@
                                                 class="btn btn-info btn-icon waves-effect waves-light"><i
                                                     class="ri-twitter-fill fs-16"></i></button>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </form>
                             </div>
                         </div>
@@ -105,7 +109,7 @@
                     <!-- end card -->
 
                     <div class="mt-4 text-center">
-                        <p class="mb-0">Don't have an account ? <a href="signup.ejs"
+                        <p class="mb-0">Don't have an account ? <a href="./signup"
                                 class="fw-semibold text-primary text-decoration-underline"> Signup </a> </p>
                     </div>
 
@@ -144,16 +148,43 @@
 <script src="assets/js/pages/password-addon.init.js"></script>
 
 <script>
+    //
     const form = document.querySelector('form');
 
-    form.addEventListener('submit' , (e) => {
-        e.preventDefault();
+    //select the password error div so we can fill those fields with errors in the login process if there are any
+    const passwordError = document.querySelector('.password.error');
+    form.addEventListener('submit', async (e) => {
 
-        // get values
+      e.preventDefault();
 
-        const email = form.email.value;
-        const password = form.password.value;
+      // reset errors
+      passwordError.textContent = '';
 
-        console.log(email,password)
-    })
-</script>
+      // get password and email from form submission
+      const email = form.email.value;
+      const password = form.password.value;
+
+
+      try {
+        const res = await fetch('/login', { //fetch api
+          method: 'POST',  //to send a post request to our server
+          body: JSON.stringify({ email, password }), //make the string into a json object
+          headers: {'Content-Type': 'application/json'} //make sure value is json
+        });
+        const data = await res.json();
+        //wait for a response
+        console.log(data);
+        if (data.errors) {
+          passwordError.textContent = data.errors.password;
+          //if there are errors, input them
+        }
+        if (data.user) {
+          location.assign('/');
+          //if there is a valid user, let them in
+        }
+      }
+      catch (err) {
+        console.log(err);
+      }
+    });
+  </script>

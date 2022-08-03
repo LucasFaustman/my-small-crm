@@ -1,7 +1,7 @@
 const { Router } = require('express')
-const router = Router()
-const authController = require('../controllers/authController')
+const authController = require('../controllers/authController');
 
+const router = Router();
 
 router.get('/signup', (req, res, next) => {
     res.render('signup', { title: 'Sign Up', layout: 'layout/layout-WithoutNav' });

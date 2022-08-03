@@ -1,85 +1,85 @@
 const express = require('express');
 const route = express.Router();
-
+const { requireAuth } = require('../middlewar/authMiddleware');
 
 // route.get('/login', (req, res, next) => {
 //     res.render('login', { title: 'Sign In', layout: 'layout/layout-WithoutNav' });
 // })
-route.get('/auth-signin-cover', (req, res, next) => {
-    res.render('auth-signin-cover', { title: 'Sign In', layout: 'layout/layout-WithoutNav' });
-})
-// route.get('/signup', (req, res, next) => {
-//     res.render('signup', { title: 'Sign Up', layout: 'layout/layout-WithoutNav' });
+// route.get('/auth-signin-cover', (req, res, next) => {
+//     res.render('auth-signin-cover', { title: 'Sign In', layout: 'layout/layout-WithoutNav' });
 // })
-route.get('/auth-signup-cover', (req, res, next) => {
-    res.render('auth-signup-cover', { title: 'Sign Up', layout: 'layout/layout-WithoutNav' });
-})
-route.get('/auth-pass-reset-basic', (req, res, next) => {
-    res.render('auth-pass-reset-basic', { title: 'Reset Password', layout: 'layout/layout-WithoutNav' });
-})
-route.get('/auth-pass-reset-cover', (req, res, next) => {
-    res.render('auth-pass-reset-cover', { title: 'Reset Password', layout: 'layout/layout-WithoutNav' });
-})
-route.get('/auth-pass-change-basic', (req, res, next) => {
-    res.render('auth-pass-change-basic', { title: 'Change Password', layout: 'layout/layout-WithoutNav' });
-})
-route.get('/auth-pass-change-cover', (req, res, next) => {
-    res.render('auth-pass-change-cover', { title: 'Change Password', layout: 'layout/layout-WithoutNav' });
-})
-route.get('/auth-offline', (req, res, next) => {
-    res.render('auth-offline', { title: 'Offline', layout: 'layout/layout-WithoutNav' });
-})
-route.get('/auth-lockscreen-basic', (req, res, next) => {
-    res.render('auth-lockscreen-basic', { title: 'Lock Screen', layout: 'layout/layout-WithoutNav' });
-})
-route.get('/auth-lockscreen-cover', (req, res, next) => {
-    res.render('auth-lockscreen-cover', { title: 'Lock Screen', layout: 'layout/layout-WithoutNav' });
-})
-route.get('/auth-logout-basic', (req, res, next) => {
-    res.render('auth-logout-basic', { title: 'Logout', layout: 'layout/layout-WithoutNav' });
-})
-route.get('/auth-logout-cover', (req, res, next) => {
-    res.render('auth-logout-cover', { title: 'Logout', layout: 'layout/layout-WithoutNav' });
-})
-route.get('/auth-success-msg-basic', (req, res, next) => {
-    res.render('auth-success-msg-basic', { title: 'Success Message', layout: 'layout/layout-WithoutNav' });
-})
-route.get('/auth-success-msg-cover', (req, res, next) => {
-    res.render('auth-success-msg-cover', { title: 'Success Message', layout: 'layout/layout-WithoutNav' });
-})
-route.get('/auth-twostep-basic', (req, res, next) => {
-    res.render('auth-twostep-basic', { title: 'Two Step Verification', layout: 'layout/layout-WithoutNav' });
-})
-route.get('/auth-twostep-cover', (req, res, next) => {
-    res.render('auth-twostep-cover', { title: 'Two Step Verification', layout: 'layout/layout-WithoutNav' });
-})
-route.get('/auth-404-basic', (req, res, next) => {
-    res.render('auth-404-basic', { title: '404 Error', layout: 'layout/layout-WithoutNav' });
-})
-route.get('/auth-404-cover', (req, res, next) => {
-    res.render('auth-404-cover', { title: '404 Error', layout: 'layout/layout-WithoutNav' });
-})
-route.get('/auth-404-alt', (req, res, next) => {
-    res.render('auth-404-alt', { title: '404 Error', layout: 'layout/layout-WithoutNav' });
-})
-route.get('/auth-500', (req, res, next) => {
-    res.render('auth-500', { title: '500 Error', layout: 'layout/layout-WithoutNav' });
-})
+// // route.get('/signup', (req, res, next) => {
+// //     res.render('signup', { title: 'Sign Up', layout: 'layout/layout-WithoutNav' });
+// // })
+// route.get('/auth-signup-cover',  (req, res, next) => {
+//     res.render('auth-signup-cover', { title: 'Sign Up', layout: 'layout/layout-WithoutNav' });
+// })
+// route.get('/auth-pass-reset-basic', (req, res, next) => {
+//     res.render('auth-pass-reset-basic', { title: 'Reset Password', layout: 'layout/layout-WithoutNav' });
+// })
+// route.get('/auth-pass-reset-cover', (req, res, next) => {
+//     res.render('auth-pass-reset-cover', { title: 'Reset Password', layout: 'layout/layout-WithoutNav' });
+// })
+// route.get('/auth-pass-change-basic', (req, res, next) => {
+//     res.render('auth-pass-change-basic', { title: 'Change Password', layout: 'layout/layout-WithoutNav' });
+// })
+// route.get('/auth-pass-change-cover', (req, res, next) => {
+//     res.render('auth-pass-change-cover', { title: 'Change Password', layout: 'layout/layout-WithoutNav' });
+// })
+// route.get('/auth-offline', (req, res, next) => {
+//     res.render('auth-offline', { title: 'Offline', layout: 'layout/layout-WithoutNav' });
+// })
+// route.get('/auth-lockscreen-basic', (req, res, next) => {
+//     res.render('auth-lockscreen-basic', { title: 'Lock Screen', layout: 'layout/layout-WithoutNav' });
+// })
+// route.get('/auth-lockscreen-cover', (req, res, next) => {
+//     res.render('auth-lockscreen-cover', { title: 'Lock Screen', layout: 'layout/layout-WithoutNav' });
+// })
+// route.get('/auth-logout-basic', (req, res, next) => {
+//     res.render('auth-logout-basic', { title: 'Logout', layout: 'layout/layout-WithoutNav' });
+// })
+// route.get('/auth-logout-cover', (req, res, next) => {
+//     res.render('auth-logout-cover', { title: 'Logout', layout: 'layout/layout-WithoutNav' });
+// })
+// route.get('/auth-success-msg-basic', (req, res, next) => {
+//     res.render('auth-success-msg-basic', { title: 'Success Message', layout: 'layout/layout-WithoutNav' });
+// })
+// route.get('/auth-success-msg-cover', (req, res, next) => {
+//     res.render('auth-success-msg-cover', { title: 'Success Message', layout: 'layout/layout-WithoutNav' });
+// })
+// route.get('/auth-twostep-basic', (req, res, next) => {
+//     res.render('auth-twostep-basic', { title: 'Two Step Verification', layout: 'layout/layout-WithoutNav' });
+// })
+// route.get('/auth-twostep-cover', (req, res, next) => {
+//     res.render('auth-twostep-cover', { title: 'Two Step Verification', layout: 'layout/layout-WithoutNav' });
+// })
+// route.get('/auth-404-basic', (req, res, next) => {
+//     res.render('auth-404-basic', { title: '404 Error', layout: 'layout/layout-WithoutNav' });
+// })
+// route.get('/auth-404-cover', (req, res, next) => {
+//     res.render('auth-404-cover', { title: '404 Error', layout: 'layout/layout-WithoutNav' });
+// })
+// route.get('/auth-404-alt', (req, res, next) => {
+//     res.render('auth-404-alt', { title: '404 Error', layout: 'layout/layout-WithoutNav' });
+// })
+// route.get('/auth-500', (req, res, next) => {
+//     res.render('auth-500', { title: '500 Error', layout: 'layout/layout-WithoutNav' });
+// })
 
 
 // axios.defaults.headers.common['authorization'] = 'Bearer ' + localStorage.getItem('jwt')
 
 
-route.get('/', (req, res, next) => {
+route.get('/', requireAuth, (req, res, next) => {
     res.render('index', { title: 'Dashboard', page_title: 'Dashboard', folder: 'Dashboards' });
 })
-route.get('/index', (req, res, next) => {
-    res.render('index', { title: 'Dashboard', page_title: 'Dashboard', folder: 'Dashboards' });
+route.get('/index', requireAuth, (req, res, next) => {
+    res.render('index',  { title: 'Dashboard', page_title: 'Dashboard', folder: 'Dashboards' });
 })
-route.get('/dashboard-analytics', (req, res, next) => {
+route.get('/dashboard-analytics', requireAuth,(req, res, next) => {
     res.render('dashboard-analytics', { title: 'Analytics', page_title: 'Analytics', folder: 'Dashboards' });
 })
-route.get('/dashboard-crm', (req, res, next) => {
+route.get('/dashboard-crm', requireAuth,(req, res, next) => {
     res.render('dashboard-crm', { title: 'CRM', page_title: 'CRM  ', folder: 'Dashboards' });
 })
 route.get('/dashboard-crypto', (req, res, next) => {
@@ -541,14 +541,14 @@ route.get('/layouts-vertical-hovered', (req, res, next) => {
     res.render('layouts-vertical-hovered', { layout: 'layout/layout-verti-hoverd', title: 'Vertical Hovered', page_title: 'Vertical Hovered', folder: 'Layouts' });
 })
 
-route.get('/login', (req, res, next) => {
-    res.render('Auth/login', { title: 'Login', layout: false })
-})
-route.get('/register', (req, res, next) => {
-    res.render('Auth/register', { title: 'Register', layout: false })
-})
-route.get('/forgotpassword', (req, res, next) => {
-    res.render('Auth/forgotpassword', { title: 'Register', layout: false })
-})
+// route.get('/login', (req, res, next) => {
+//     res.render('Auth/login', { title: 'Login', layout: false })
+// })
+// route.get('/register', (req, res, next) => {
+//     res.render('Auth/register', { title: 'Register', layout: false })
+// })
+// route.get('/forgotpassword', (req, res, next) => {
+//     res.render('Auth/forgotpassword', { title: 'Register', layout: false })
+// })
 
 module.exports = route;
