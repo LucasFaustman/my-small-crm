@@ -299,31 +299,23 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                     id="close-modal"></button>
             </div>
-            <form action="">
+            <form action="addTaskItem" id="addTaskItem" name="addTaskItem">
                 <div class="modal-body">
                     <input type="hidden" id="tasksId" />
                     <div class="row g-3">
                         <div class="col-lg-12">
-                            <label for="projectName-field" class="form-label">Project Name</label>
-                            <input type="text" id="projectName-field" class="form-control" placeholder="Project name"
+                            <label for="taskName-field" name='taskName-field'class="form-label">Task Name</label>
+                            <input type="text" id="taskName-field" class="form-control" placeholder="Task Name"
                                 required />
                         </div>
                         <!--end col-->
                         <div class="col-lg-12">
-                            <div>
-                                <label for="tasksTitle-field" class="form-label">Title</label>
-                                <input type="text" id="tasksTitle-field" class="form-control" placeholder="Title"
-                                    required />
-                            </div>
-                        </div>
-                        <!--end col-->
-                        <div class="col-lg-12">
-                            <label for="clientName-field" class="form-label">Client Name</label>
+                            <label for="clientName-field" name='clientName-field' class="form-label">Client Name</label>
                             <input type="text" id="clientName-field" class="form-control" placeholder="Client name"
                                 required />
                         </div>
                         <!--end col-->
-                        <div class="col-lg-12">
+                        <!-- <div class="col-lg-12">
                             <label class="form-label">Assigned To</label>
                             <div data-simplebar style="height: 95px;">
                                 <ul class="list-unstyled vstack gap-2 mb-0">
@@ -454,16 +446,16 @@
                                     </li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> -->
                         <!--end col-->
                         <div class="col-lg-6">
-                            <label for="duedate-field" class="form-label">Due Date</label>
+                            <label for="duedate-field" name='dueDate-field' class="form-label">Due Date</label>
                             <input type="text" id="duedate-field" class="form-control" data-provider="flatpickr"
                                 placeholder="Due date" required />
                         </div>
                         <!--end col-->
                         <div class="col-lg-6">
-                            <label for="ticket-status" class="form-label">Status</label>
+                            <label for="ticket-status" name='ticket-field' class="form-label">Status</label>
                             <select class="form-control" data-choices data-choices-search-false id="ticket-status">
                                 <option value="">Status</option>
                                 <option value="New">New</option>
@@ -513,3 +505,24 @@
 <script src="assets/js/pages/tasks-list.init.js"></script>
 <script src="assets/libs/sweetalert2/sweetalert2.min.js"></script>
 <!-- App js -->
+
+
+<!-- add task script -->
+
+<script> 
+    // const addTaskForm = document.querySelector('#addTaskItem')
+    // e.preventDefault();
+
+    // //get our values from the form
+
+    // addTaskForm.addEventListener('submit' , async (e)  => {
+    //     const taskName = addTaskForm.taskName-field.value;
+    //     const clientName = addTaskForm.clientName-field.value;
+    //     const dueDate = addForm.dueDate-field.value;
+    //     const status = addTaskForm.ticketStatus.value;
+    //     const priority = addTaskForm.priority-field.value;
+
+    // console.log(taskName)
+    // })
+    
+</script>

@@ -26,10 +26,10 @@ var perPage = 8;
 var options = {
     valueNames: [
         "id",
-        "project_name",
+       // "project_name",
         "tasks_name",
         "client_name",
-        "assignedto",
+        //"assignedto",
         "due_date",
         "status",
         "priority",
@@ -111,10 +111,9 @@ isCount = new DOMParser().parseFromString(
 var isValue = isCount.body.firstElementChild.innerHTML;
 
 var idField = document.getElementById("tasksId"),
-    projectNameField = document.getElementById("projectName-field"),
-    tasksTitleField = document.getElementById("tasksTitle-field"),
+    tasksTitleField = document.getElementById("taskName-field"),
     clientNameField = document.getElementById("clientName-field"),
-    assignedtoNameField = 'Demo Assign', //document.getElementById("assignedtoName-field"),
+   // assignedtoNameField = 'Demo Assign', //document.getElementById("assignedtoName-field"),
     dateDueField = document.getElementById("duedate-field"),
     priorityField = document.getElementById("priority-field"),
     statusField = document.getElementById("ticket-status"),
@@ -195,22 +194,50 @@ var tr = table.getElementsByTagName("tr");
 var trlist = table.querySelectorAll(".list tr");
 
 var count = 11;
+//event listener to adding a task
 addBtn.addEventListener("click", function (e) {
     e.preventDefault();
     if (
-        projectNameField.value !== "" &&
+       // projectNameField.value !== "" &&
         tasksTitleField.value !== "" &&
         clientNameField.value !== "" &&
         dateDueField.value !== "" &&
         priorityField.value !== "" &&
         statusField.value !== ""
     ) {
+
+
+        tasksTitleField.value = tasksTitleField
+        clientNameField.value = clientNameField
+        dateDueField.value = dateDueField
+        priorityField.value =  priorityField
+        statusField.value = statusField
+        //check to see if values are logging
+        // console.log(tasksTitleField.value)
+        // console.log(clientNameField.value)
+        // console.log(dateDueField.value)
+        // console.log(priorityField.value)
+        // console.log(statusField.value)
+
+        try {
+            // signify to the server this is a post request to our database, and include the email and password stringified to an object to pass onto the db
+            const res = await fetch('/addTaskItem', {
+                method: 'POST',
+                body: JSON.stringify({ tasksTitleField,
+                    clientNameField,
+                    dateDueField,
+                    priorityField,
+                    statusField }),
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+
         tasksList.add({
             id: '<a href="apps-tasks-details" class="fw-medium link-primary">#VLZ'+count+"</a>",
-            project_name: '<a href="apps-projects-overview" class="fw-medium link-primary">'+projectNameField.value+"</a>",
+          //  project_name: '<a href="apps-projects-overview" class="fw-medium link-primary">'+projectNameField.value+"</a>",
             tasks_name: tasksTitleField.value,
             client_name: clientNameField.value,
-            assignedto: assignToUsers(),
+           // assignedto: assignToUsers(),
             due_date: fomateDate(dateDueField.value),
             status: isStatus(statusField.value),
             priority: isPriority(priorityField.value)
@@ -242,10 +269,9 @@ editBtn.addEventListener("click", function (e) {
         if (selectedid == itemId) {
             x.values({
                 id: '<a href="javascript:void(0);" class="fw-medium link-primary">'+idField.value+"</a>",
-                project_name: '<a href="apps-projects-overview" class="fw-medium link-primary">' +projectNameField.value+"</a>",
+               // project_name: '<a href="apps-projects-overview" class="fw-medium link-primary">' +projectNameField.value+"</a>",
                 tasks_name: tasksTitleField.value,
                 client_name: clientNameField.value,
-                assignedto: assignToUsers(),
                 due_date: fomateDate(dateDueField.value),
                 status: isStatus(statusField.value),
                 priority: isPriority(priorityField.value)
@@ -369,7 +395,7 @@ function refreshCallbacks() {
                     var projectName = project.body.firstElementChild.innerHTML;
                     statusVal.setChoiceByValue(statusSelec);
 
-                    projectNameField.value = projectName;
+                   // projectNameField.value = projectName;
                     tasksTitleField.value = x._values.tasks_name;
                     clientNameField.value = x._values.client_name;
                     dateDueField.value = x._values.due_date;
@@ -403,10 +429,10 @@ function refreshCallbacks() {
 }
 
 function clearFields() {
-    projectNameField.value = "";
+   // projectNameField.value = "";
     tasksTitleField.value = "";
     clientNameField.value = "";
-    assignedtoNameField.value = "";
+    // assignedtoNameField.value = "";
     dateDueField.value = "";
     if (example)
         example.destroy();
