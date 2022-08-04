@@ -1,6 +1,11 @@
 const express = require('express');
+const { app } = require('firebase-admin');
 const route = express.Router();
-const { requireAuth } = require('../middlewar/authMiddleware');
+const { requireAuth, checkUser } = require('../middlewar/authMiddleware');
+
+//apply our checkUser function to every route
+route.get('*', checkUser)
+
 
 // route.get('/login', (req, res, next) => {
 //     res.render('login', { title: 'Sign In', layout: 'layout/layout-WithoutNav' });
@@ -35,8 +40,8 @@ const { requireAuth } = require('../middlewar/authMiddleware');
 // route.get('/auth-lockscreen-cover', (req, res, next) => {
 //     res.render('auth-lockscreen-cover', { title: 'Lock Screen', layout: 'layout/layout-WithoutNav' });
 // })
-// route.get('/auth-logout-basic', (req, res, next) => {
-//     res.render('auth-logout-basic', { title: 'Logout', layout: 'layout/layout-WithoutNav' });
+// route.get('/logout', (req, res, next) => {
+//     res.render('logout', { title: 'Logout', layout: 'layout/layout-WithoutNav' });
 // })
 // route.get('/auth-logout-cover', (req, res, next) => {
 //     res.render('auth-logout-cover', { title: 'Logout', layout: 'layout/layout-WithoutNav' });
@@ -523,9 +528,6 @@ route.get('/maps-leaflet', (req, res, next) => {
 // Landing Page
 route.get('/landing', (req, res, next) => {
     res.render('landing', { title: 'Landing', layout: false });
-})
-route.get('/nft-landing', (req, res, next) => {
-    res.render('nft-landing', { title: 'Landing', layout: false });
 })
 
 route.get('/layouts-vertical', (req, res, next) => {
