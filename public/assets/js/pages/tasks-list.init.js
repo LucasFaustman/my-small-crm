@@ -194,8 +194,7 @@ var tr = table.getElementsByTagName("tr");
 var trlist = table.querySelectorAll(".list tr");
 
 var count = 11;
-//event listener to adding a task
-addBtn.addEventListener("click", function (e) {
+addBtn.addEventListener("click", async function (e) {
     e.preventDefault();
     if (
        // projectNameField.value !== "" &&
@@ -206,30 +205,44 @@ addBtn.addEventListener("click", function (e) {
         statusField.value !== ""
     ) {
 
-
-        tasksTitleField.value = tasksTitleField
-        clientNameField.value = clientNameField
-        dateDueField.value = dateDueField
-        priorityField.value =  priorityField
-        statusField.value = statusField
-        //check to see if values are logging
+        
         // console.log(tasksTitleField.value)
         // console.log(clientNameField.value)
         // console.log(dateDueField.value)
         // console.log(priorityField.value)
         // console.log(statusField.value)
 
+        //assign the value of each input of the form to a new variable
+        tasksTitleFieldVal = tasksTitleField.value
+        clientNameFieldVal = clientNameField.value
+        dateDueFieldVal = dateDueField.value
+        priorityFieldVal = priorityField.value
+        statusFieldVal = statusField.value
+        //console log to make sure we are getting values
+        console.log(tasksTitleFieldVal)
+        console.log(clientNameFieldVal)
+        console.log(dateDueFieldVal)
+        console.log(priorityFieldVal)
+        console.log(statusFieldVal)
+
         try {
-            // signify to the server this is a post request to our database, and include the email and password stringified to an object to pass onto the db
+            // signify to the server this is a post request to our database, and include the all inputs of task stringified to an object to pass onto the db
             const res = await fetch('/addTaskItem', {
                 method: 'POST',
-                body: JSON.stringify({ tasksTitleField,
-                    clientNameField,
-                    dateDueField,
-                    priorityField,
-                    statusField }),
+                body: JSON.stringify({ tasksTitleFieldVal,
+                    clientNameFieldVal,
+                    dateDueFieldVal,
+                    priorityFieldVal,
+                    statusFieldVal }),
                 headers: { 'Content-Type': 'application/json' }
             });
+            const data = await res.json()
+            console.log(data)
+        }
+            catch(err) {
+                console.log(err)
+            }
+
 
 
         tasksList.add({

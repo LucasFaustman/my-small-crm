@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcrypt');
-
 const crypto = require('crypto')
+const task = require('./task')
 
 const userschema =  new mongoose.Schema({
     // first_name: {
@@ -29,6 +29,10 @@ const userschema =  new mongoose.Schema({
         required: [true, 'Please enter a password'],
         minlength: [8, 'Minimum password length is 8 characters.'],
     },
+    tasks: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "task"
+  }]
     // role: {
     //     type: String,
     // },

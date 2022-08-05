@@ -4,7 +4,7 @@ const app = express();
 const path = require('path');
 const route = require('./Routes/route');
 const authroute = require('./Routes/authroute');
-// const tasksroute = require('./Routes/tasksroute')
+const tasksroute = require('./Routes/tasksroute')
 const expressLayouts = require('express-ejs-layouts');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
@@ -37,7 +37,7 @@ app.use(expressLayouts);
 app.use(express.static(__dirname + '/public'));
 
 
-// app.use('/', tasksroute)
+app.use('/', tasksroute)
 app.use('/', authroute);
 app.use('/', route);
 
