@@ -61,9 +61,13 @@ const userData = await User.findOne({email: userEmail})
 
     try {
 
+        //declare a variable named taskItems that await to find tasks in the database with an owner of the users id
+
     const taskItems = await Task.find({ owner:[userData._id] })
+
+    //render tasks.ejs with the tasks of the user
         
-    res.render('tasks.ejs', {tasks: taskItems, owner: [userData._id] , title: 'Tasks List', page_title: 'Tasks List', folder: 'Tasks'}
+    res.render('tasks.ejs', {tasks: taskItems , title: 'Tasks List', page_title: 'Tasks List', folder: 'Tasks'}
     )
     }
 
@@ -76,4 +80,7 @@ const userData = await User.findOne({email: userEmail})
 
 }
 
+module.exports.deleteTaskItem_delete = async (req,res) => {
+    res.send('Task deleted')
+}
 

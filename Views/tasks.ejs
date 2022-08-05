@@ -181,6 +181,9 @@
                             </tr>
                         </thead>
                         <tbody class="list form-check-all">
+
+                            <% if (tasks.length > 0) { %>
+
                             <% tasks.forEach(function (task) { %>
                             <tr>
                                 <th scope="row">
@@ -232,8 +235,8 @@
                                             <img src="assets/images/users/avatar-1.jpg" alt=""
                                                 class="rounded-circle avatar-xxs" />
                                         </a>
-                                    </div>
-                                </td> -->
+                                    </div> -->
+                                </td>
                                 <td class="due_date"><%=task.dateDueFieldVal %></td>
                                 <td class="status"><span
                                         class="badge badge-soft-secondary text-uppercase"><%=task.statusFieldVal %></span></td>
@@ -241,6 +244,67 @@
                                 
                             </tr>
                         </tbody> <% }) %>
+                        <% } else { %>
+                            <tr>
+                                <th scope="row">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="chk_child"
+                                            value="option1">
+                                    </div>
+                                </th>
+                                
+                                <td class="id"><a href="apps-tasks-details" class="fw-medium link-primary">Task ID</a>
+                                </td>
+                                <td class="project_name"><a href="apps-projects-overview"
+                                        class="fw-medium link-primary">Velzon - v1.0.0</a></td>
+                                <td>
+                                    <div class="d-flex">
+                                        <div class="flex-grow-1 tasks_name">Task Title</div>
+                                        <div class="flex-shrink-0 ms-4">
+                                            <ul class="list-inline tasks-list-menu mb-0">
+                                                <li class="list-inline-item"><a href="apps-tasks-details"><i
+                                                            class="ri-eye-fill align-bottom me-2 text-muted"></i></a>
+                                                </li>
+                                                <li class="list-inline-item"><a class="edit-item-btn" href="#showModal"
+                                                        data-bs-toggle="modal"><i
+                                                            class="ri-pencil-fill align-bottom me-2 text-muted"></i></a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a class="remove-item-btn" data-bs-toggle="modal"
+                                                        href="#deleteOrder">
+                                                        <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </td>
+                                
+                                <td class="client_name">Client Name</td>
+                                <!-- <td class="assignedto">
+                                    <div class="avatar-group">
+                                        <a href="javascript: void(0);" class="avatar-group-item"
+                                            data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top"
+                                            title="Frank">
+                                            <img src="assets/images/users/avatar-3.jpg" alt=""
+                                                class="rounded-circle avatar-xxs" />
+                                        </a>
+                                        <a href="javascript: void(0);" class="avatar-group-item"
+                                            data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top"
+                                            title="Anna">
+                                            <img src="assets/images/users/avatar-1.jpg" alt=""
+                                                class="rounded-circle avatar-xxs" />
+                                        </a>
+                                    </div>
+                                </td> -->
+                                <td class="due_date">Due Date</td>
+                                <td class="status"><span
+                                        class="badge badge-soft-secondary text-uppercase">Task Statud</span></td>
+                                <td class="priority"><span class="badge bg-danger text-uppercase">Task Priority</span></td>
+                                
+                            </tr>
+                        </tbody>
+                        <% } %>
                     </table>
                     
                     <!--end table-->

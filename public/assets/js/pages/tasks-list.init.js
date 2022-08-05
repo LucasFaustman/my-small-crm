@@ -384,6 +384,9 @@ function refreshCallbacks() {
                     document.getElementById("delete-record").addEventListener("click", function () {
                         tasksList.remove("id", isElem.outerHTML);
                         document.getElementById("deleteOrder").click();
+
+                        console.log(itemId)
+
                     });
                 }
             });
