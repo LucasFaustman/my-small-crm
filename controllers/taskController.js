@@ -3,22 +3,14 @@ const Task = require('../Models/task')
 const { checkUser } = require("../middlewar/authMiddleware");
 const authController = require('./authController');
 const user = require('../Models/user');
-const jwt = require('jsonwebtoken');
+const mongoose = require('mongoose');
 
 
 
 module.exports.addTaskItem_post = async (req,res) => {
 
-
-    // const { tasksTitleField,
-    //     clientNameField,
-    //     dateDueField,
-    //     priorityField,
-    //     statusField,
-    //  } = req.body
-
-
 //create task
+
 //get user email
 const userEmail = res.locals.user.email
 
@@ -55,8 +47,33 @@ await User.updateOne({
 res.send('Task added')
 }
 
-module.exports.getTaskItems_get = (req,res) => {
-    res.render('/tasks')
+
+//get the tasks page, and also the tasks assigned to the user
+
+module.exports.getTaskItems_get =  async (req,res) => {
+
+    //get user email
+const userEmail = res.locals.user.email
+
+//find user by email
+
+const userData = await User.findOne({email: userEmail})
+
+    try {
+
+    const taskItems = await Task.find({ owner:[userData._id] })
+        
+    res.render('tasks.ejs', {tasks: taskItems, owner: [userData._id] , title: 'Tasks List', page_title: 'Tasks List', folder: 'Tasks'}
+    )
+    }
+
+    catch(err) {
+        console.log(err)
+    }
+
+
+    //get tasks from
+
 }
 
 
