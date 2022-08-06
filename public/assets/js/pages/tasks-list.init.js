@@ -381,11 +381,10 @@ function refreshCallbacks() {
                 var isdeleteid = deleteid.body.firstElementChild.innerHTML;
 
                 if (isdeleteid == itemId) {
-                    document.getElementById("delete-record").addEventListener("click", function () {
+                    document.getElementById("delete-record").addEventListener("click", async function () {
                         tasksList.remove("id", isElem.outerHTML);
                         document.getElementById("deleteOrder").click();
-
-                        console.log(itemId)
+                        
 
                     });
                 }
@@ -566,3 +565,25 @@ function deleteMultiple() {
         });
     }
 }
+
+
+document.getElementById("delete-record").addEventListener("click", async function () {
+
+deleteid = new DOMParser().parseFromString(x._values.id, "text/html");
+                var isElem = deleteid.body.firstElementChild;
+                var isdeleteid = deleteid.body.firstElementChild.innerHTML;
+
+
+    try {
+        const res = await fetch('/deleteTaskItem', {
+            method: 'DELETE',
+            body: JSON.stringify({ id: isdeleteid }),
+            headers: { 'Content-Type': 'application/json' }
+        });
+        const data = await res.json()
+        console.log(data)
+    }
+    catch (err) {
+        console.log(err)
+    }   
+});

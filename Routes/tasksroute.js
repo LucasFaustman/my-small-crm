@@ -10,7 +10,7 @@ const router = Router();
 
 router.post('/addTaskItem', checkUser, taskController.addTaskItem_post)
 router.get('/tasks', checkUser, taskController.getTaskItems_get)
-router.delete('/tasks', checkUser, taskController.deleteTaskItem_delete)
+router.delete('/deleteTaskItem', checkUser, taskController.deleteTaskItem_delete)
 
 
 

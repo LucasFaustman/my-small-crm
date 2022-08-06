@@ -65,22 +65,24 @@ const userData = await User.findOne({email: userEmail})
 
     const taskItems = await Task.find({ owner:[userData._id] })
 
-    //render tasks.ejs with the tasks of the user
+    //render tasks.ejs with the tasks of the user, as well as the title, page title, and folder for the views
         
     res.render('tasks.ejs', {tasks: taskItems , title: 'Tasks List', page_title: 'Tasks List', folder: 'Tasks'}
     )
     }
-
+//if any errors, console log them
     catch(err) {
         console.log(err)
     }
 
-
-    //get tasks from
-
 }
 
 module.exports.deleteTaskItem_delete = async (req,res) => {
-    res.send('Task deleted')
+    //delete request!
+
+    res.send('Task delete')
+
+    console.log(req.body)
+
 }
 
