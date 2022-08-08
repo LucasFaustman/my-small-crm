@@ -100,8 +100,7 @@ xhttp.onload = function () {
     });
     tasksList.remove("id", `<a href="apps-tasks-details" class="fw-medium link-primary">#VLZ501</a>`);
 }
-xhttp.open("GET", "assets/json/tasks-list.json");
-xhttp.send();
+
 
 isCount = new DOMParser().parseFromString(
     tasksList.items.slice(-1)[0]._values.id,
@@ -194,8 +193,7 @@ var tr = table.getElementsByTagName("tr");
 var trlist = table.querySelectorAll(".list tr");
 
 var count = 11;
-//event listener to adding a task
-addBtn.addEventListener("click", function (e) {
+addBtn.addEventListener("click", async function (e) {
     e.preventDefault();
     if (
        // projectNameField.value !== "" &&
@@ -206,34 +204,48 @@ addBtn.addEventListener("click", function (e) {
         statusField.value !== ""
     ) {
 
-
-        tasksTitleField.value = tasksTitleField
-        clientNameField.value = clientNameField
-        dateDueField.value = dateDueField
-        priorityField.value =  priorityField
-        statusField.value = statusField
-        //check to see if values are logging
+        
         // console.log(tasksTitleField.value)
         // console.log(clientNameField.value)
         // console.log(dateDueField.value)
         // console.log(priorityField.value)
         // console.log(statusField.value)
 
+        //assign the value of each input of the form to a new variable
+        tasksTitleFieldVal = tasksTitleField.value
+        clientNameFieldVal = clientNameField.value
+        dateDueFieldVal = dateDueField.value
+        priorityFieldVal = priorityField.value
+        statusFieldVal = statusField.value
+        //console log to make sure we are getting values
+        console.log(tasksTitleFieldVal)
+        console.log(clientNameFieldVal)
+        console.log(dateDueFieldVal)
+        console.log(priorityFieldVal)
+        console.log(statusFieldVal)
+
         try {
-            // signify to the server this is a post request to our database, and include the email and password stringified to an object to pass onto the db
+            // signify to the server this is a post request to our database, and include the all inputs of task stringified to an object to pass onto the db
             const res = await fetch('/addTaskItem', {
                 method: 'POST',
-                body: JSON.stringify({ tasksTitleField,
-                    clientNameField,
-                    dateDueField,
-                    priorityField,
-                    statusField }),
+                body: JSON.stringify({ tasksTitleFieldVal,
+                    clientNameFieldVal,
+                    dateDueFieldVal,
+                    priorityFieldVal,
+                    statusFieldVal }),
                 headers: { 'Content-Type': 'application/json' }
             });
+            const data = await res.json()
+
+        }
+            catch(err) {
+                console.log(err)
+            }
+
 
 
         tasksList.add({
-            id: '<a href="apps-tasks-details" class="fw-medium link-primary">#VLZ'+count+"</a>",
+            
           //  project_name: '<a href="apps-projects-overview" class="fw-medium link-primary">'+projectNameField.value+"</a>",
             tasks_name: tasksTitleField.value,
             client_name: clientNameField.value,
@@ -353,6 +365,31 @@ function ischeckboxcheck() {
     });
 }
 
+//event listener for a delete request
+
+
+document.getElementById("delete-record").addEventListener("click", async function () {
+
+    try {
+        const res = await fetch('/deleteTaskItem', {
+            method: 'DELETE',
+            body: JSON.stringify({ id: itemId }),
+            headers: { 'Content-Type': 'application/json' }
+        });
+        const data = await res
+        console.log(data)
+
+        
+        if (data) {
+            window.location.reload();
+        }
+    }
+    catch (err) {
+        console.log(err)
+    }   
+})
+
+
 function refreshCallbacks() {
     Array.from(removeBtns).forEach(function (btn) {
         btn.addEventListener("click", function (e) {
@@ -368,9 +405,10 @@ function refreshCallbacks() {
                 var isdeleteid = deleteid.body.firstElementChild.innerHTML;
 
                 if (isdeleteid == itemId) {
-                    document.getElementById("delete-record").addEventListener("click", function () {
+                    document.getElementById("delete-record").addEventListener("click", async function () {
                         tasksList.remove("id", isElem.outerHTML);
                         document.getElementById("deleteOrder").click();
+
                     });
                 }
             });
@@ -550,3 +588,25 @@ function deleteMultiple() {
         });
     }
 }
+
+
+// document.getElementById("delete-record").addEventListener("click", async function () {
+
+// deleteid = new DOMParser().parseFromString(x._values.id, "text/html");
+//                 var isElem = deleteid.body.firstElementChild;
+//                 var isdeleteid = deleteid.body.firstElementChild.innerHTML;
+
+
+    // try {
+    //     const res = await fetch('/deleteTaskItem', {
+    //         method: 'DELETE',
+    //         body: JSON.stringify({ id: isdeleteid }),
+    //         headers: { 'Content-Type': 'application/json' }
+    //     });
+    //     const data = await res.json()
+    //     console.log(data)
+    // }
+    // catch (err) {
+    //     console.log(err)
+    // }   
+// });

@@ -1,16 +1,17 @@
 const mongoose = require('mongoose');
+const User = require('./user')
 
 const taskschema = new mongoose.Schema({
-    taskId: String,
+    // taskId: String,
     // project: {
     //     type: String,
     //     required: [true, 'please enter project name'],
     // },
-    task: {
+    tasksTitleFieldVal: {
         type: String,
         required: [true, 'Please enter task name.'],
     },
-    clientName: {
+    clientNameFieldVal: {
         type: String,
         required: [true, 'Please enter client name.'],
     },
@@ -18,18 +19,23 @@ const taskschema = new mongoose.Schema({
     //     id: String,
     //     img: String,
     // }],
-    dueDate: {
+    dateDueFieldVal: {
         type: Date,
         required: [true, 'please enter due date'],
     },
-    status: {
+    statusFieldVal: {
         type: String,
         required: [true, 'please enter status'],
     },
-    priority: {
+    priorityFieldVal: {
         type: String,
         required: [true, 'please enter priority'],
     },
+    owner: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+      }]
+
 });
 
 const task = mongoose.model('task', taskschema);

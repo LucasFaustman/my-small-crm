@@ -4,7 +4,7 @@ const app = express();
 const path = require('path');
 const route = require('./Routes/route');
 const authroute = require('./Routes/authroute');
-// const tasksroute = require('./Routes/tasksroute')
+const tasksroute = require('./Routes/tasksroute')
 const expressLayouts = require('express-ejs-layouts');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
@@ -12,6 +12,23 @@ const upload = require('express-fileupload');
 const dotenv = require('dotenv');
 dotenv.config({ path: "./config.env" });
 const mongoose = require('mongoose');
+
+
+// const connectDatabase = async () => {
+//     try {
+//       mongoose.set("useNewUrlParser", true);
+      
+//       await mongoose.connect(process.env.DATABASE);
+  
+//       console.log("connected to database");
+//     } catch (error) {
+//       console.log(error);
+//       process.exit(1);
+//     }
+//   };
+  
+//   connectDatabase();
+
 
 //database connection
 mongoose.connect(process.env.DATABASE, {
@@ -37,7 +54,7 @@ app.use(expressLayouts);
 app.use(express.static(__dirname + '/public'));
 
 
-// app.use('/', tasksroute)
+app.use('/', tasksroute)
 app.use('/', authroute);
 app.use('/', route);
 

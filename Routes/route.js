@@ -3,6 +3,9 @@ const { app } = require('firebase-admin');
 const route = express.Router();
 const { requireAuth, checkUser } = require('../middlewar/authMiddleware');
 
+
+
+
 //apply our checkUser function to every route
 route.get('*', checkUser)
 
@@ -159,9 +162,9 @@ route.get('/apps-projects-create', (req, res, next) => {
 route.get('/apps-tasks-kanban', (req, res, next) => {
     res.render('apps-tasks-kanban', { title: 'Kanban Board', page_title: 'Kanban Board', folder: 'Tasks' });
 })
-route.get('/apps-tasks-list-view', (req, res, next) => {
-    res.render('apps-tasks-list-view', { title: 'Tasks List', page_title: 'Tasks List', folder: 'Tasks' });
-})
+// route.get('/', (req, res, next) => {
+//     res.render('apps-tasks-list-view', { title: 'Tasks List', page_title: 'Tasks List', folder: 'Tasks' });
+// })
 route.get('/apps-tasks-details', (req, res, next) => {
     res.render('apps-tasks-details', { title: 'Task Details', page_title: 'Task Details', folder: 'Tasks' });
 })
