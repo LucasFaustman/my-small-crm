@@ -100,8 +100,7 @@ xhttp.onload = function () {
     });
     tasksList.remove("id", `<a href="apps-tasks-details" class="fw-medium link-primary">#VLZ501</a>`);
 }
-xhttp.open("GET", "assets/json/tasks-list.json");
-xhttp.send();
+
 
 isCount = new DOMParser().parseFromString(
     tasksList.items.slice(-1)[0]._values.id,
@@ -237,7 +236,7 @@ addBtn.addEventListener("click", async function (e) {
                 headers: { 'Content-Type': 'application/json' }
             });
             const data = await res.json()
-            console.log(data)
+
         }
             catch(err) {
                 console.log(err)
@@ -246,7 +245,7 @@ addBtn.addEventListener("click", async function (e) {
 
 
         tasksList.add({
-            id: '<a href="apps-tasks-details" class="fw-medium link-primary">#VLZ'+count+"</a>",
+            
           //  project_name: '<a href="apps-projects-overview" class="fw-medium link-primary">'+projectNameField.value+"</a>",
             tasks_name: tasksTitleField.value,
             client_name: clientNameField.value,
@@ -366,6 +365,31 @@ function ischeckboxcheck() {
     });
 }
 
+//event listener for a delete request
+
+
+document.getElementById("delete-record").addEventListener("click", async function () {
+
+    try {
+        const res = await fetch('/deleteTaskItem', {
+            method: 'DELETE',
+            body: JSON.stringify({ id: itemId }),
+            headers: { 'Content-Type': 'application/json' }
+        });
+        const data = await res
+        console.log(data)
+
+        
+        if (data) {
+            window.location.reload();
+        }
+    }
+    catch (err) {
+        console.log(err)
+    }   
+})
+
+
 function refreshCallbacks() {
     Array.from(removeBtns).forEach(function (btn) {
         btn.addEventListener("click", function (e) {
@@ -384,7 +408,6 @@ function refreshCallbacks() {
                     document.getElementById("delete-record").addEventListener("click", async function () {
                         tasksList.remove("id", isElem.outerHTML);
                         document.getElementById("deleteOrder").click();
-                        
 
                     });
                 }
@@ -567,23 +590,23 @@ function deleteMultiple() {
 }
 
 
-document.getElementById("delete-record").addEventListener("click", async function () {
+// document.getElementById("delete-record").addEventListener("click", async function () {
 
-deleteid = new DOMParser().parseFromString(x._values.id, "text/html");
-                var isElem = deleteid.body.firstElementChild;
-                var isdeleteid = deleteid.body.firstElementChild.innerHTML;
+// deleteid = new DOMParser().parseFromString(x._values.id, "text/html");
+//                 var isElem = deleteid.body.firstElementChild;
+//                 var isdeleteid = deleteid.body.firstElementChild.innerHTML;
 
 
-    try {
-        const res = await fetch('/deleteTaskItem', {
-            method: 'DELETE',
-            body: JSON.stringify({ id: isdeleteid }),
-            headers: { 'Content-Type': 'application/json' }
-        });
-        const data = await res.json()
-        console.log(data)
-    }
-    catch (err) {
-        console.log(err)
-    }   
-});
+    // try {
+    //     const res = await fetch('/deleteTaskItem', {
+    //         method: 'DELETE',
+    //         body: JSON.stringify({ id: isdeleteid }),
+    //         headers: { 'Content-Type': 'application/json' }
+    //     });
+    //     const data = await res.json()
+    //     console.log(data)
+    // }
+    // catch (err) {
+    //     console.log(err)
+    // }   
+// });

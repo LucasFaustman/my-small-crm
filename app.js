@@ -13,6 +13,23 @@ const dotenv = require('dotenv');
 dotenv.config({ path: "./config.env" });
 const mongoose = require('mongoose');
 
+
+// const connectDatabase = async () => {
+//     try {
+//       mongoose.set("useNewUrlParser", true);
+      
+//       await mongoose.connect(process.env.DATABASE);
+  
+//       console.log("connected to database");
+//     } catch (error) {
+//       console.log(error);
+//       process.exit(1);
+//     }
+//   };
+  
+//   connectDatabase();
+
+
 //database connection
 mongoose.connect(process.env.DATABASE, {
     useNewUrlParser: true,

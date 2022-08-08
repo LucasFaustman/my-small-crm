@@ -42,8 +42,7 @@ await User.updateOne({
 })
 
 // console.log(userEmail, req.body.tasksTitleFieldVal)
-
-
+console.log(taskData._id)
 res.send('Task added')
 }
 
@@ -80,9 +79,27 @@ const userData = await User.findOne({email: userEmail})
 module.exports.deleteTaskItem_delete = async (req,res) => {
     //delete request!
 
-    res.send('Task delete')
+        //get user email
+const userEmail = res.locals.user.email
 
-    console.log(req.body)
+//find user by email
+
+const userData = await User.findOne({email: userEmail})
+
+    //lets do a try
+
+    let id = req.body.id
+    console.log(id)
+    try {
+        await Task.findOneAndDelete({  _id : id })
+        res.send('Task deleted')
+    }
+
+    catch (err) {
+        console.log(err)
+    }
+
+
 
 }
 
