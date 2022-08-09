@@ -109,6 +109,10 @@ const leadschema = new mongoose.Schema({
         type: Date,
         required: [true, 'please enter created date'],
     },
+    owner: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+      }]
 
 });
 

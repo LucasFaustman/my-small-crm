@@ -4,6 +4,7 @@ const app = express();
 const path = require('path');
 const route = require('./Routes/route');
 const authroute = require('./Routes/authroute');
+const leadroute = require('./Routes/leadroute');
 const tasksroute = require('./Routes/tasksroute')
 const expressLayouts = require('express-ejs-layouts');
 const session = require('express-session');
@@ -56,6 +57,7 @@ app.use(express.static(__dirname + '/public'));
 
 app.use('/', tasksroute)
 app.use('/', authroute);
+app.use('/', leadroute)
 app.use('/', route);
 
 

@@ -176,9 +176,9 @@ route.get('/apps-crm-companies', (req, res, next) => {
 route.get('/apps-crm-deals', (req, res, next) => {
     res.render('apps-crm-deals', { title: 'Deals', page_title: 'Deals', folder: 'CRM' });
 })
-route.get('/apps-crm-leads', (req, res, next) => {
-    res.render('apps-crm-leads', { title: 'Leads', page_title: 'Leads', folder: 'CRM' });
-})
+// route.get('/leads', (req, res, next) => {
+//     res.render('leads', { title: 'Leads', page_title: 'Leads', folder: 'CRM' });
+// })
 
 route.get('/apps-crypto-transactions', (req, res, next) => {
     res.render('apps-crypto-transactions', { title: 'Transactions', page_title: 'Transactions', folder: 'Crypto' });

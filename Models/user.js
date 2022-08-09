@@ -3,6 +3,7 @@ const validator = require('validator');
 const bcrypt = require('bcrypt');
 const crypto = require('crypto')
 const task = require('./task')
+const {crm_lead} = require('./crm')
 
 const userschema =  new mongoose.Schema({
     // first_name: {
@@ -38,7 +39,11 @@ const userschema =  new mongoose.Schema({
     tasks: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: "task"
-  }]
+  }],
+  leads: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: '{crm_lead}'
+}]
     // role: {
     //     type: String,
     // },

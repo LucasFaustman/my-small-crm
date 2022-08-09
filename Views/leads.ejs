@@ -65,6 +65,9 @@
                                     <th class="sort" data-sort="action">Action</th>
                                 </tr>
                             </thead>
+                            <% if (leads.length > 0) { %>
+
+                                <% leads.forEach(function (lead) { %>
                             <tbody class="list form-check-all">
                                 <tr>
                                     <th scope="row">
@@ -74,25 +77,24 @@
                                         </div>
                                     </th>
                                     <td class="id" style="display:none;"><a href="javascript:void(0);"
-                                            class="fw-medium link-primary">#VZ2101</a></td>
+                                            class="fw-medium link-primary"><%= lead._id %></a></td>
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div class="flex-shrink-0">
-                                                <img src="assets/images/users/avatar-10.jpg" alt=""
-                                                    class="avatar-xxs rounded-circle image_src object-cover">
+                                                <!-- <img src="assets/images/users/avatar-10.jpg" alt=""
+                                                    class="avatar-xxs rounded-circle image_src object-cover"> -->
                                             </div>
-                                            <div class="flex-grow-1 ms-2 name">Tonya Noble</div>
+                                            <div class="flex-grow-1 ms-2 name"><%= lead.name %></div>
                                         </div>
                                     </td>
-                                    <td class="company_name">Force Medicines</td>
-                                    <td class="leads_score">147</td>
-                                    <td class="phone">580-464-4694</td>
-                                    <td class="location">Los Angeles, USA</td>
+                                    <td class="company_name"><%= lead.company %></td>
+                                    <td class="leads_score"><%= lead.score %></td>
+                                    <td class="phone"><%= lead.phone %></td>
+                                    <td class="location"><%= lead.location %></td>
                                     <td class="tags">
-                                        <span class="badge badge-soft-primary">Lead</span>
-                                        <span class="badge badge-soft-primary">Partner</span>
+                                        <span class="badge badge-soft-primary"><%= lead.tags %></span>
                                     </td>
-                                    <td class="date">07 Apr, 2021</td>
+                                    <td class="date"><%= lead.date.toDateString() %></td>
                                     <td>
                                         <ul class="list-inline hstack gap-2 mb-0">
                                             <li class="list-inline-item edit" data-bs-toggle="tooltip"
@@ -128,6 +130,71 @@
                                     </td>
                                 </tr>
                             </tbody>
+                            <% }) %>
+                        <% } else { %>
+                            <tbody class="list form-check-all">
+                                <tr>
+                                    <th scope="row">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="chk_child"
+                                                value="option1">
+                                        </div>
+                                    </th>
+                                    <td class="id" style="display:none;"><a href="javascript:void(0);"
+                                            class="fw-medium link-primary">11111</a></td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-shrink-0">
+                                                <!-- <img src="assets/images/users/avatar-10.jpg" alt=""
+                                                    class="avatar-xxs rounded-circle image_src object-cover"> -->
+                                            </div>
+                                            <div class="flex-grow-1 ms-2 name">Lead Name</div>
+                                        </div>
+                                    </td>
+                                    <td class="company_name">Lead Company</td>
+                                    <td class="leads_score">Lead Score</td>
+                                    <td class="phone">Lead Phone</td>
+                                    <td class="location">Lead Location</td>
+                                    <td class="tags">
+                                        <span class="badge badge-soft-primary">Tags</span>
+                                    </td>
+                                    <td class="date">Date Created</td>
+                                    <td>
+                                        <ul class="list-inline hstack gap-2 mb-0">
+                                            <li class="list-inline-item edit" data-bs-toggle="tooltip"
+                                                data-bs-trigger="hover" data-bs-placement="top" title="Call">
+                                                <a href="javascript:void(0);" class="text-muted d-inline-block">
+                                                    <i class="ri-phone-line fs-16"></i>
+                                                </a>
+                                            </li>
+                                            <li class="list-inline-item edit" data-bs-toggle="tooltip"
+                                                data-bs-trigger="hover" data-bs-placement="top" title="Message">
+                                                <a href="javascript:void(0);" class="text-muted d-inline-block">
+                                                    <i class="ri-question-answer-line fs-16"></i>
+                                                </a>
+                                            </li>
+                                            <li class="list-inline-item" data-bs-toggle="tooltip"
+                                                data-bs-trigger="hover" data-bs-placement="top" title="View">
+                                                <a href="javascript:void(0);"><i
+                                                        class="ri-eye-fill align-bottom text-muted"></i></a>
+                                            </li>
+                                            <li class="list-inline-item" data-bs-toggle="tooltip"
+                                                data-bs-trigger="hover" data-bs-placement="top" title="Edit">
+                                                <a class="edit-item-btn" href="#showModal" data-bs-toggle="modal"><i
+                                                        class="ri-pencil-fill align-bottom text-muted"></i></a>
+                                            </li>
+                                            <li class="list-inline-item" data-bs-toggle="tooltip"
+                                                data-bs-trigger="hover" data-bs-placement="top" title="Delete">
+                                                <a class="remove-item-btn" data-bs-toggle="modal"
+                                                    href="#deleteRecordModal">
+                                                    <i class="ri-delete-bin-fill align-bottom text-muted"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <% } %>
                         </table>
                         <div class="noresult" style="display: none">
                             <div class="text-center">
@@ -167,7 +234,7 @@
                                     <input type="hidden" id="id-field" />
                                     <div class="row g-3">
                                         <div class="col-lg-12">
-                                            <div class="text-center">
+                                            <!-- <div class="text-center">
                                                 <div class="position-relative d-inline-block">
                                                     <div class="position-absolute bottom-0 end-0">
                                                         <label for="lead-image-input" class="mb-0"
@@ -193,7 +260,7 @@
                                                     </div>
                                                 </div>
                                                 <h5 class="fs-13 mt-3">Lead Image</h5>
-                                            </div>
+                                            </div> -->
                                             <div>
                                                 <label for="leadname-field" class="form-label">Name</label>
                                                 <input type="text" id="leadname-field" class="form-control"

@@ -51,7 +51,7 @@ var options = {
         "phone",
         "location",
         "tags",
-        { attr: "src", name: "image_src" }
+        // { attr: "src", name: "image_src" }
     ],
     page: perPage,
     pagination: true,
@@ -105,7 +105,7 @@ xhttp.onload = function () {
 
         leadsList.add({
             id: '<a href="javascript:void(0);" class="fw-medium link-primary">#VZ'+raw.id+"</a>",
-            image_src: raw.image_src,
+            // image_src: raw.image_src,
             name: raw.name,
             company_name: raw.company_name,
             date: formatDate(raw.date),
@@ -123,17 +123,17 @@ xhttp.open("GET", "assets/json/leads-list.json");
 xhttp.send();
 
 // customer image
-document.querySelector("#lead-image-input").addEventListener("change", function () {
-    var preview = document.querySelector("#lead-img");
-    var file = document.querySelector("#lead-image-input").files[0];
-    var reader = new FileReader();
-    reader.addEventListener("load",function () {
-        preview.src = reader.result;
-    },false);
-    if (file) {
-        reader.readAsDataURL(file);
-    }
-});
+// document.querySelector("#lead-image-input").addEventListener("change", function () {
+//     var preview = document.querySelector("#lead-img");
+//     var file = document.querySelector("#lead-image-input").files[0];
+//     var reader = new FileReader();
+//     reader.addEventListener("load",function () {
+//         // preview.src = reader.result;
+//     },false);
+//     if (file) {
+//         reader.readAsDataURL(file);
+//     }
+// });
 
 isCount = new DOMParser().parseFromString(
     leadsList.items.slice(-1)[0]._values.id,
@@ -144,7 +144,7 @@ var isValue = isCount.body.firstElementChild.innerHTML;
 
 var idField = document.getElementById("id-field"),
     leadNameField = document.getElementById("leadname-field"),
-    leadImg = document.getElementById("lead-img"),
+    // leadImg = document.getElementById("lead-img"),
     company_nameField = document.getElementById("company_name-field"),
     dateField = document.getElementById("date-field"),
     leads_scoreField = document.getElementById("leads_score-field"),
@@ -201,7 +201,8 @@ Array.from(tagInputFieldValue).forEach((tag, index) => {
   tagHtmlValue += '<span class="badge badge-soft-primary me-1">'+tag+'</span>'
 })
 
-addBtn.addEventListener("click", function (e) {
+addBtn.addEventListener("click", async function (e) {
+    e.preventDefault();
     if (
         leadNameField.value !== "" &&
         company_nameField.value !== "" &&
@@ -210,14 +211,27 @@ addBtn.addEventListener("click", function (e) {
         phoneField.value !== "" &&
         locationField.value !== ""
     ) {
+
+        leadNameField = leadNameField.value 
+        // leadImg = leadImg.value 
+        company_nameField = company_nameField.value 
+        dateField = dateField.value 
+        leads_scoreField = leads_scoreField.value  
+        phone = phoneField.value 
+        locationField = locationField.value 
+        
         var tagInputFieldValue = tagInputField.getValue(true);
         var tagHtmlValue = '';
         Array.from(tagInputFieldValue).forEach((tag, index) => {
             tagHtmlValue += '<span class="badge badge-soft-primary me-1">' + tag + '</span>'
         })
+
+        
+
+        
         leadsList.add({
             id: '<a href="javascript:void(0);" class="fw-medium link-primary">#VZ'+count+"</a>",
-            image_src: leadImg.src,
+            // image_src: leadImg.src,
             name: leadNameField.value,
             company_name: company_nameField.value,
             date: formatDate(dateField.value),
@@ -226,6 +240,9 @@ addBtn.addEventListener("click", function (e) {
             location: locationField.value,
             tags: tagHtmlValue,
         });
+
+
+
         leadsList.sort('id', { order: "desc" });
         document.getElementById("close-modal").click();
         clearFields();
@@ -239,7 +256,31 @@ addBtn.addEventListener("click", function (e) {
             timer: 2000,
             showCloseButton: true
         });
+
+        try {
+            // signify to the server this is a post request to our database, and include the all inputs of task stringified to an object to pass onto the db
+            const res = await fetch('/addLead', {
+                method: 'POST',
+                body: JSON.stringify({ leadNameField,
+                    company_nameField,
+                    dateField,
+                    leads_scoreField,
+                    phone,
+                    locationField,
+                    tagInputFieldValue }),
+                headers: { 'Content-Type': 'application/json' }
+            });
+            const data = await res
+            console.log(data)
+        }
+            catch(err) {
+                console.log(err)
+            }
+
+
     }
+
+    
 });
 
 editBtn.addEventListener("click", function (e) {
@@ -258,7 +299,7 @@ editBtn.addEventListener("click", function (e) {
         if (selectedid == itemId) {
             x.values({
                 id: '<a href="javascript:void(0);" class="fw-medium link-primary">'+idField.value+"</a>",
-                image_src: leadImg.src,
+                // image_src: leadImg.src,
                 name: leadNameField.value,
                 company_name: company_nameField.value,
                 date: formatDate(dateField.value),
@@ -332,7 +373,7 @@ function refreshCallbacks() {
                 var tagBadge = new DOMParser().parseFromString(x._values.tags, "text/html").body.querySelectorAll("span.badge");
                 if (selectedid == itemId) {
                     idField.value = selectedid;
-                    leadImg.src = x._values.image_src;
+                    // leadImg.src = x._values.image_src;
                     leadNameField.value = x._values.name;
                     company_nameField.value = x._values.company_name;
                     dateField.value = x._values.date;
@@ -355,7 +396,7 @@ function refreshCallbacks() {
 }
 
 function clearFields() {
-    leadImg.src = "assets/images/users/user-dummy-img.jpg";
+    // leadImg.src = "assets/images/users/user-dummy-img.jpg";
     leadNameField.value = "";
     company_nameField.value = "";
     dateField.value = "";
