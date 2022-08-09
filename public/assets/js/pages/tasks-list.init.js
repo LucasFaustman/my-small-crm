@@ -6,6 +6,7 @@ Contact: Themesbrand@gmail.com
 File: Tasks-list init js
 */
 
+
 var checkAll = document.getElementById("checkAll");
 if (checkAll) {
     checkAll.onclick = function () {
@@ -77,20 +78,20 @@ xhttp.onload = function () {
     var json_records = JSON.parse(this.responseText);
     Array.from(json_records).forEach(function (raw) {
         var imgHtml = `<div class="avatar-group">`;
-        Array.from(raw.assignedto).forEach(function (img) {
-            imgHtml += `
-                <a href="javascript: void(0);" class="avatar-group-item" data-img="${img}" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Username">
-                    <img src="assets/images/users/${img}" alt="" class="rounded-circle avatar-xxs" />
-                </a>
-            `;
-        });
-        imgHtml += `</div>`;
+        // Array.from(raw.assignedto).forEach(function (img) {
+        //     imgHtml += `
+        //         <a href="javascript: void(0);" class="avatar-group-item" data-img="${img}" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Username">
+        //             <img src="assets/images/users/${img}" alt="" class="rounded-circle avatar-xxs" />
+        //         </a>
+        //     `;
+        // });
+        // imgHtml += `</div>`;
         tasksList.add({
             id: '<a href="apps-tasks-details" class="fw-medium link-primary">#VLZ' + raw.id + "</a>",
-            project_name: '<a href="apps-projects-overview" class="fw-medium link-primary">' + raw.project_name + "</a>",
+            // project_name: '<a href="apps-projects-overview" class="fw-medium link-primary">' + raw.project_name + "</a>",
             tasks_name: raw.tasks_name,
             client_name: raw.client_name,
-            assignedto: imgHtml,
+            // assignedto: imgHtml,
             due_date: raw.due_date,
             status: isStatus(raw.status),
             priority: isPriority(raw.priority)
@@ -204,53 +205,27 @@ addBtn.addEventListener("click", async function (e) {
         statusField.value !== ""
     ) {
 
-        
-        // console.log(tasksTitleField.value)
-        // console.log(clientNameField.value)
-        // console.log(dateDueField.value)
-        // console.log(priorityField.value)
-        // console.log(statusField.value)
-
         //assign the value of each input of the form to a new variable
         tasksTitleFieldVal = tasksTitleField.value
         clientNameFieldVal = clientNameField.value
-        dateDueFieldVal = dateDueField.value
+        dateDueFieldVal = dateDueField.value,
         priorityFieldVal = priorityField.value
         statusFieldVal = statusField.value
+
         //console log to make sure we are getting values
-        console.log(tasksTitleFieldVal)
-        console.log(clientNameFieldVal)
-        console.log(dateDueFieldVal)
-        console.log(priorityFieldVal)
-        console.log(statusFieldVal)
-
-        try {
-            // signify to the server this is a post request to our database, and include the all inputs of task stringified to an object to pass onto the db
-            const res = await fetch('/addTaskItem', {
-                method: 'POST',
-                body: JSON.stringify({ tasksTitleFieldVal,
-                    clientNameFieldVal,
-                    dateDueFieldVal,
-                    priorityFieldVal,
-                    statusFieldVal }),
-                headers: { 'Content-Type': 'application/json' }
-            });
-            const data = await res.json()
-
-        }
-            catch(err) {
-                console.log(err)
-            }
-
-
+        // console.log(tasksTitleFieldVal)
+        // console.log(clientNameFieldVal)
+        // console.log(dateDueFieldVal)
+        // console.log(priorityFieldVal)
+        // console.log(statusFieldVal)
 
         tasksList.add({
-            
+            id: '<a href="apps-tasks-details" class="fw-medium link-primary">#MSC'+count+"</a>",
           //  project_name: '<a href="apps-projects-overview" class="fw-medium link-primary">'+projectNameField.value+"</a>",
             tasks_name: tasksTitleField.value,
             client_name: clientNameField.value,
            // assignedto: assignToUsers(),
-            due_date: fomateDate(dateDueField.value),
+            due_date: formatDate(dateDueField.value),
             status: isStatus(statusField.value),
             priority: isPriority(priorityField.value)
         });
@@ -267,40 +242,65 @@ addBtn.addEventListener("click", async function (e) {
             timer: 2000,
             showCloseButton: true
         });
+
+        try {
+            // signify to the server this is a post request to our database, and include the all inputs of task stringified to an object to pass onto the db
+            const res = await fetch('/addTaskItem', {
+                method: 'POST',
+                body: JSON.stringify({ tasksTitleFieldVal,
+                    clientNameFieldVal,
+                    dateDueFieldVal,
+                    priorityFieldVal,
+                    statusFieldVal }),
+                headers: { 'Content-Type': 'application/json' }
+            });
+            const data = await res
+            if (data) 
+            window.location.reload();
+        }
+            catch(err) {
+                console.log(err)
+            }
+
+
+
     }
 });
 
-editBtn.addEventListener("click", function (e) {
-    document.getElementById("exampleModalLabel").innerHTML = "Edit Order";
-    var editValues = tasksList.get({
-        id: idField.value,
-    });
-    Array.from(editValues).forEach(function (x) {
-        isid = new DOMParser().parseFromString(x._values.id, "text/html");
-        var selectedid = isid.body.firstElementChild.innerHTML;
-        if (selectedid == itemId) {
-            x.values({
-                id: '<a href="javascript:void(0);" class="fw-medium link-primary">'+idField.value+"</a>",
-               // project_name: '<a href="apps-projects-overview" class="fw-medium link-primary">' +projectNameField.value+"</a>",
-                tasks_name: tasksTitleField.value,
-                client_name: clientNameField.value,
-                due_date: fomateDate(dateDueField.value),
-                status: isStatus(statusField.value),
-                priority: isPriority(priorityField.value)
-            });
-        }
-    });
-    document.getElementById("close-modal").click();
-    clearFields();
-    Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Task updated Successfully!',
-        showConfirmButton: false,
-        timer: 2000,
-        showCloseButton: true
-    });
-});
+// editBtn.addEventListener("click", function (e) {
+//     document.getElementById("exampleModalLabel").innerHTML = "Edit Order";
+//     var editValues = tasksList.get({
+//         id: idField.value,
+//     });
+
+
+//     Array.from(editValues).forEach(function (x) {
+//         isid = new DOMParser().parseFromString(x._values.id, "text/html");
+//         var selectedid = isid.body.firstElementChild.innerHTML;
+//         if (selectedid == itemId) {
+//             x.values({
+//                 id: task._id,
+//                 // project_name: '<a href="apps-projects-overview" class="fw-medium link-primary">' +projectNameField.value+"</a>",
+//                 tasks_name: tasksTitleField.value,
+//                 client_name: clientNameField.value,
+//                 // assignedto: assignToUsers(),
+//                 due_date: dateDueField.value,
+//                 status: statusField.value,
+//                 priority: isPrioritypriorityField.value
+//             });
+//         }
+//     });
+    // document.getElementById("close-modal").click();
+    // clearFields();
+    // Swal.fire({
+    //     position: 'center',
+    //     icon: 'success',
+    //     title: 'Task updated Successfully!',
+    //     showConfirmButton: false,
+    //     timer: 2000,
+    //     showCloseButton: true
+    // });
+// });
 
 
 var example = new Choices(priorityField, {
@@ -365,28 +365,90 @@ function ischeckboxcheck() {
     });
 }
 
-//event listener for a delete request
+
+//event listener for a put request
 
 
-document.getElementById("delete-record").addEventListener("click", async function () {
+
+document.getElementById("edit-btn").addEventListener("click", async function () {
+    
+    //declare form values into variables
+    tasksTitleFieldVal = tasksTitleField.value,
+    clientNameFieldVal = clientNameField.value,
+    dateDueFieldVal = dateDueField.value,
+    statusFieldVal = statusField.value,
+    priorityFieldVal = priorityField.value
+    
 
     try {
-        const res = await fetch('/deleteTaskItem', {
-            method: 'DELETE',
-            body: JSON.stringify({ id: itemId }),
+        const res = await fetch('/editTaskItem', {
+            //update request
+            method: 'PUT',
+            body: JSON.stringify({ id: itemId , //get all the values from the form and send off to the server
+                tasksTitleFieldVal,
+                clientNameFieldVal,
+                dateDueFieldVal,
+                priorityFieldVal,
+                statusFieldVal}),
             headers: { 'Content-Type': 'application/json' }
         });
         const data = await res
+        
         console.log(data)
 
         
         if (data) {
+            document.getElementById("close-modal").click();
+            refreshCallbacks()
+            clearFields();
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Task updated Successfully!',
+                showConfirmButton: false,
+                timer: 2000,
+                showCloseButton: true
+            });
             window.location.reload();
         }
     }
     catch (err) {
         console.log(err)
     }   
+})
+
+
+//event listener for a delete request
+
+
+document.getElementById("delete-record").addEventListener("click", async function (e) {
+    e.preventDefault()
+    try {
+        //fetch the deleteTaskItem route
+        const res = await fetch('/deleteTaskItem', {
+            //delete method
+            method: 'DELETE',
+            body: JSON.stringify({ id: itemId }), //stringify the item id and send it off
+            headers: { 'Content-Type': 'application/json' }
+        });
+        const data = await res
+        console.log(data)
+
+        //if you get a response, clear all fields and refresh
+
+        
+        if (data) {
+
+            clearFields();
+            refreshCallbacks();
+
+             window.location.reload();
+        }
+    }
+    catch (err) {
+        console.log(err)
+    }   
+
 })
 
 
@@ -405,10 +467,9 @@ function refreshCallbacks() {
                 var isdeleteid = deleteid.body.firstElementChild.innerHTML;
 
                 if (isdeleteid == itemId) {
-                    document.getElementById("delete-record").addEventListener("click", async function () {
+                    document.getElementById("delete-record").addEventListener("click", function () {
                         tasksList.remove("id", isElem.outerHTML);
                         document.getElementById("deleteOrder").click();
-
                     });
                 }
             });
@@ -423,20 +484,23 @@ function refreshCallbacks() {
                 id: itemId,
             });
 
+
+
             Array.from(itemValues).forEach(function (x) {
                 isid = new DOMParser().parseFromString(x._values.id, "text/html");
+                
                 var selectedid = isid.body.firstElementChild.innerHTML;
                 if (selectedid == itemId) {
                     idField.value = selectedid;
 
-                    project = new DOMParser().parseFromString(x._values.project_name, "text/html");
-                    var projectName = project.body.firstElementChild.innerHTML;
-                    statusVal.setChoiceByValue(statusSelec);
+                    //  project = new DOMParser().parseFromString(x._values.project_name, "text/html");
+                    //  var projectName = project.body.firstElementChild.innerHTML;
+                    //  statusVal.setChoiceByValue(statusSelec);
 
-                   // projectNameField.value = projectName;
+                    // projectNameField.value = projectName;
                     tasksTitleField.value = x._values.tasks_name;
                     clientNameField.value = x._values.client_name;
-                    dateDueField.value = x._values.due_date;
+                    // dateDueField.value = x._values.due_date;
 
                     if (statusVal) statusVal.destroy();
                     statusVal = new Choices(statusField, {
@@ -455,10 +519,10 @@ function refreshCallbacks() {
                     example.setChoiceByValue(selected);
                     //priorityField.value = x._values.priority;
 
-                    flatpickr("#duedate-field", {
-                        dateFormat: "d M, Y",
-                        defaultDate: x._values.due_date,
-                    });
+                    // flatpickr("#duedate-field", {
+                    //     dateFormat: "d M, Y",
+                    //     defaultDate: x._values.due_date,
+                    // });
                 }
             });
         });
@@ -517,30 +581,30 @@ function isPriority(val) {
     }
 }
 
-function fomateDate(date) {
+function formatDate(date) {
     var dateObj = new Date(date);
     var month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][dateObj.getMonth()];
     return dateObj.getDate() + ' ' + month + ', ' + dateObj.getFullYear();
 }
 
-function assignToUsers() {
-    var assignedTo = document.querySelectorAll('input[name="assignedTo[]"]:checked');
-    var assignedtousers = `<div class="avatar-group">`;
+// function assignToUsers() {
+//     var assignedTo = document.querySelectorAll('input[name="assignedTo[]"]:checked');
+//     var assignedtousers = `<div class="avatar-group">`;
 
-    if (assignedTo.length > 0) {
-        Array.from(assignedTo).forEach(function (ele) {
-            assignedtousers += `<a href="javascript: void(0);" class="avatar-group-item" data-img="${ele.value}" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Username">
-                    <img src="assets/images/users/${ele.value}" alt="" class="rounded-circle avatar-xxs" />
-                </a>`;
-        })
-    } else {
-        assignedtousers += `<a href="javascript: void(0);" class="avatar-group-item" data-img="https://icon-library.com/images/no-user-image-icon/no-user-image-icon-3.jpg" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Title">
-                <img src="https://icon-library.com/images/no-user-image-icon/no-user-image-icon-3.jpg" alt="" class="rounded-circle avatar-xxs" />
-            </a>`;
-    }
-    assignedtousers += `</div>`;
-    return assignedtousers;
-}
+//     if (assignedTo.length > 0) {
+//         Array.from(assignedTo).forEach(function (ele) {
+//             assignedtousers += `<a href="javascript: void(0);" class="avatar-group-item" data-img="${ele.value}" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Username">
+//                     <img src="assets/images/users/${ele.value}" alt="" class="rounded-circle avatar-xxs" />
+//                 </a>`;
+//         })
+//     } else {
+//         assignedtousers += `<a href="javascript: void(0);" class="avatar-group-item" data-img="https://icon-library.com/images/no-user-image-icon/no-user-image-icon-3.jpg" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Title">
+//                 <img src="https://icon-library.com/images/no-user-image-icon/no-user-image-icon-3.jpg" alt="" class="rounded-circle avatar-xxs" />
+//             </a>`;
+//     }
+//     assignedtousers += `</div>`;
+//     return assignedtousers;
+// }
 
 function deleteMultiple() {
     ids_array = [];
@@ -588,25 +652,3 @@ function deleteMultiple() {
         });
     }
 }
-
-
-// document.getElementById("delete-record").addEventListener("click", async function () {
-
-// deleteid = new DOMParser().parseFromString(x._values.id, "text/html");
-//                 var isElem = deleteid.body.firstElementChild;
-//                 var isdeleteid = deleteid.body.firstElementChild.innerHTML;
-
-
-    // try {
-    //     const res = await fetch('/deleteTaskItem', {
-    //         method: 'DELETE',
-    //         body: JSON.stringify({ id: isdeleteid }),
-    //         headers: { 'Content-Type': 'application/json' }
-    //     });
-    //     const data = await res.json()
-    //     console.log(data)
-    // }
-    // catch (err) {
-    //     console.log(err)
-    // }   
-// });

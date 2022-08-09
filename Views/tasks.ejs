@@ -7,12 +7,9 @@
             <div class="card-body">
                 <div class="d-flex justify-content-between">
                     <div>
-                        <p class="fw-medium text-muted mb-0">Total Tasks</p>
+                        <p class="fw-medium text-muted mb-0">Total Upcoming Tasks</p>
                         <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value"
-                                data-target="234">0</span>k</h2>
-                        <p class="mb-0 text-muted"><span class="badge bg-light text-success mb-0">
-                                <i class="ri-arrow-up-line align-middle"></i> 17.32 %
-                            </span> vs. previous month</p>
+                                data-target=<%= tasks.length %>>0</span></h2>
                     </div>
                     <div>
                         <div class="avatar-sm flex-shrink-0">
@@ -33,10 +30,8 @@
                     <div>
                         <p class="fw-medium text-muted mb-0">Pending Tasks</p>
                         <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value"
-                                data-target="64.5">0</span>k</h2>
-                        <p class="mb-0 text-muted"><span class="badge bg-light text-danger mb-0">
-                                <i class="ri-arrow-down-line align-middle"></i> 0.87 %
-                            </span> vs. previous month</p>
+                                data-target=<%= tasks.filter(task => task.statusFieldVal === "Pending").length %>>0</span></h2>
+                                
                     </div>
                     <div>
                         <div class="avatar-sm flex-shrink-0">
@@ -106,35 +101,35 @@
         <div class="card" id="tasksList">
             <div class="card-header border-0">
                 <div class="d-flex align-items-center">
-                    <h5 class="card-title mb-0 flex-grow-1">All Tasks</h5>
+                    <h5 class="card-title mb-0 flex-grow-1">Upcoming Tasks</h5>
                     <div class="flex-shrink-0">
                         <button class="btn btn-danger add-btn" data-bs-toggle="modal" data-bs-target="#showModal"><i
                                 class="ri-add-line align-bottom me-1"></i> Create Task</button>
-                        <button class="btn btn-soft-danger" onClick="deleteMultiple()"><i
-                                class="ri-delete-bin-2-line"></i></button>
+                        <!-- <button class="btn btn-soft-danger" onClick="deleteMultiple()"><i
+                                class="ri-delete-bin-2-line"></i></button> -->
                     </div>
                 </div>
             </div>
             <div class="card-body border border-dashed border-end-0 border-start-0">
                 <form>
                     <div class="row g-3">
-                        <div class="col-xxl-5 col-sm-12">
+                        <!-- <div class="col-xxl-5 col-sm-12">
                             <div class="search-box">
                                 <input type="text" class="form-control search bg-light border-light"
                                     placeholder="Search for tasks or something...">
                                 <i class="ri-search-line search-icon"></i>
                             </div>
-                        </div>
+                        </div> -->
                         <!--end col-->
 
-                        <div class="col-xxl-3 col-sm-4">
+                        <!-- <div class="col-xxl-3 col-sm-4">
                             <input type="text" class="form-control bg-light border-light" id="demo-datepicker"
                                 data-provider="flatpickr" data-date-format="d M, Y" data-range-date="true"
                                 placeholder="Select date range">
-                        </div>
+                        </div> -->
                         <!--end col-->
 
-                        <div class="col-xxl-3 col-sm-4">
+                        <!-- <div class="col-xxl-3 col-sm-4">
                             <div class="input-light">
                                 <select class="form-control" data-choices data-choices-search-false
                                     name="choices-single-default" id="idStatus">
@@ -143,17 +138,17 @@
                                     <option value="New">New</option>
                                     <option value="Pending">Pending</option>
                                     <option value="Inprogress">Inprogress</option>
-                                    <option value="Completed">Completed</option>
+                                     <option value="Completed">Completed</option> 
                                 </select>
                             </div>
-                        </div>
+                        </div> -->
                         <!--end col-->
-                        <div class="col-xxl-1 col-sm-4">
+                        <!-- <div class="col-xxl-1 col-sm-4">
                             <button type="button" class="btn btn-primary w-100" onclick="SearchData();"> <i
                                     class="ri-equalizer-fill me-1 align-bottom"></i>
                                 Filters
                             </button>
-                        </div>
+                        </div> -->
                         <!--end col-->
                     </div>
                     <!--end row-->
@@ -166,18 +161,19 @@
                         <thead class="table-light text-muted">
                             <tr>
                                 <th scope="col" style="width: 40px;">
-                                    <div class="form-check">
+                                    <!-- <div class="form-check">
                                         <input class="form-check-input" type="checkbox" id="checkAll" value="option">
-                                    </div>
+                                    </div> -->
                                 </th>
                                 <th class="sort" data-sort="id">ID</th>
-                                <th class="sort" data-sort="project_name">Project</th>
+                                <!-- <th class="sort" data-sort="project_name">Project</th> -->
                                 <th class="sort" data-sort="tasks_name">Task</th>
-                                <th class="sort" data-sort="client_name">Client Name</th>
+                                <th class="sort" data-sort="client_name">Lead Name</th>
                                 <!-- <th class="sort" data-sort="assignedto">Assigned To</th> -->
                                 <th class="sort" data-sort="due_date">Due Date</th>
                                 <th class="sort" data-sort="status">Status</th>
                                 <th class="sort" data-sort="priority">Priority</th>
+                                <th>Complete Task</th>
                             </tr>
                         </thead>
                         <tbody class="list form-check-all">
@@ -187,16 +183,16 @@
                             <% tasks.forEach(function (task) { %>
                             <tr>
                                 <th scope="row">
-                                    <div class="form-check">
+                                    <!-- <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="chk_child"
                                             value="option1">
-                                    </div>
+                                    </div> -->
                                 </th>
                                 
                                 <td class="id"><a href="apps-tasks-details" class="fw-medium link-primary"><%= task._id %></a>
                                 </td>
-                                <td class="project_name"><a href="apps-projects-overview"
-                                        class="fw-medium link-primary"></a></td>
+                                <!-- <td class="project_name"><a href="apps-projects-overview"
+                                        class="fw-medium link-primary"></a></td> -->
                                 <td>
                                     <div class="d-flex">
                                         <div class="flex-grow-1 tasks_name"><%=task.tasksTitleFieldVal %></div>
@@ -236,12 +232,16 @@
                                                 class="rounded-circle avatar-xxs" />
                                         </a>
                                     </div> -->
-                                </td>
-                                <td class="due_date"><%=task.dateDueFieldVal %></td>
-                                <td class="status"><span
-                                        class="badge badge-soft-secondary text-uppercase"><%=task.statusFieldVal %></span></td>
+                                <!-- </td> -->
+                                <td class="due_date">
+                                    
+                                    <%= task.dateDueFieldVal.toDateString() %>
+                                    <!-- <%=task.dateDueFieldVal %> -->
+                                    </td> 
+                                <td class="status">
+                                      <span  class="badge badge-soft-secondary text-uppercase"><%=task.statusFieldVal %></span></td>
                                 <td class="priority"><span class="badge bg-danger text-uppercase"><%=task.priorityFieldVal %></span></td>
-                                
+                                <td class="completeTask"><span class="badge bg-danger text-uppercase"><button class="btn btn-danger add-btn">Complete Task</button></span></td>
                             </tr>
                         </tbody> <% }) %>
                         <% } else { %>
@@ -255,8 +255,8 @@
                                 
                                 <td class="id"><a href="apps-tasks-details" class="fw-medium link-primary">Task ID</a>
                                 </td>
-                                <td class="project_name"><a href="apps-projects-overview"
-                                        class="fw-medium link-primary">Velzon - v1.0.0</a></td>
+                                <!-- <td class="project_name"><a href="apps-projects-overview"
+                                        class="fw-medium link-primary">Velzon - v1.0.0</a></td> -->
                                 <td>
                                     <div class="d-flex">
                                         <div class="flex-grow-1 tasks_name">Task Title</div>
@@ -280,7 +280,7 @@
                                     </div>
                                 </td>
                                 
-                                <td class="client_name">Client Name</td>
+                                <td class="client_name">Lead Name</td>
                                 <!-- <td class="assignedto">
                                     <div class="avatar-group">
                                         <a href="javascript: void(0);" class="avatar-group-item"
@@ -299,7 +299,7 @@
                                 </td> -->
                                 <td class="due_date">Due Date</td>
                                 <td class="status"><span
-                                        class="badge badge-soft-secondary text-uppercase">Task Statud</span></td>
+                                        class="badge badge-soft-secondary text-uppercase">Task Status</span></td>
                                 <td class="priority"><span class="badge bg-danger text-uppercase">Task Priority</span></td>
                                 
                             </tr>
@@ -379,8 +379,8 @@
                         </div>
                         <!--end col-->
                         <div class="col-lg-12">
-                            <label for="clientName-field" name='clientName-field' class="form-label">Client Name</label>
-                            <input type="text" id="clientName-field" class="form-control" placeholder="Client name"
+                            <label for="clientName-field" name='clientName-field' class="form-label">Lead Name</label>
+                            <input type="text" id="clientName-field" class="form-control" placeholder="Lead name"
                                 required />
                         </div>
                         <!--end col-->
@@ -530,7 +530,7 @@
                                 <option value="New">New</option>
                                 <option value="Inprogress">Inprogress</option>
                                 <option value="Pending">Pending</option>
-                                <option value="Completed">Completed</option>
+                                <!-- <option value="Completed">Completed</option> -->
                             </select>
                         </div>
                         <!--end col-->
@@ -559,6 +559,8 @@
         </div>
     </div>
 </div>
+
+
 <!--end modal-->
 
 <%- contentFor('FooterJs') %>

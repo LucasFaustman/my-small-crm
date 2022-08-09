@@ -62,12 +62,13 @@ const userData = await User.findOne({email: userEmail})
 
         //declare a variable named taskItems that await to find tasks in the database with an owner of the users id
 
-    const taskItems = await Task.find({ owner:[userData._id] })
+    const taskItems = await Task.find({ owner:[userData._id]}).sort({ dateDueFieldVal: 1 })
 
     //render tasks.ejs with the tasks of the user, as well as the title, page title, and folder for the views
         
-    res.render('tasks.ejs', {tasks: taskItems , title: 'Tasks List', page_title: 'Tasks List', folder: 'Tasks'}
+    res.render('tasks.ejs', {tasks: taskItems , title: 'Tasks List', page_title: 'Upcoming Tasks', folder: 'Tasks'}
     )
+    
     }
 //if any errors, console log them
     catch(err) {
@@ -75,6 +76,10 @@ const userData = await User.findOne({email: userEmail})
     }
 
 }
+
+
+
+
 
 module.exports.deleteTaskItem_delete = async (req,res) => {
     //delete request!
@@ -88,10 +93,16 @@ const userData = await User.findOne({email: userEmail})
 
     //lets do a try
 
+    //get the id
     let id = req.body.id
-    console.log(id)
+
+    //use a try
     try {
+        //find oneanddelete from our id
         await Task.findOneAndDelete({  _id : id })
+        //find one in our user database and update the deleted task count to one more
+        await User.findOneAndUpdate({deletedTaskCount: deletedTaskCount++})
+        //send back that the task was deleted
         res.send('Task deleted')
     }
 
@@ -103,3 +114,58 @@ const userData = await User.findOne({email: userEmail})
 
 }
 
+
+//edit task route
+
+module.exports.editTaskItem_put = async (req,res) => {
+
+//get id 
+let id = req.body.id
+
+//use a try catch
+
+try {
+    await Task.findOneAndUpdate({_id: id}, {$set:{ //find one task and update. find one with the id of the one inside the ejs
+    tasksTitleFieldVal: req.body.tasksTitleFieldVal, //replace with all values inputted into the form
+    clientNameFieldVal: req.body.clientNameFieldVal,
+    dateDueFieldVal: req.body.dateDueFieldVal,
+    statusFieldVal: req.body.statusFieldVal,
+    priorityFieldVal: req.body.priorityFieldVal}});
+//send back that the task was edited
+    res.send('task edited')
+} catch (err) {
+    console.log(err)
+}
+}
+
+
+// show tasks for index crm dashboard
+
+module.exports.showTasksInDashboard  = async(req,res) => {
+
+      //get user email
+const userEmail = res.locals.user.email
+
+//find user by email
+
+const userData = await User.findOne({email: userEmail})
+
+    try {
+
+        //declare a variable named taskItems that await to find tasks in the database with an owner of the users id
+
+    const taskItems = await Task.find({ owner:[userData._id]}).sort({ dateDueFieldVal: 1 })
+
+    //render tasks.ejs with the tasks of the user, as well as the title, page title, and folder for the index views
+        
+    res.render('index.ejs', {tasks: taskItems , title: 'Dashboard', page_title: 'Dashboard', folder: 'Dashboards'}
+    )
+    
+    }
+//if any errors, console log them
+    catch(err) {
+        console.log(err)
+    }
+}
+
+    

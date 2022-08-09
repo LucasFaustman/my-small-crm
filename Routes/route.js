@@ -2,6 +2,9 @@ const express = require('express');
 const { app } = require('firebase-admin');
 const route = express.Router();
 const { requireAuth, checkUser } = require('../middlewar/authMiddleware');
+const taskController = require('../controllers/taskController');
+
+
 
 
 
@@ -78,12 +81,8 @@ route.get('*', checkUser)
 // axios.defaults.headers.common['authorization'] = 'Bearer ' + localStorage.getItem('jwt')
 
 
-route.get('/', requireAuth, (req, res, next) => {
-    res.render('index', { title: 'Dashboard', page_title: 'Dashboard', folder: 'Dashboards' });
-})
-route.get('/index', requireAuth, (req, res, next) => {
-    res.render('index',  { title: 'Dashboard', page_title: 'Dashboard', folder: 'Dashboards' });
-})
+route.get('/', requireAuth, checkUser, taskController.showTasksInDashboard)
+route.get('/index', requireAuth, checkUser, taskController.showTasksInDashboard)
 route.get('/dashboard-analytics', requireAuth,(req, res, next) => {
     res.render('dashboard-analytics', { title: 'Analytics', page_title: 'Analytics', folder: 'Dashboards' });
 })
