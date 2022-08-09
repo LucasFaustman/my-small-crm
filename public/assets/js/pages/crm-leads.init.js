@@ -322,6 +322,28 @@ editBtn.addEventListener("click", function (e) {
     });
 });
 
+document.getElementById("delete-record").addEventListener("click", async function (e) {
+    e.preventDefault()
+
+
+    try {
+        //fetch the deleteLead route
+        const res = await fetch('/deleteLead', {
+            //delete method
+            method: 'DELETE',
+            body: JSON.stringify({ id: itemId }), //stringify the item id and send it off
+            headers: { 'Content-Type': 'application/json' }
+        });
+        const data = await res
+        console.log(data)
+
+
+    }
+    catch (err) {
+        console.log(err)
+    }   
+});
+
 function ischeckboxcheck() {
     Array.from(document.getElementsByName("checkAll")).forEach(function (x) {
         x.addEventListener("click", function (e) {

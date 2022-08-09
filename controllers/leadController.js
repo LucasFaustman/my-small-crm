@@ -81,3 +81,34 @@ const userData = await User.findOne({email: userEmail})
     }
 }
 
+
+module.exports.deleteLead_delete = async (req,res) => {
+    //delete request!
+
+        //get user email
+const userEmail = res.locals.user.email
+
+//find user by email
+
+const userData = await User.findOne({email: userEmail})
+
+    //lets do a try
+
+    //get the id
+    let id = req.body.id
+
+    //use a try
+    try {
+        //find oneanddelete from our id
+        await crm_lead.findOneAndDelete({  _id : id })
+        //send back that the task was deleted
+        res.send('Task deleted')
+    }
+
+    catch (err) {
+        console.log(err)
+    }
+
+
+
+}
