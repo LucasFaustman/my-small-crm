@@ -439,9 +439,6 @@ document.getElementById("delete-record").addEventListener("click", async functio
         
         if (data) {
 
-            clearFields();
-            refreshCallbacks();
-
              window.location.reload();
         }
     }

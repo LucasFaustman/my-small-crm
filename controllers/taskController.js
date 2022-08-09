@@ -100,8 +100,6 @@ const userData = await User.findOne({email: userEmail})
     try {
         //find oneanddelete from our id
         await Task.findOneAndDelete({  _id : id })
-        //find one in our user database and update the deleted task count to one more
-        await User.findOneAndUpdate({deletedTaskCount: deletedTaskCount++})
         //send back that the task was deleted
         res.send('Task deleted')
     }
