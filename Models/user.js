@@ -30,12 +30,9 @@ const userschema =  new mongoose.Schema({
         required: [true, 'Please enter a password'],
         minlength: [8, 'Minimum password length is 8 characters.'],
     },
-    // completedTaskCount: {
-    //   type: Number
-    // },
-    // deletedTaskCount: {
-    //   type: Number
-    // },
+    deletedTaskCount: {
+      type: Number
+    },
     tasks: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: "task"

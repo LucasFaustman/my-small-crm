@@ -371,7 +371,15 @@ function ischeckboxcheck() {
 
 
 document.getElementById("edit-btn").addEventListener("click", async function () {
-    
+    if (
+        // projectNameField.value !== "" &&
+         tasksTitleField.value !== "" &&
+         clientNameField.value !== "" &&
+         dateDueField.value !== "" &&
+         priorityField.value !== "" &&
+         statusField.value !== ""
+     )
+     {
     //declare form values into variables
     tasksTitleFieldVal = tasksTitleField.value,
     clientNameFieldVal = clientNameField.value,
@@ -415,6 +423,7 @@ document.getElementById("edit-btn").addEventListener("click", async function () 
     catch (err) {
         console.log(err)
     }   
+}
 })
 
 
@@ -428,7 +437,7 @@ document.getElementById("delete-record").addEventListener("click", async functio
         const res = await fetch('/deleteTaskItem', {
             //delete method
             method: 'DELETE',
-            body: JSON.stringify({ id: itemId }), //stringify the item id and send it off
+            body: JSON.stringify({ id: itemId , deletedTaskCount: 1}), //stringify the item id and send it off
             headers: { 'Content-Type': 'application/json' }
         });
         const data = await res

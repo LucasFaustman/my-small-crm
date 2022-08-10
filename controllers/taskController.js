@@ -110,8 +110,6 @@ const userData = await User.findOne({email: userEmail})
         console.log(err)
     }
 
-
-
 }
 
 
