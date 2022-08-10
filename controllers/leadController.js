@@ -112,3 +112,32 @@ const userData = await User.findOne({email: userEmail})
 
 
 }
+
+module.exports.editLead_put = async(req,res) => {
+    console.log(req.body)
+
+    //get id 
+let id = req.body.id
+
+//use a try catch
+
+
+try {
+
+    await crm_lead.findOneAndUpdate({_id: id}, {$set:{ //find one lead and update. find one with the id of the one inside the ejs
+        name: req.body.leadNameField, //and pass in the things we want to update
+        company: req.body.company_nameField,
+        date: req.body.dateField,
+        score: req.body.leads_scoreField,
+        phone: req.body.phone,
+        location: req.body.locationField,
+        tags: req.body.tagInputFieldValue,}});
+
+        res.send('Task edited')
+
+}
+
+catch (err) {
+    console.log(err)
+}
+}

@@ -93,34 +93,34 @@ var leadsList = new List("leadsList", options).on("updated", function (list) {
     }
 });
 
-const xhttp = new XMLHttpRequest();
-xhttp.onload = function () {
-    var json_records = JSON.parse(this.responseText);
-    Array.from(json_records).forEach(function (raw){
-        var tags = raw.tags;
-        var tagHtml = '';
-        Array.from(tags).forEach((tag, index) => {
-            tagHtml += '<span class="badge badge-soft-primary me-1">'+tag+'</span>'
-        })
+// const xhttp = new XMLHttpRequest();
+// xhttp.onload = function () {
+//     var json_records = JSON.parse(this.responseText);
+//     Array.from(json_records).forEach(function (raw){
+//         var tags = raw.tags;
+//         var tagHtml = '';
+//         Array.from(tags).forEach((tag, index) => {
+//             tagHtml += '<span class="badge badge-soft-primary me-1">'+tag+'</span>'
+//         })
 
-        leadsList.add({
-            id: '<a href="javascript:void(0);" class="fw-medium link-primary">#VZ'+raw.id+"</a>",
-            // image_src: raw.image_src,
-            name: raw.name,
-            company_name: raw.company_name,
-            date: formatDate(raw.date),
-            leads_score: raw.leads_score,
-            phone: raw.phone,
-            location: raw.location,
-            tags: tagHtml,
-        });
-        leadsList.sort('id', { order: "desc" });
-        refreshCallbacks();
-    });
-    leadsList.remove("id", `<a href="javascript:void(0);" class="fw-medium link-primary">#VZ2101</a>`);
-}
-xhttp.open("GET", "assets/json/leads-list.json");
-xhttp.send();
+//         leadsList.add({
+//             id: '<a href="javascript:void(0);" class="fw-medium link-primary">#VZ'+raw.id+"</a>",
+//             // image_src: raw.image_src,
+//             name: raw.name,
+//             company_name: raw.company_name,
+//             date: formatDate(raw.date),
+//             leads_score: raw.leads_score,
+//             phone: raw.phone,
+//             location: raw.location,
+//             tags: tagHtml,
+//         });
+//         leadsList.sort('id', { order: "desc" });
+//         refreshCallbacks();
+//     });
+//     leadsList.remove("id", `<a href="javascript:void(0);" class="fw-medium link-primary">#VZ2101</a>`);
+// }
+// xhttp.open("GET", "assets/json/leads-list.json");
+// xhttp.send();
 
 // customer image
 // document.querySelector("#lead-image-input").addEventListener("change", function () {
@@ -172,7 +172,7 @@ document.getElementById("showModal").addEventListener("show.bs.modal", function 
         document.getElementById("showModal").querySelector(".modal-footer").style.display = "none";
     }
 });
-ischeckboxcheck();
+// ischeckboxcheck();
 
 document.getElementById("showModal").addEventListener("hidden.bs.modal", function () {
     clearFields();
@@ -272,6 +272,7 @@ addBtn.addEventListener("click", async function (e) {
             });
             const data = await res
             console.log(data)
+            window.location.reload();
         }
             catch(err) {
                 console.log(err)
@@ -283,12 +284,12 @@ addBtn.addEventListener("click", async function (e) {
     
 });
 
-editBtn.addEventListener("click", function (e) {
+editBtn.addEventListener("click", async function (e) {
     document.getElementById("exampleModalLabel").innerHTML = "Edit Contact";
     var editValues = leadsList.get({
         id: idField.value,
     });
-    Array.from(editValues).forEach(function (x) {
+    Array.from(editValues).forEach(async function (x) {
         isid = new DOMParser().parseFromString(x._values.id, "text/html");
         var selectedid = isid.body.firstElementChild.innerHTML;
         var tagInputFieldValue = tagInputField.getValue(true);
@@ -297,6 +298,38 @@ editBtn.addEventListener("click", function (e) {
             tagHtmlValue += '<span class="badge badge-soft-primary me-1">' + tag + '</span>'
         })
         if (selectedid == itemId) {
+
+            leadNameField = leadNameField.value 
+        company_nameField = company_nameField.value 
+        dateField = dateField.value 
+        leads_scoreField = leads_scoreField.value  
+        phone = phoneField.value 
+        locationField = locationField.value 
+
+        try {
+            const res = await fetch('/editLead', {
+                //update request
+                method: 'PUT',
+                body: JSON.stringify({ id: itemId , //get all the values from the form and send off to the server
+                    leadNameField,
+                    company_nameField,
+                    dateField,
+                    leads_scoreField,
+                    phone,
+                    locationField,
+                    tagInputFieldValue}),
+                headers: { 'Content-Type': 'application/json' }
+            });
+            const data = await res
+            
+            console.log(data)
+
+
+            }
+            catch(err) {
+                console.log(err)
+            }
+            
             x.values({
                 id: '<a href="javascript:void(0);" class="fw-medium link-primary">'+idField.value+"</a>",
                 // image_src: leadImg.src,
@@ -320,6 +353,8 @@ editBtn.addEventListener("click", function (e) {
         timer: 2000,
         showCloseButton: true
     });
+
+    
 });
 
 document.getElementById("delete-record").addEventListener("click", async function (e) {
@@ -335,8 +370,8 @@ document.getElementById("delete-record").addEventListener("click", async functio
             headers: { 'Content-Type': 'application/json' }
         });
         const data = await res
-        console.log(data)
-
+        console.log(data.body)
+        window.location.reload();
 
     }
     catch (err) {
@@ -360,7 +395,7 @@ function refreshCallbacks() {
     Array.from(removeBtns).forEach(function (btn) {
         btn.addEventListener("click", function (e) {
             e.target.closest("tr").children[1].innerText;
-            itemId = e.target.closest("tr").children[1].innerText;
+            itemId = e.target.closest("tr").children[0].innerText;
             var itemValues = leadsList.get({
                 id: itemId,
             });
@@ -398,7 +433,7 @@ function refreshCallbacks() {
                     // leadImg.src = x._values.image_src;
                     leadNameField.value = x._values.name;
                     company_nameField.value = x._values.company_name;
-                    dateField.value = x._values.date;
+                    // dateField.value = x._values.date;
                     leads_scoreField.value = x._values.leads_score;
                     phoneField.value = x._values.phone;
                     if(tagBadge){
@@ -429,51 +464,51 @@ function clearFields() {
     tagInputField.setChoiceByValue("0");
 }
 
-function deleteMultiple(){
-    ids_array = [];
-    var items = document.getElementsByName('chk_child');
-    for (i = 0; i < items.length; i++) {
-        if (items[i].checked == true) {
-            var trNode = items[i].parentNode.parentNode.parentNode;
-            var id = trNode.querySelector("td a").innerHTML;
-            ids_array.push(id);
-        }
-    }
-    if (typeof ids_array !== 'undefined' && ids_array.length > 0) {
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonClass: 'btn btn-primary w-xs me-2 mt-2',
-            cancelButtonClass: 'btn btn-danger w-xs mt-2',
-            confirmButtonText: "Yes, delete it!",
-            buttonsStyling: false,
-            showCloseButton: true
-        }).then(function (result) {
-            if (result.value) {
-                for (i = 0; i < ids_array.length; i++) {
-                    leadsList.remove("id", `<a href="javascript:void(0);" class="fw-medium link-primary">${ids_array[i]}</a>`);
-                }
-                document.getElementById("checkAll").checked = false;
-                Swal.fire({
-                    title: 'Deleted!',
-                    text: 'Your data has been deleted.',
-                    icon: 'success',
-                    confirmButtonClass: 'btn btn-info w-xs mt-2',
-                    buttonsStyling: false
-                });
-            }
-        });
-    } else {
-        Swal.fire({
-            title: 'Please select at least one checkbox',
-            confirmButtonClass: 'btn btn-info',
-            buttonsStyling: false,
-            showCloseButton: true
-        });
-    }
-}
+// function deleteMultiple(){
+//     ids_array = [];
+//     var items = document.getElementsByName('chk_child');
+//     for (i = 0; i < items.length; i++) {
+//         if (items[i].checked == true) {
+//             var trNode = items[i].parentNode.parentNode.parentNode;
+//             var id = trNode.querySelector("td a").innerHTML;
+//             ids_array.push(id);
+//         }
+//     }
+//     if (typeof ids_array !== 'undefined' && ids_array.length > 0) {
+//         Swal.fire({
+//             title: "Are you sure?",
+//             text: "You won't be able to revert this!",
+//             icon: "warning",
+//             showCancelButton: true,
+//             confirmButtonClass: 'btn btn-primary w-xs me-2 mt-2',
+//             cancelButtonClass: 'btn btn-danger w-xs mt-2',
+//             confirmButtonText: "Yes, delete it!",
+//             buttonsStyling: false,
+//             showCloseButton: true
+//         }).then(function (result) {
+//             if (result.value) {
+//                 for (i = 0; i < ids_array.length; i++) {
+//                     leadsList.remove("id", `<a href="javascript:void(0);" class="fw-medium link-primary">${ids_array[i]}</a>`);
+//                 }
+//                 document.getElementById("checkAll").checked = false;
+//                 Swal.fire({
+//                     title: 'Deleted!',
+//                     text: 'Your data has been deleted.',
+//                     icon: 'success',
+//                     confirmButtonClass: 'btn btn-info w-xs mt-2',
+//                     buttonsStyling: false
+//                 });
+//             }
+//         });
+//     } else {
+//         Swal.fire({
+//             title: 'Please select at least one checkbox',
+//             confirmButtonClass: 'btn btn-info',
+//             buttonsStyling: false,
+//             showCloseButton: true
+//         });
+//     }
+// }
 
 document.querySelector(".pagination-next").addEventListener("click", function () {
     (document.querySelector(".pagination.listjs-pagination")) ? (document.querySelector(".pagination.listjs-pagination").querySelector(".active")) ?
