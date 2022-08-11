@@ -170,9 +170,9 @@ route.get('/apps-tasks-details', (req, res, next) => {
 route.get('/apps-crm-contacts', (req, res, next) => {
     res.render('apps-crm-contacts', { title: 'Contacts', page_title: 'Contacts', folder: 'CRM' });
 })
-route.get('/apps-crm-companies', (req, res, next) => {
-    res.render('apps-crm-companies', { title: 'Companies', page_title: 'Companies', folder: 'CRM' });
-})
+// route.get('/companies', (req, res, next) => {
+//     res.render('companies', { title: 'Companies', page_title: 'Companies', folder: 'CRM' });
+// })
 route.get('/apps-crm-deals', (req, res, next) => {
     res.render('apps-crm-deals', { title: 'Deals', page_title: 'Deals', folder: 'CRM' });
 })

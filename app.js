@@ -6,6 +6,7 @@ const route = require('./Routes/route');
 const authroute = require('./Routes/authroute');
 const leadroute = require('./Routes/leadroute');
 const tasksroute = require('./Routes/tasksroute')
+const companyroute = require('./Routes/companyroute')
 const expressLayouts = require('express-ejs-layouts');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
@@ -58,6 +59,7 @@ app.use(express.static(__dirname + '/public'));
 app.use('/', tasksroute)
 app.use('/', authroute);
 app.use('/', leadroute)
+app.use('/', companyroute)
 app.use('/', route);
 
 

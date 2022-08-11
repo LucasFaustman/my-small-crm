@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const crypto = require('crypto')
 const task = require('./task')
 const {crm_lead} = require('./crm')
+const {crm_company} = require('./crm')
 
 const userschema =  new mongoose.Schema({
     // first_name: {
@@ -30,9 +31,9 @@ const userschema =  new mongoose.Schema({
         required: [true, 'Please enter a password'],
         minlength: [8, 'Minimum password length is 8 characters.'],
     },
-    deletedTaskCount: {
-      type: Number
-    },
+    // deletedTaskCount: {
+    //   type: Number
+    // },
     tasks: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: "task"
@@ -40,6 +41,10 @@ const userschema =  new mongoose.Schema({
   leads: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: '{crm_lead}'
+}],
+companies: [{
+  type: mongoose.Schema.Types.ObjectId,
+  ref: '{crm_company}'
 }]
     // role: {
     //     type: String,

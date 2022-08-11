@@ -44,7 +44,7 @@ const companyschema = new mongoose.Schema({
         type: String,
         required: [true, 'please enter company_name'],
     },
-    owner: {
+    lead: {
         type: String,
         required: [true, 'please enter company owner'],
     },
@@ -69,18 +69,15 @@ const companyschema = new mongoose.Schema({
     contact_email: {
         type: String,
     },
-    since: {
-        type: Number,
-    },
-    image_src: {
-        type: String,
-        required: [true, 'please enter location'],
-    }
+     owner: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+      }]
+
 });
 
 const leadschema = new mongoose.Schema({
     leadsId: String,
-    image_src: String,
     name: {
         type: String,
         required: [true, 'please enter name'],

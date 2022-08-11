@@ -38,7 +38,7 @@ var options = {
         "website",
         "contact_email",
         "since",
-        { attr: "src", name: "image_src" }
+        // { attr: "src", name: "image_src" }
     ],
     page: perPage,
     pagination: true,
@@ -78,50 +78,50 @@ var companyList = new List("companyList", options).on("updated", function (list)
     }
 });
 
-const xhttp = new XMLHttpRequest();
-xhttp.onload = function () {
-    var json_records = JSON.parse(this.responseText);
-    Array.from(json_records).forEach(function (raw){
-        companyList.add({
-            id: '<a href="javascript:void(0);" class="fw-medium link-primary">#VZ' + raw.id + "</a>",
-            name: raw.name,
-            owner: raw.owner,
-            industry_type: raw.industry_type,
-            star_value: raw.star_value,
-            location: raw.location,
-            employee: raw.employee,
-            website: raw.website,
-            contact_email: raw.contact_email,
-            since: raw.since,
-            image_src: raw.image_src
-        });
-        companyList.sort('id', { order: "desc" });
-        refreshCallbacks();
-    });
-    companyList.remove("id", `<a href="javascript:void(0);" class="fw-medium link-primary">#VZ001</a>`);
-}
-xhttp.open("GET", "assets/json/company-list.json");
-xhttp.send();
+// const xhttp = new XMLHttpRequest();
+// xhttp.onload = function () {
+//     var json_records = JSON.parse(this.responseText);
+//     Array.from(json_records).forEach(function (raw){
+//         companyList.add({
+//             id: '<a href="javascript:void(0);" class="fw-medium link-primary">#VZ' + raw.id + "</a>",
+//             name: raw.name,
+//             owner: raw.owner,
+//             industry_type: raw.industry_type,
+//             star_value: raw.star_value,
+//             location: raw.location,
+//             employee: raw.employee,
+//             website: raw.website,
+//             contact_email: raw.contact_email,
+//             since: raw.since,
+//             // image_src: raw.image_src
+//         });
+//         companyList.sort('id', { order: "desc" });
+//         refreshCallbacks();
+//     });
+//     companyList.remove("id", `<a href="javascript:void(0);" class="fw-medium link-primary">#VZ001</a>`);
+// }
+// xhttp.open("GET", "assets/json/company-list.json");
+// xhttp.send();
 
-isCount = new DOMParser().parseFromString(
-    companyList.items.slice(-1)[0]._values.id,
-    "text/html"
-);
+// isCount = new DOMParser().parseFromString(
+//     companyList.items.slice(-1)[0]._values.id,
+//     "text/html"
+// );
 
 // customer image
-document.querySelector("#company-logo-input").addEventListener("change", function () {
-    var preview = document.querySelector("#companylogo-img");
-    var file = document.querySelector("#company-logo-input").files[0];
-    var reader = new FileReader();
-    reader.addEventListener("load",function () {
-        preview.src = reader.result;
-    },false);
-    if (file) {
-        reader.readAsDataURL(file);
-    }
-});
+// document.querySelector("#company-logo-input").addEventListener("change", function () {
+//     var preview = document.querySelector("#companylogo-img");
+//     var file = document.querySelector("#company-logo-input").files[0];
+//     var reader = new FileReader();
+//     reader.addEventListener("load",function () {
+//         preview.src = reader.result;
+//     },false);
+//     if (file) {
+//         reader.readAsDataURL(file);
+//     }
+// });
 
-var isValue = isCount.body.firstElementChild.innerHTML;
+// var isValue = isCount.body.firstElementChild.innerHTML;
 
 var idField = document.getElementById("id-field"),
     companyNameField = document.getElementById("companyname-field"),
@@ -133,8 +133,6 @@ var idField = document.getElementById("id-field"),
     employeeField = document.getElementById("employee-field"),
     websiteField = document.getElementById("website-field"),
     contact_emailField = document.getElementById("contact_email-field"),
-    sinceField = document.getElementById("since-field"),
-
     addBtn = document.getElementById("add-btn"),
     editBtn = document.getElementById("edit-btn"),
     removeBtns = document.getElementsByClassName("remove-item-btn"),
@@ -175,7 +173,7 @@ var tr = table.getElementsByTagName("tr");
 var trlist = table.querySelectorAll(".list tr");
 
 var count = 11;
-addBtn.addEventListener("click", function (e) {
+addBtn.addEventListener("click", async function (e) {
     if (
         companyNameField.value !== "" &&
         ownerField.value !== "" &&
@@ -184,12 +182,27 @@ addBtn.addEventListener("click", function (e) {
         locationField.value !== "" &&
         employeeField.value !== "" &&
         websiteField.value !== "" &&
-        contact_emailField.value !== "" &&
-        sinceField.value !== ""
+        contact_emailField.value !== "" 
+        // sinceField.value !== ""
     ) {
+
+        companyName = companyNameField.value
+        ownerName = ownerField.value
+        industryType = industry_typeField.value
+        starValue = star_valueField.value
+        locationField = locationField.value
+        employeeCount = employeeField.value
+        websiteField = websiteField.value
+        contactEmail = contact_emailField.value
+
+
+
+
+
+
         companyList.add({
             id: '<a href="javascript:void(0);" class="fw-medium link-primary">#VZ' + count + "</a>",
-            image_src: companyLogoImg.src,
+            // image_src: companyLogoImg.src,
             name: companyNameField.value,
             owner: ownerField.value,
             industry_type: industry_typeField.value,
@@ -198,7 +211,7 @@ addBtn.addEventListener("click", function (e) {
             employee: employeeField.value,
             website: websiteField.value,
             contact_email: contact_emailField.value,
-            since: sinceField.value
+            // since: sinceField.value
             
         });
         companyList.sort('id', { order: "desc" });
@@ -214,21 +227,86 @@ addBtn.addEventListener("click", function (e) {
             timer: 2000,
             showCloseButton: true
         });
+
+        try {
+            // signify to the server this is a post request to our database, and include the all inputs of task stringified to an object to pass onto the db
+            const res = await fetch('/addCompany', {
+                method: 'POST',
+                body: JSON.stringify({ companyName,
+                    ownerName,
+                    industryType,
+                    starValue,
+                    locationField,
+                    employeeCount,
+                    websiteField,
+                    contactEmail }),
+                headers: { 'Content-Type': 'application/json' }
+            });
+            const data = await res
+            console.log(data)
+            window.location.reload();
+        }
+            catch(err) {
+                console.log(err)
+            }
     }
 });
 
-editBtn.addEventListener("click", function (e) {
+editBtn.addEventListener("click", async function (e) {
     document.getElementById("exampleModalLabel").innerHTML = "Edit Company";
     var editValues = companyList.get({
         id: idField.value,
     });
-    Array.from(editValues).forEach(function (x) {
+    Array.from(editValues).forEach(async function (x) {
         isid = new DOMParser().parseFromString(x._values.id, "text/html");
         var selectedid = isid.body.firstElementChild.innerHTML;
         if (selectedid == itemId) {
+        
+                companyName = companyNameField.value
+                ownerName = ownerField.value
+                industryType = industry_typeField.value
+                starValue = star_valueField.value
+                locationField = locationField.value
+                employeeCount = employeeField.value
+                websiteField = websiteField.value
+                contactEmail = contact_emailField.value
+
+
+
+
+            try {
+                const res = await fetch('/editCompany', {
+                    //update request
+                    method: 'PUT',
+                    body: JSON.stringify({ id: itemId , //get all the values from the form and send off to the server
+                        companyName,
+                        ownerName,
+                        industryType,
+                        starValue,
+                        locationField,
+                        employeeCount,
+                        websiteField,
+                        contactEmail
+                        }),
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                const data = await res
+
+                window.location.reload();
+                
+                console.log(data)
+    
+    
+                }
+                catch(err) {
+                    console.log(err)
+                }
+
+
+
+            
             x.values({
                 id: `<a href="javascript:void(0);" class="fw-medium link-primary">${idField.value}</a>`,
-                image_src: companyLogoImg.src,
                 name: companyNameField.value,
                 owner: ownerField.value,
                 industry_type: industry_typeField.value,
@@ -237,7 +315,6 @@ editBtn.addEventListener("click", function (e) {
                 employee: employeeField.value,
                 website: websiteField.value,
                 contact_email: contact_emailField.value,
-                since: sinceField.value
             });
         }
     });
@@ -266,86 +343,86 @@ function ischeckboxcheck() {
 }
 
 function refreshCallbacks() {
-    Array.from(removeBtns).forEach(function (btn) {
+    Array.from(removeBtns).forEach(async function (btn) {
         btn.addEventListener("click", function (e) {
             e.target.closest("tr").children[1].innerText;
-            itemId = e.target.closest("tr").children[1].innerText;
+            itemId = e.target.closest("tr").children[0].innerText;
             var itemValues = companyList.get({
                 id: itemId,
             });
 
-            Array.from(itemValues).forEach(function (x) {
+            Array.from(itemValues).forEach(async function (x) {
                 deleteid = new DOMParser().parseFromString(x._values.id, "text/html");
 
                 var isElem = deleteid.body.firstElementChild;
                 var isdeleteid = deleteid.body.firstElementChild.innerHTML;
 
                 if (isdeleteid == itemId) {
-                    document.getElementById("delete-record").addEventListener("click", function () {
-                        companyList.remove("id", isElem.outerHTML);
+                    document.getElementById("delete-record").addEventListener("click", async function () {
+
+                        try {
+                            //fetch the deletecompany route
+                            const res = await fetch('/deleteCompany', {
+                                //delete method
+                                method: 'DELETE',
+                                body: JSON.stringify({ id: itemId }), //stringify the item id and send it off
+                                headers: { 'Content-Type': 'application/json' }
+                            });
+                            const data = await res
+                            console.log(data.body)
+                        }
+                        catch (err) {
+                            console.log(err)
+                        }   
+                        // companyList.remove("id", isElem.outerHTML);
                         document.getElementById("deleteRecordModal").click();
+                        window.location.reload();
                     });
                 }
             });
         });
     });
 
-    Array.from(editBtns).forEach(function (btn) {
+    Array.from(editBtns).forEach( function (btn) {
         btn.addEventListener("click", function (e) {
+            //get all the values of the dataset to plug into the form when needing to edit
             e.target.closest("tr").children[1].innerText;
-            itemId = e.target.closest("tr").children[1].innerText;
-            var itemValues = companyList.get({
-                id: itemId,
-            });
-
-            Array.from(itemValues).forEach(function (x) {
-                isid = new DOMParser().parseFromString(x._values.id, "text/html");
-                var selectedid = isid.body.firstElementChild.innerHTML;
-                if (selectedid == itemId) {
-                    idField.value = selectedid;
-                    companyLogoImg.src = x._values.image_src;
-                    companyNameField.value = x._values.name;
-                    ownerField.value = x._values.owner;
-                    industry_typeField.value = x._values.industry_type;
-                    star_valueField.value = x._values.star_value;
-                    locationField.value = x._values.location;
-                    employeeField.value = x._values.employee;
-                    websiteField.value = x._values.website;
-                    contact_emailField.value = x._values.contact_email;
-                    sinceField.value = x._values.since;
-                }
-                console.log("x", x)
-            });
+            itemId = e.target.closest("tr").children[0].innerText;
+            companyNameField.value = e.target.closest("tr").children[1].innerText;
+            ownerField.value = e.target.closest("tr").children[2].innerText;
+            ownerField.value.value = e.target.closest("tr").children[2].innerText;
+            industry_typeField.value = e.target.closest("tr").children[3].innerText;
+            star_valueField.value = e.target.closest("tr").children[4].innerText;
+            locationField.value = e.target.closest("tr").children[5].innerText;
+            websiteField.value = e.target.closest("tr").children[6].innerText;
+            contact_emailField.value = e.target.closest("tr").children[7].innerText;
+            employeeField.value = e.target.closest("tr").children[8].innerText;
         });
     });
 
-    Array.from(viewBtns).forEach(function (btn) {
+    Array.from(viewBtns).forEach( function (btn) {
         btn.addEventListener("click", function (e) {
-            e.target.closest("tr").children[1].innerText;
-            itemId = e.target.closest("tr").children[1].innerText;
-            var itemValues = companyList.get({
-                id: itemId,
-            });
+            //get all the values of the data set to plug into the card
+            itemId = e.target.closest("tr").children[0].innerText;
+            companyNameField.value = e.target.closest("tr").children[1].innerText;
+            ownerField.value = e.target.closest("tr").children[2].innerText;
+            ownerField.value.value = e.target.closest("tr").children[2].innerText;
+            industry_typeField.value = e.target.closest("tr").children[3].innerText;
+            star_valueField.value = e.target.closest("tr").children[4].innerText;
+            locationField.value = e.target.closest("tr").children[5].innerText;
+            websiteField.value = e.target.closest("tr").children[6].innerText;
+            contact_emailField.value = e.target.closest("tr").children[7].innerText;
+            employeeField.value = e.target.closest("tr").children[8].innerText;
 
-            Array.from(itemValues).forEach(function (x) {
-                isid = new DOMParser().parseFromString(x._values.id, "text/html");
-                var selectedid = isid.body.firstElementChild.innerHTML;
-                if (selectedid == itemId) {
+
                     var codeBlock = `
                         <div class="card-body text-center">
-                            <div class="position-relative d-inline-block">
-                                <div class="avatar-md">
-                                    <div class="avatar-title bg-light rounded-circle">
-                                        <img src="${x._values.image_src}" alt="" class="avatar-sm rounded-circle object-cover">
-                                    </div>
-                                </div>
-                            </div>
-                            <h5 class="mt-3 mb-1">${x._values.name}</h5>
-                            <p class="text-muted">${x._values.owner}</p>
+                            <h5 class="mt-3 mb-1">${companyNameField.value}</h5>
+                            <p class="text-muted">${ownerField.value}</p>
 
                             <ul class="list-inline mb-0">
                                 <li class="list-inline-item avatar-xs">
-                                    <a href="javascript:void(0);"
+                                    <a href="${websiteField.value}"
                                         class="avatar-title bg-soft-success text-success fs-15 rounded">
                                         <i class="ri-global-line"></i>
                                     </a>
@@ -356,53 +433,38 @@ function refreshCallbacks() {
                                         <i class="ri-mail-line"></i>
                                     </a>
                                 </li>
-                                <li class="list-inline-item avatar-xs">
-                                    <a href="javascript:void(0);"
-                                        class="avatar-title bg-soft-warning text-warning fs-15 rounded">
-                                        <i class="ri-question-answer-line"></i>
-                                    </a>
-                                </li>
                             </ul>
                         </div>
                         <div class="card-body">
-                            <h6 class="text-muted text-uppercase fw-semibold mb-3">Information</h6>
-                            <p class="text-muted mb-4">A company incurs fixed and variable costs such as the
-                                purchase of raw materials, salaries and overhead, as explained by
-                                AccountingTools, Inc. Business owners have the discretion to determine the
-                                actions.</p>
                             <div class="table-responsive table-card">
                                 <table class="table table-borderless mb-0">
                                     <tbody>
                                         <tr>
                                             <td class="fw-medium" scope="row">Industry Type</td>
-                                            <td>${x._values.industry_type}</td>
+                                            <td>${industry_typeField.value}</td>
                                         </tr>
                                         <tr>
                                             <td class="fw-medium" scope="row">Location</td>
-                                            <td>${x._values.location}</td>
+                                            <td>${locationField.value}</td>
                                         </tr>
                                         <tr>
-                                            <td class="fw-medium" scope="row">Employee</td>
-                                            <td>${x._values.employee}</td>
+                                            <td class="fw-medium" scope="row">Employee Count</td>
+                                            <td>${employeeField.value}</td>
                                         </tr>
                                         <tr>
                                             <td class="fw-medium" scope="row">Rating</td>
-                                            <td>${x._values.star_value} <i class="ri-star-fill text-warning align-bottom"></i></td>
+                                            <td>${star_valueField.value} <i class="ri-star-fill text-warning align-bottom"></i></td>
                                         </tr>
                                         <tr>
                                             <td class="fw-medium" scope="row">Website</td>
                                             <td>
-                                                <a href="javascript:void(0);"
-                                                    class="link-primary text-decoration-underline">${x._values.website}</a>
+                                                <a href="${websiteField.value}"
+                                                    class="link-primary text-decoration-underline">${websiteField.value}</a>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="fw-medium" scope="row">Contact Email</td>
-                                            <td>${x._values.contact_email}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="fw-medium" scope="row">Since</td>
-                                            <td>${x._values.since}</td>
+                                            <td>${contact_emailField.value}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -411,13 +473,12 @@ function refreshCallbacks() {
                     `;
                     document.getElementById('company-view-detail').innerHTML = codeBlock;
                 }
-            });
-        });
+        );
     });
 }
 
 function clearFields() {
-    companyLogoImg.src = "assets/images/users/multi-user.jpg";
+    // companyLogoImg.src = "assets/images/users/multi-user.jpg";
     companyNameField.value = "";
     ownerField.value = "";
     industry_typeField.value = "";
@@ -426,7 +487,7 @@ function clearFields() {
     employeeField.value = "";
     websiteField.value = "";
     contact_emailField.value = "";
-    sinceField.value = "";
+    // sinceField.value = "";
 }
 
 // Delete Multiple Records

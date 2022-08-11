@@ -96,6 +96,7 @@ const userData = await User.findOne({email: userEmail})
 
     //get the id
     let id = req.body.id
+    console.log(id)
 
     //use a try
     try {
@@ -114,7 +115,6 @@ const userData = await User.findOne({email: userEmail})
 }
 
 module.exports.editLead_put = async(req,res) => {
-    console.log(req.body)
 
     //get id 
 let id = req.body.id
