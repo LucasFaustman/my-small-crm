@@ -117,6 +117,7 @@ const userData = await User.findOne({email: userEmail})
 
 module.exports.editTaskItem_put = async (req,res) => {
 
+    console.log(req.body)
 //get id 
 let id = req.body.id
 

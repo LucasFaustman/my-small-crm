@@ -357,28 +357,6 @@ editBtn.addEventListener("click", async function (e) {
     
 });
 
-document.getElementById("delete-record").addEventListener("click", async function (e) {
-    e.preventDefault()
-
-
-    try {
-        //fetch the deleteLead route
-        const res = await fetch('/deleteLead', {
-            //delete method
-            method: 'DELETE',
-            body: JSON.stringify({ id: itemId }), //stringify the item id and send it off
-            headers: { 'Content-Type': 'application/json' }
-        });
-        const data = await res
-        console.log(data.body)
-        window.location.reload();
-
-    }
-    catch (err) {
-        console.log(err)
-    }   
-});
-
 function ischeckboxcheck() {
     Array.from(document.getElementsByName("checkAll")).forEach(function (x) {
         x.addEventListener("click", function (e) {
@@ -392,27 +370,32 @@ function ischeckboxcheck() {
 }
 
 function refreshCallbacks() {
-    Array.from(removeBtns).forEach(function (btn) {
+    Array.from(removeBtns).forEach(async function (btn) {
         btn.addEventListener("click", function (e) {
             e.target.closest("tr").children[1].innerText;
             itemId = e.target.closest("tr").children[0].innerText;
-            var itemValues = leadsList.get({
-                id: itemId,
-            });
 
-            Array.from(itemValues).forEach(function (x) {
-                deleteid = new DOMParser().parseFromString(x._values.id, "text/html");
+                    document.getElementById("delete-record").addEventListener("click", async function () {
 
-                var isElem = deleteid.body.firstElementChild;
-                var isdeleteid = deleteid.body.firstElementChild.innerHTML;
+                        try {
+                            //fetch the deleteLead route
+                            const res = await fetch('/deleteLead', {
+                                //delete method
+                                method: 'DELETE',
+                                body: JSON.stringify({ id: itemId }), //stringify the item id and send it off
+                                headers: { 'Content-Type': 'application/json' }
+                            });
+                            const data = await res
+                            console.log(data.body)
+                    
+                        }
+                        catch (err) {
+                            console.log(err)
+                        }   
 
-                if (isdeleteid == itemId) {
-                    document.getElementById("delete-record").addEventListener("click", function () {
-                        leadsList.remove("id", isElem.outerHTML);
                         document.getElementById("deleteRecordModal").click();
+                        window.location.reload();
                     });
-                }
-            });
         });
     });
 
@@ -420,40 +403,28 @@ function refreshCallbacks() {
         btn.addEventListener("click", function (e) {
             e.target.closest("tr").children[1].innerText;
             itemId = e.target.closest("tr").children[1].innerText;
-            var itemValues = leadsList.get({
-                id: itemId,
-            });
+            var tagInputFieldValue = tagInputField.getValue(true);
+            Array.from(tagInputFieldValue).forEach((tag, index) => {
+                tagHtmlValue += '<span class="badge badge-soft-primary me-1">' + tag + '</span>'
+            })
+            console.log(e.target.closest("tr").children[6].innerText)
+            
 
-            Array.from(itemValues).forEach(function (x) {
-                isid = new DOMParser().parseFromString(x._values.id, "text/html");
-                var selectedid = isid.body.firstElementChild.innerHTML;
-                var tagBadge = new DOMParser().parseFromString(x._values.tags, "text/html").body.querySelectorAll("span.badge");
-                if (selectedid == itemId) {
-                    idField.value = selectedid;
-                    // leadImg.src = x._values.image_src;
-                    leadNameField.value = x._values.name;
-                    company_nameField.value = x._values.company_name;
-                    // dateField.value = x._values.date;
-                    leads_scoreField.value = x._values.leads_score;
-                    phoneField.value = x._values.phone;
-                    if(tagBadge){
-                        Array.from(tagBadge).forEach((item) => {
-                            tagInputField.setChoiceByValue(item.innerHTML);
-                        })
-                    }
-                    locationField.value = x._values.location;
-                    flatpickr("#date-field", {
-                        dateFormat: "d M, Y",
-                        defaultDate: x._values.date,
-                    });
-                }
-            });
+            leadNameField.value = e.target.closest("tr").children[1].innerText;
+            company_nameField.value = e.target.closest("tr").children[2].innerText;
+            leads_scoreField.value = e.target.closest("tr").children[3].innerText;
+            phoneField.value = e.target.closest("tr").children[4].innerText;
+            locationField.value = e.target.closest("tr").children[5].innerText;
+            tagInputFieldValue.value = e.target.closest("tr").children[6].innerText;
+            dateField.value = e.target.closest("tr").children[7].innerText;
+                    
+                    
+                
         });
     });
 }
 
 function clearFields() {
-    // leadImg.src = "assets/images/users/user-dummy-img.jpg";
     leadNameField.value = "";
     company_nameField.value = "";
     dateField.value = "";
@@ -464,51 +435,6 @@ function clearFields() {
     tagInputField.setChoiceByValue("0");
 }
 
-// function deleteMultiple(){
-//     ids_array = [];
-//     var items = document.getElementsByName('chk_child');
-//     for (i = 0; i < items.length; i++) {
-//         if (items[i].checked == true) {
-//             var trNode = items[i].parentNode.parentNode.parentNode;
-//             var id = trNode.querySelector("td a").innerHTML;
-//             ids_array.push(id);
-//         }
-//     }
-//     if (typeof ids_array !== 'undefined' && ids_array.length > 0) {
-//         Swal.fire({
-//             title: "Are you sure?",
-//             text: "You won't be able to revert this!",
-//             icon: "warning",
-//             showCancelButton: true,
-//             confirmButtonClass: 'btn btn-primary w-xs me-2 mt-2',
-//             cancelButtonClass: 'btn btn-danger w-xs mt-2',
-//             confirmButtonText: "Yes, delete it!",
-//             buttonsStyling: false,
-//             showCloseButton: true
-//         }).then(function (result) {
-//             if (result.value) {
-//                 for (i = 0; i < ids_array.length; i++) {
-//                     leadsList.remove("id", `<a href="javascript:void(0);" class="fw-medium link-primary">${ids_array[i]}</a>`);
-//                 }
-//                 document.getElementById("checkAll").checked = false;
-//                 Swal.fire({
-//                     title: 'Deleted!',
-//                     text: 'Your data has been deleted.',
-//                     icon: 'success',
-//                     confirmButtonClass: 'btn btn-info w-xs mt-2',
-//                     buttonsStyling: false
-//                 });
-//             }
-//         });
-//     } else {
-//         Swal.fire({
-//             title: 'Please select at least one checkbox',
-//             confirmButtonClass: 'btn btn-info',
-//             buttonsStyling: false,
-//             showCloseButton: true
-//         });
-//     }
-// }
 
 document.querySelector(".pagination-next").addEventListener("click", function () {
     (document.querySelector(".pagination.listjs-pagination")) ? (document.querySelector(".pagination.listjs-pagination").querySelector(".active")) ?
