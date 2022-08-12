@@ -255,10 +255,20 @@ editBtn.addEventListener("click", async function (e) {
         id: idField.value,
     });
 
+    if (
+        tasksTitleField.value !== "" &&
+        clientNameField.value !== "" &&
+        dateDueField.value !== "" &&
+        priorityField.value !== "" &&
+        statusField.value !== ""
+    ) {
+
 
     Array.from(editValues).forEach(async function (x) {
         isid = new DOMParser().parseFromString(x._values.id, "text/html");
 
+
+       
             tasksTitleFieldVal = tasksTitleField.value,
             clientNameFieldVal = clientNameField.value,
             dateDueFieldVal = dateDueField.value,
@@ -287,6 +297,7 @@ editBtn.addEventListener("click", async function (e) {
             catch (err) {
                 console.log(err)
             }   
+        
     });
     document.getElementById("close-modal").click();
      window.location.reload();
@@ -299,16 +310,19 @@ editBtn.addEventListener("click", async function (e) {
         timer: 2000,
         showCloseButton: true
     });
+
+}
+
 });
 
 
-var example = new Choices(priorityField, {
-    searchEnabled: false,
-});
+// var example = new Choices(priorityField, {
+//     searchEnabled: false,
+// });
 
-var statusVal = new Choices(statusField, {
-    searchEnabled: false,
-});
+// var statusVal = new Choices(statusField, {
+//     searchEnabled: false,
+// });
 
 function SearchData() {
     var isstatus = document.getElementById("idStatus").value;
@@ -402,14 +416,14 @@ function refreshCallbacks() {
     Array.from(editBtns).forEach(function (btn) {
         btn.addEventListener("click", function (e) {
 
-            console.log(e.target.closest("tr").children[5].innerText)
+
             e.target.closest("tr").children[1].innerText;
             itemId = e.target.closest("tr").children[0].innerText;
             tasksTitleField.value = e.target.closest("tr").children[1].innerText;
             clientNameField.value = e.target.closest("tr").children[2].innerText;
             dateDueField.value = e.target.closest("tr").children[3].innerText;
-            statusField.value = e.target.closest("tr").children[4].innerText;
-            priorityField.value = e.target.closest("tr").children[5].innerText
+            statusField.value = e.target.closest("tr").children[4].innerText.charAt(0).toUpperCase() + e.target.closest("tr").children[4].innerText.slice(1).toLowerCase();
+            priorityField.value = e.target.closest("tr").children[5].innerText.charAt(0).toUpperCase() + e.target.closest("tr").children[5].innerText.slice(1).toLowerCase()
                 
         });
     });
@@ -422,13 +436,6 @@ function clearFields() {
     clientNameField.value = "";
     // assignedtoNameField.value = "";
     dateDueField.value = "";
-    if (example)
-        example.destroy();
-    example = new Choices(priorityField);
-
-    if (statusVal)
-        statusVal.destroy();
-    statusVal = new Choices(statusField);
 }
 
 document.querySelector(".pagination-next").addEventListener("click", function () {

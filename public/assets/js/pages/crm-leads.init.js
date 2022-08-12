@@ -140,7 +140,7 @@ isCount = new DOMParser().parseFromString(
     "text/html"
 );
 
-var isValue = isCount.body.firstElementChild.innerHTML;
+
 
 var idField = document.getElementById("id-field"),
     leadNameField = document.getElementById("leadname-field"),
@@ -290,14 +290,15 @@ editBtn.addEventListener("click", async function (e) {
         id: idField.value,
     });
     Array.from(editValues).forEach(async function (x) {
-        isid = new DOMParser().parseFromString(x._values.id, "text/html");
-        var selectedid = isid.body.firstElementChild.innerHTML;
+        // isid = new DOMParser().parseFromString(x._values.id, "text/html");
+        // var selectedid = isid.body.firstElementChild.innerHTML;
+
         var tagInputFieldValue = tagInputField.getValue(true);
         var tagHtmlValue = '';
         Array.from(tagInputFieldValue).forEach((tag, index) => {
             tagHtmlValue += '<span class="badge badge-soft-primary me-1">' + tag + '</span>'
         })
-        if (selectedid == itemId) {
+        // if (selectedid == itemId) {
 
             leadNameField = leadNameField.value 
         company_nameField = company_nameField.value 
@@ -341,9 +342,10 @@ editBtn.addEventListener("click", async function (e) {
                 tags: tagHtmlValue,
                 location: locationField.value,
             });
-        }
+       // }
     });
     document.getElementById("close-modal").click();
+    window.location.reload();
     clearFields();
     Swal.fire({
         position: 'center',
@@ -401,21 +403,27 @@ function refreshCallbacks() {
 
     Array.from(editBtns).forEach(function (btn) {
         btn.addEventListener("click", function (e) {
-            e.target.closest("tr").children[1].innerText;
-            itemId = e.target.closest("tr").children[1].innerText;
-            var tagInputFieldValue = tagInputField.getValue(true);
-            Array.from(tagInputFieldValue).forEach((tag, index) => {
-                tagHtmlValue += '<span class="badge badge-soft-primary me-1">' + tag + '</span>'
-            })
-            console.log(e.target.closest("tr").children[6].innerText)
-            
 
+            itemId = e.target.closest("tr").children[0].innerText;
+
+            // when editing a lead, get value from dom and input it into the form so users can easily update a lead
             leadNameField.value = e.target.closest("tr").children[1].innerText;
             company_nameField.value = e.target.closest("tr").children[2].innerText;
             leads_scoreField.value = e.target.closest("tr").children[3].innerText;
             phoneField.value = e.target.closest("tr").children[4].innerText;
             locationField.value = e.target.closest("tr").children[5].innerText;
-            tagInputFieldValue.value = e.target.closest("tr").children[6].innerText;
+
+            //our tag badge
+            let tagBadge = e.target.closest("tr").children[6].innerText.split(' ')
+            //if there are tags
+            if(tagBadge){
+                //get the array and for eacdh element
+                Array.from(tagBadge).forEach((item) => {
+                    //set tag input field to each element of array
+                    tagInputField.setChoiceByValue(e.target.closest("tr").children[6].innerText.split(' '));
+                })
+            }
+
             dateField.value = e.target.closest("tr").children[7].innerText;
                     
                     

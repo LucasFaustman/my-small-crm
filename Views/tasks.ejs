@@ -448,8 +448,7 @@
                                     <%= task.dateDueFieldVal.toDateString() %>
                                     <!-- <%=task.dateDueFieldVal %> -->
                                     </td> 
-                                <td class="status">
-                                      <span  class="badge badge-soft-secondary text-uppercase"><%=task.statusFieldVal %></span></td>
+                                <td class="status"><span class="badge badge-soft-secondary text-uppercase"><%=task.statusFieldVal %></span></td>
                                 <td class="priority"><span class="badge bg-danger text-uppercase"><%=task.priorityFieldVal %></span></td>
                             </tr>
                         </tbody> <% }) %>
@@ -733,7 +732,7 @@
                         <!--end col-->
                         <div class="col-lg-6">
                             <label for="ticket-status" name='ticket-field' class="form-label">Status</label>
-                            <select class="form-control" data-choices data-choices-search-false id="ticket-status">
+                            <select class="form-control"  id="ticket-status">
                                 <option value="">Status</option>
                                 <option value="New">New</option>
                                 <option value="Inprogress">Inprogress</option>
@@ -744,7 +743,7 @@
                         <!--end col-->
                         <div class="col-lg-12">
                             <label for="priority-field" class="form-label">Priority</label>
-                            <select class="form-control" data-choices data-choices-search-false id="priority-field">
+                            <select class="form-control" id="priority-field">
                                 <option value="">Priority</option>
                                 <option value="High">High</option>
                                 <option value="Medium">Medium</option>
