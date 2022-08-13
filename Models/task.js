@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const User = require('./user')
 
+
 const taskschema = new mongoose.Schema({
     // taskId: String,
     // project: {
@@ -31,7 +32,11 @@ const taskschema = new mongoose.Schema({
         type: String,
         required: [true, 'please enter priority'],
     },
-    owner: [{
+    leadOwner: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+      }],
+      owner: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
       }]

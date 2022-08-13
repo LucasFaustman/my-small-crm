@@ -302,7 +302,7 @@
 
                 <div class="align-items-center p-3 justify-content-between d-flex">
                     <div class="flex-shrink-0">
-                        <div class="text-muted"><span class="fw-semibold"><%= tasks.length %></span><span
+                        <div class="text-muted"><span class="fw-semibold"><%= tasks.filter(task => task.statusFieldVal !== "Completed").length %></span><span
                                 class="fw-semibold"></span> remaining</div>
                     </div>
                     <a href='/tasks'<button type="button" class="btn btn-sm btn-success"></i>
@@ -311,7 +311,7 @@
 
                 <div data-simplebar style="max-height: 219px;">
                     <ul class="list-group list-group-flush border-dashed px-3">
-                        <% tasks.forEach(function (task) { %>
+                        <% tasks.filter(task => task.statusFieldVal !== "Completed").forEach(function (task) { %>
                         <li class="list-group-item ps-0">
                             <div class="d-flex align-items-start">
                                 <!-- <div class="form-check ps-0 flex-sharink-0">

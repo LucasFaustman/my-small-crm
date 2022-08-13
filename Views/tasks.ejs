@@ -586,9 +586,21 @@
                         </div>
                         <!--end col-->
                         <div class="col-lg-12">
-                            <label for="clientName-field" name='clientName-field' class="form-label">Lead Name</label>
+                            <div class="col-lg-6">
+                                <div>
+                                    <label for="clientName-field" class="form-label">Lead Name</label> 
+                                    <select class="form-select" id="clientName-field">
+                                        <% leads.forEach(function (lead) { %>
+                                        <option value=<%= lead.name %>><%= lead.name %></option>
+                                            <% }) %>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <!-- <label for="clientName-field" name='clientName-field' class="form-label">Lead Name</label>
                             <input type="text" id="clientName-field" class="form-control" placeholder="Lead name"
-                                required />
+                                required /> -->
                         </div>
                         <!--end col-->
                         <!-- <div class="col-lg-12">

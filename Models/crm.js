@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+const Task = require('./task')
 
 const contactschema = new mongoose.Schema({
     image_src: String,
@@ -106,6 +107,10 @@ const leadschema = new mongoose.Schema({
         type: Date,
         required: [true, 'please enter created date'],
     },
+    tasks: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Task"
+    }],
     owner: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"

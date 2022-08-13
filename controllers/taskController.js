@@ -4,22 +4,24 @@ const { checkUser } = require("../middlewar/authMiddleware");
 const authController = require('./authController');
 const user = require('../Models/user');
 const mongoose = require('mongoose');
-
+const {crm_lead} = require('../Models/crm')
 
 
 module.exports.addTaskItem_post = async (req,res) => {
 
 //create task
 
-//get user email
-const userEmail = res.locals.user.email
+//get user id
+const userID = res.locals.user.id
 
-//find user by email
+console.log(userID)
 
-const userData = await User.findOne({email: userEmail})
+//find lead by id
+
+const leadData = await crm_lead.findOne({owner: [userID], name: req.body.clientNameFieldVal})
 
 //add check if there is user, go to next. if not, console.log error
-if (!userData) {
+if (!leadData) {
     console.log('User not found.')
 } 
 //now we want to create the task by extracting the task payload, or each element of our task form.
@@ -30,19 +32,20 @@ const taskData = await Task.create({
     dateDueFieldVal: req.body.dateDueFieldVal,
     statusFieldVal: req.body.statusFieldVal,
     priorityFieldVal: req.body.priorityFieldVal,
-    owner: userData._id
+    leadOwner: leadData,
+    owner: userID
 })
 
-//now push task id to the user
+//now push task id to the lead
 
-await User.updateOne({
-    email: userEmail
+await crm_lead.updateOne({
+    owner:[userID],
+    name:  req.body.clientNameFieldVal
 }, {
     $push: {tasks: taskData._id}
 })
 
 // console.log(userEmail, req.body.tasksTitleFieldVal)
-console.log(taskData._id)
 res.send('Task added')
 }
 
@@ -53,12 +56,23 @@ res.send('Task added')
 
 module.exports.getTaskItems_get =  async (req,res) => {
 
+//get user id
+
+const userID = res.locals.user.id
+
+
     //get user email
 const userEmail = res.locals.user.email
 
-//find user by email
+//find user by email for leads
 
 const userData = await User.findOne({email: userEmail})
+
+//find lead by id for tasks
+
+const leadData = await crm_lead.findOne({owner: [userID]})
+
+console.log(leadData)
 
     try {
 
@@ -66,9 +80,11 @@ const userData = await User.findOne({email: userEmail})
 
     const taskItems = await Task.find({ owner:[userData._id]}).sort({ dateDueFieldVal: 1 })
 
+    const leadItems = await crm_lead.find({ owner:[userData._id]})
+
     //render tasks.ejs with the tasks of the user, as well as the title, page title, and folder for the views
         
-    res.render('tasks.ejs', {tasks: taskItems , title: 'Tasks List', page_title: 'Upcoming Tasks', folder: 'Tasks'}
+    res.render('tasks.ejs', {tasks: taskItems , leads: leadItems, title: 'Tasks List', page_title: 'Upcoming Tasks', folder: 'Tasks'}
     )
     
     }
@@ -87,16 +103,12 @@ module.exports.deleteTaskItem_delete = async (req,res) => {
     //delete request!
 
         //get user email
-const userEmail = res.locals.user.email
+const userID = res.locals.user.id
 
 //find user by email
 
-const userData = await User.findOne({email: userEmail})
+const userData = await crm_lead.findOne({owner: [userID]})
 
-    //lets do a try
-
-    //get the id
-    let id = req.body.id
 
     //use a try
     try {
