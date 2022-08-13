@@ -2,10 +2,11 @@ const User = require('../Models/user')
 const {crm_company} = require('../Models/crm')
 const { checkUser } = require("../middlewar/authMiddleware");
 const authController = require('./authController');
-
+const {crm_lead} = require('../Models/crm')
 
 //create company
 module.exports.addCompany_post = async (req,res) => {
+
 
 
     //get user email
@@ -55,6 +56,12 @@ await User.updateOne({
 }
 
 module.exports.getCompanies_get = async (req,res) => {
+
+    //get user id
+
+const userID = res.locals.user.id
+
+
     //get user email
 const userEmail = res.locals.user.email
 
@@ -62,16 +69,20 @@ const userEmail = res.locals.user.email
 
 const userData = await User.findOne({email: userEmail})
 
+const leadData = await crm_lead.findOne({owner: [userID]})
+
 try {
 
     //declare a variable named companyItems that await to find tasks in the database with an owner of the users id
 
 const companies = await crm_company.find({ owner:[userData._id]})
 
+const leadItems = await crm_lead.find({ owner:[userData._id]})
+
 //render tasks.ejs with the tasks of the user, as well as the title, page title, and folder for the views
     
 //res.render('leads.ejs', {tasks: taskItems , title: 'Tasks List', page_title: 'Upcoming Tasks', folder: 'Tasks'}
-res.render('companies', { companies: companies, title: 'Companies', page_title: 'Companies', folder: 'CRM' })
+res.render('companies', { companies: companies, leads: leadItems, title: 'Companies', page_title: 'Companies', folder: 'CRM' })
 }
 
 catch(err) {

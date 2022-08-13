@@ -247,33 +247,7 @@
                                     <input type="hidden" id="id-field" />
                                     <div class="row g-3">
                                         <div class="col-lg-12">
-                                            <!-- <div class="text-center">
-                                                <div class="position-relative d-inline-block">
-                                                    <div class="position-absolute bottom-0 end-0">
-                                                        <label for="company-logo-input" class="mb-0"
-                                                            data-bs-toggle="tooltip" data-bs-placement="right"
-                                                            title="Select Image">
-                                                            <div class="avatar-xs cursor-pointer">
-                                                                <div
-                                                                    class="avatar-title bg-light border rounded-circle text-muted">
-                                                                    <i class="ri-image-fill"></i>
-                                                                </div>
-                                                            </div>
-                                                        </label>
-                                                        <input class="form-control d-none" value=""
-                                                            id="company-logo-input" type="file"
-                                                            accept="image/png, image/gif, image/jpeg">
-                                                    </div>
-                                                    <div class="avatar-lg p-1">
-                                                        <div class="avatar-title bg-light rounded-circle">
-                                                            <img src="assets/images/users/multi-user.jpg"
-                                                                id="companylogo-img"
-                                                                class="avatar-md rounded-circle object-cover" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <h5 class="fs-13 mt-3">Company Logo</h5>
-                                            </div> -->
+
                                             <div>
                                                 <label for="companyname-field" class="form-label">Name</label>
                                                 <input type="text" id="companyname-field" class="form-control"
@@ -282,10 +256,12 @@
                                         </div>
                                         <div class="col-lg-6">
                                             <div>
-                                                <label for="owner-field" class="form-label">Lead
-                                                    Name</label>
-                                                <input type="text" id="owner-field" class="form-control"
-                                                    placeholder="Enter lead name" required />
+                                                <label for="owner-field" class="form-label">Contact Name</label> <button type="button" class="btn rounded-pill btn-light waves-effect"><a href="/leads">Add a Contact</a></button>
+                                                <select class="form-select" id="owner-field">
+                                                    <% leads.forEach(function (lead) { %>
+                                                        <option value=<%= lead.name %>><%= lead.name %></option>
+                                                            <% }) %>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">

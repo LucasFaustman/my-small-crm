@@ -72,7 +72,6 @@ const userData = await User.findOne({email: userEmail})
 
 const leadData = await crm_lead.findOne({owner: [userID]})
 
-console.log(leadData)
 
     try {
 
