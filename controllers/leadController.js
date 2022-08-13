@@ -71,7 +71,7 @@ const userData = await User.findOne({email: userEmail})
     //render tasks.ejs with the tasks of the user, as well as the title, page title, and folder for the views
         
     //res.render('leads.ejs', {tasks: taskItems , title: 'Tasks List', page_title: 'Upcoming Tasks', folder: 'Tasks'}
-    res.render('leads', { leads: leads, title: 'Leads', page_title: 'Leads', folder: 'CRM' })
+    res.render('contacts', { leads: leads, title: 'Contacts', page_title: 'Contacts', folder: 'CRM' })
     
     
     }

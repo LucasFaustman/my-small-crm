@@ -22,7 +22,7 @@
                                 Fliters</button>
                             <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal" id="create-btn"
                                 data-bs-target="#showModal"><i class="ri-add-line align-bottom me-1"></i> Add
-                                Leads</button>
+                                Contacts</button>
                             <!-- <span class="dropdown">
                                 <button class="btn btn-soft-info btn-icon fs-14" type="button" id="dropdownMenuButton1"
                                     data-bs-toggle="dropdown" aria-expanded="false">
@@ -57,7 +57,7 @@
 
                                     <th class="sort" data-sort="name">Name</th>
                                     <th class="sort" data-sort="company_name">Company</th>
-                                    <th class="sort" data-sort="leads_score">Leads Score</th>
+                                    <th class="sort" data-sort="leads_score">Contact Score</th>
                                     <th class="sort" data-sort="phone">Phone</th>
                                     <th class="sort" data-sort="location">Location</th>
                                     <th class="sort" data-sort="tags">Tags</th>
@@ -138,10 +138,10 @@
                                             <div class="flex-grow-1 ms-2 name">Lead Name</div>
                                         </div>
                                     </td>
-                                    <td class="company_name">Lead Company</td>
-                                    <td class="leads_score">Lead Score</td>
-                                    <td class="phone">Lead Phone</td>
-                                    <td class="location">Lead Location</td>
+                                    <td class="company_name">Company</td>
+                                    <td class="leads_score">Contact Score</td>
+                                    <td class="phone">Phone Number</td>
+                                    <td class="location">Contact Location</td>
                                     <td class="tags">
                                         <span class="badge badge-soft-primary">Tags</span>
                                     </td>
@@ -189,9 +189,9 @@
                                     colors="primary:#121331,secondary:#08a88a" style="width:75px;height:75px">
                                 </lord-icon>
                                 <h5 class="mt-2">Sorry! No Result Found</h5>
-                                <p class="text-muted mb-0">We've searched more than 150+ leads We
+                                <p class="text-muted mb-0">We've searched your contacts. We
                                     did not find any
-                                    leads for you search.</p>
+                                    contacts matching your search.</p>
                             </div>
                         </div>
                     </div>
@@ -265,7 +265,7 @@
                                         <!--end col-->
                                         <div class="col-lg-6">
                                             <div>
-                                                <label for="leads_score-field" class="form-label">Leads Score</label>
+                                                <label for="leads_score-field" class="form-label">Contact Score</label>
                                                 <input type="text" id="leads_score-field" class="form-control"
                                                     placeholder="Enter lead score" required />
                                             </div>
@@ -316,7 +316,7 @@
                                     <div class="hstack gap-2 justify-content-end">
                                         <button type="button" class="btn btn-light"
                                             data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-success" id="add-btn">Add leads</button>
+                                        <button type="submit" class="btn btn-success" id="add-btn">Add Contacts</button>
                                         <button type="button" class="btn btn-success" id="edit-btn">Update</button>
                                     </div>
                                 </div>
@@ -361,7 +361,7 @@
                 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasExample"
                     aria-labelledby="offcanvasExampleLabel">
                     <div class="offcanvas-header bg-light">
-                        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Leads Fliters</h5>
+                        <h5 class="offcanvas-title" id="offcanvasExampleLabel"> Contact Fliters</h5>
                         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
                             aria-label="Close"></button>
                     </div>
@@ -404,21 +404,21 @@
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" id="inlineCheckbox1"
                                                 value="option1">
-                                            <label class="form-check-label" for="inlineCheckbox1">New Leads</label>
+                                            <label class="form-check-label" for="inlineCheckbox1">New Contacts</label>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" id="inlineCheckbox2"
                                                 value="option2">
-                                            <label class="form-check-label" for="inlineCheckbox2">Old Leads</label>
+                                            <label class="form-check-label" for="inlineCheckbox2">Old Contacts</label>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" id="inlineCheckbox3"
                                                 value="option3">
-                                            <label class="form-check-label" for="inlineCheckbox3">Loss Leads</label>
+                                            <label class="form-check-label" for="inlineCheckbox3">Loss Contacts</label>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
@@ -432,7 +432,7 @@
                             </div>
                             <div class="mb-4">
                                 <label for="leadscore"
-                                    class="form-label text-muted text-uppercase fw-semibold mb-3">Lead
+                                    class="form-label text-muted text-uppercase fw-semibold mb-3">Contact
                                     Score</label>
                                 <div class="row g-2 align-items-center">
                                     <div class="col-lg">
