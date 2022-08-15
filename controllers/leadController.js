@@ -4,7 +4,10 @@ const mongoose = require('mongoose');
 
 
 const {crm_lead} = require('../Models/crm')
+const {crm_company} = require('../Models/crm')
 const User = require('../Models/user')
+const Task = require('../Models/task');
+const task = require("../Models/task");
 
 
 
@@ -155,9 +158,17 @@ module.exports.getContactDetails_get = async(req,res) => {
         //declare a variable named contact that await to find leads in the database with that specific lead id
 
     const contact = await crm_lead.find({ _id: contactId })
+    
 
+    const company = await crm_company.find({ lead: contact[0].name })
+
+
+    const task = await Task.find({_id: contact[0].tasks})
+
+
+    console.log(task)
         
-    res.render('contact', {query : contactId, contact: contact, layout: './layout/layout-without-bradcrumb', title: 'Project Overview' , page_title: 'Project Overview', folder: 'Projects' });
+    res.render('contact', {query : contactId, contacts: contact, companies: company, tasks: task,  layout: './layout/layout-without-bradcrumb', title: 'Project Overview' , page_title: 'Project Overview', folder: 'Projects' });
 
     }
     catch (err) {

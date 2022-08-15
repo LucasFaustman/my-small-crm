@@ -8,23 +8,19 @@
                     <div class="row mb-3">
                         <div class="col-md">
                             <div class="row align-items-center g-3">
-                                <div class="col-md-auto">
-                                    <div class="avatar-md">
-                                        <div class="avatar-title bg-white rounded-circle">
-                                            <img src="/assets/images/brands/slack.png" alt="" class="avatar-xs">
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="col-md">
                                     <div>
-                                        <h4 class="fw-bold">Velzon - Admin & Dashboard</h4> <!--name of contact-->
+                                        <% contacts.forEach(function (contact) { %>
+                                        <h4 class="fw-bold"><%= contact.name %></h4> <!--name of contact-->
                                         <div class="hstack gap-3 flex-wrap">
-                                            <div><i class="ri-building-line align-bottom me-1"></i> Themesbrand</div> <!--name of company-->
+                                            <div><i class="ri-building-line align-bottom me-1"></i> <%= contact.company %></div> <!--name of company-->
                                             <div class="vr"></div>
-                                            <div>Create Date : <span class="fw-medium">15 Sep, 2021</span></div> <!--create date-->
+                                            <div>Create Date : <span class="fw-medium"><%= contact.date.toDateString() %></span></div> <!--create date-->
                                             <div class="vr"></div>
-                                            <div class="badge rounded-pill bg-info fs-12">New</div> <!--tags-->
-                                            <div class="badge rounded-pill bg-danger fs-12">High</div>
+                                            <% contact.tags.forEach(function (tag) { %>
+                                            <div class="badge rounded-pill bg-info fs-12"><%= tag %></div> <!--tags-->
+                                            <% }) %>
+                                            <% }) %>
                                         </div>
                                     </div>
                                 </div>
@@ -69,413 +65,242 @@
         <div class="tab-content text-muted">
             <div class="tab-pane fade show active" id="project-overview" role="tabpanel">
                 <div class="row">
-                    <div class="col-xl-9 col-lg-8">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="text-muted">
-                                    <h6 class="mb-3 fw-semibold text-uppercase">Summary</h6>
-                                    <!-- <p>It will be as simple as occidental in fact, it will be Occidental. To an English
-                                        person, it will seem like simplified English, as a skeptical Cambridge friend of
-                                        mine told me what Occidental is. The European languages are members of the same
-                                        family. Their separate existence is a myth. For science, music, sport, etc,
-                                        Europe uses the same vocabulary. The languages only differ in their grammar,
-                                        their pronunciation and their most common words.</p>
+                    <div class="col-xxl-9">
 
-                                    <ul class="ps-4 vstack gap-2">
-                                        <li>Product Design, Figma (Software), Prototype</li>
-                                        <li>Four Dashboards : Ecommerce, Analytics, Project,etc.</li>
-                                        <li>Create calendar, chat and email app pages.</li>
-                                        <li>Add authentication pages.</li>
-                                        <li>Content listing.</li>
-                                    </ul>
-
-                                    <div>
-                                        <button type="button" class="btn btn-link link-success p-0">Read more</button>
-                                    </div> -->
-
-                                    <div class="pt-3 border-top border-top-dashed mt-4">
-                                        <div class="row">
-
-                                            <div class="col-lg-3 col-sm-6">
-                                                <div>
-                                                    <p class="mb-2 text-uppercase fw-medium">Create Date :</p>
-                                                    <h5 class="fs-15 mb-0">15 Sep, 2021</h5>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3 col-sm-6">
-                                                <div>
-                                                    <p class="mb-2 text-uppercase fw-medium">Due Date :</p>
-                                                    <h5 class="fs-15 mb-0">29 Dec, 2021</h5>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3 col-sm-6">
-                                                <div>
-                                                    <p class="mb-2 text-uppercase fw-medium">Priority :</p>
-                                                    <div class="badge bg-danger fs-12">High</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3 col-sm-6">
-                                                <div>
-                                                    <p class="mb-2 text-uppercase fw-medium">Status :</p>
-                                                    <div class="badge bg-warning fs-12">Inprogess</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    
-                                </div>
-                            </div>
-                            <!-- end card body -->
-                        </div>
                         <!-- end card -->
 
-                        <div class="card">
+                        <div class="card" id="tasksList">
                             <div class="card-header align-items-center d-flex">
                                 <h4 class="card-title mb-0 flex-grow-1">Upcoming Tasks</h4>
+                                <div class="flex-shrink-0">
+                                    <button class="btn btn-danger add-btn" data-bs-toggle="modal" data-bs-target="#showModal"><i
+                                            class="ri-add-line align-bottom me-1"></i> Create Task</button>
+                                </div>
                             </div><!-- end card header -->
 
-                            <div class="card-body">
 
-                                <!-- <div data-simplebar style="height: 300px;" class="px-3 mx-n3 mb-2">
-                                    <div class="d-flex mb-4">
-                                        <div class="flex-shrink-0">
-                                            <img src="/assets/images/users/avatar-8.jpg" alt=""
-                                                class="avatar-xs rounded-circle" />
-                                        </div>
-                                        <div class="flex-grow-1 ms-3">
-                                            <h5 class="fs-13">Joseph Parker <small class="text-muted ms-2">20 Dec 2021 -
-                                                    05:47AM</small></h5>
-                                            <p class="text-muted">I am getting message from customers that when they
-                                                place order always get error message .</p>
-                                            <a href="javascript: void(0);" class="badge text-muted bg-light"><i
-                                                    class="mdi mdi-reply"></i> Reply</a>
-                                            <div class="d-flex mt-4">
-                                                <div class="flex-shrink-0">
-                                                    <img src="assets/images/users/avatar-10.jpg" alt=""
-                                                        class="avatar-xs rounded-circle" />
-                                                </div>
-                                                <div class="flex-grow-1 ms-3">
-                                                    <h5 class="fs-13">Alexis Clarke <small class="text-muted ms-2">22
-                                                            Dec 2021 - 02:32PM</small></h5>
-                                                    <p class="text-muted">Please be sure to check your Spam mailbox to
-                                                        see if your email filters have identified the email from Dell as
-                                                        spam.</p>
-                                                    <a href="javascript: void(0);" class="badge text-muted bg-light"><i
-                                                            class="mdi mdi-reply"></i> Reply</a>
-                                                </div>
-                                            </div>
-                                        </div>
+                            <div class="card-body">
+                                <div class="table-responsive table-card mb-4">
+                                    <table class="table align-middle table-nowrap mb-0" id="tasksTable">
+                                        <thead class="table-light text-muted">
+                                            <tr>
+                                                <th class="sort" data-sort="tasks_name">Task</th>
+                                                <th class="sort" data-sort="client_name">Lead Name</th>
+                                                <th class="sort" data-sort="due_date">Due Date</th>
+                                                <th class="sort" data-sort="status">Status</th>
+                                                <th class="sort" data-sort="priority">Priority</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="list form-check-all">
+                                            <tr>
+                                                <% tasks.filter(task => task.statusFieldVal !== "Completed").forEach(function (task) { %>
+                                                
+                                                <td class="id" style="display:none;"><%= task._id %></td>
+                                                <td>
+                                                    <div class="d-flex">
+                                                        <div class="flex-grow-1 tasks_name"><%=task.tasksTitleFieldVal %></div>
+                                                        <div class="flex-shrink-0 ms-4">
+                                                            <ul class="list-inline tasks-list-menu mb-0">
+                                                                <li class="list-inline-item"><a class="edit-item-btn" href="#showModal"
+                                                                        data-bs-toggle="modal"><i
+                                                                            class="ri-pencil-fill align-bottom me-2 text-muted"></i></a>
+                                                                </li>
+                                                                <li class="list-inline-item">
+                                                                    <a class="remove-item-btn" data-bs-toggle="modal"
+                                                                        href="#deleteOrder">
+                                                                        <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="client_name"><%=task.clientNameFieldVal %></td>
+                                                
+                                                <td class="due_date"><%= task.dateDueFieldVal.toDateString() %></td> 
+                                                <td class="status">
+                                                    <span  class="badge badge-soft-secondary text-uppercase"><%=task.statusFieldVal %></span>
+                                                </td>
+                                                <td class="priority">
+                                                    <span class="badge bg-danger text-uppercase"><%=task.priorityFieldVal %></span>
+                                                </td>
+                                                <% }) %>
+                                            </tr>
+                                        </tbody> 
+                                    
+                                        
+                                    </table>
+                                    
+                                    <!--end table-->
+                                </div>
+                                <div class="d-flex justify-content-end mt-2">
+                                    <div class="pagination-wrap hstack gap-2">
+                                        <a class="page-item pagination-prev disabled" href="#">
+                                            Previous
+                                        </a>
+                                        <ul class="pagination listjs-pagination mb-0"></ul>
+                                        <a class="page-item pagination-next" href="#">
+                                            Next
+                                        </a>
                                     </div>
-                                    <div class="d-flex mb-4">
-                                        <div class="flex-shrink-0">
-                                            <img src="/assets/images/users/avatar-6.jpg" alt=""
-                                                class="avatar-xs rounded-circle" />
-                                        </div>
-                                        <div class="flex-grow-1 ms-3">
-                                            <h5 class="fs-13">Donald Palmer <small class="text-muted ms-2">24 Dec 2021 -
-                                                    05:20PM</small></h5>
-                                            <p class="text-muted">If you have further questions, please contact Customer
-                                                Support from the “Action Menu” on your <a href="javascript:void(0);"
-                                                    class="text-decoration-underline">Online Order Support</a>.</p>
-                                            <a href="javascript: void(0);" class="badge text-muted bg-light"><i
-                                                    class="mdi mdi-reply"></i> Reply</a>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex">
-                                        <div class="flex-shrink-0">
-                                            <img src="assets/images/users/avatar-10.jpg" alt=""
-                                                class="avatar-xs rounded-circle" />
-                                        </div>
-                                        <div class="flex-grow-1 ms-3">
-                                            <h5 class="fs-13">Alexis Clarke <small class="text-muted ms-2">26 min
-                                                    ago</small></h5>
-                                            <p class="text-muted">Your <a href="javascript:void(0)"
-                                                    class="text-decoration-underline">Online Order Support</a> provides
-                                                you with the most current status of your order. To help manage your
-                                                order refer to the “Action Menu” to initiate return, contact Customer
-                                                Support and more.</p>
-                                            <div class="row g-2 mb-3">
-                                                <div class="col-lg-1 col-sm-2 col-6">
-                                                    <img src="assets/images/small/img-4.jpg" alt=""
-                                                        class="img-fluid rounded">
-                                                </div>
-                                                <div class="col-lg-1 col-sm-2 col-6">
-                                                    <img src="assets/images/small/img-5.jpg" alt=""
-                                                        class="img-fluid rounded">
-                                                </div>
-                                            </div>
-                                            <a href="javascript: void(0);" class="badge text-muted bg-light"><i
-                                                    class="mdi mdi-reply"></i> Reply</a>
-                                            <div class="d-flex mt-4">
-                                                <div class="flex-shrink-0">
-                                                    <img src="/assets/images/users/avatar-6.jpg" alt=""
-                                                        class="avatar-xs rounded-circle" />
-                                                </div>
-                                                <div class="flex-grow-1 ms-3">
-                                                    <h5 class="fs-13">Donald Palmer <small class="text-muted ms-2">8 sec
-                                                            ago</small></h5>
-                                                    <p class="text-muted">Other shipping methods are available at
-                                                        checkout if you want your purchase delivered faster.</p>
-                                                    <a href="javascript: void(0);" class="badge text-muted bg-light"><i
-                                                            class="mdi mdi-reply"></i> Reply</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> -->
-                                <form class="mt-4">
-                                    <div class="row g-3">
-                                        <div class="col-12">
-                                            <label for="exampleFormControlTextarea1" class="form-label text-body">Add a Task</label>
-                                            <textarea class="form-control bg-light border-light"
-                                                id="exampleFormControlTextarea1" rows="3"
-                                                placeholder="Enter your comment..."></textarea>
-                                        </div>
-                                        <div class="col-12 text-end">
-                                            <button type="button"
-                                                class="btn btn-ghost-secondary btn-icon waves-effect me-1"><i
-                                                    class="ri-attachment-line fs-16"></i></button>
-                                            <a href="javascript:void(0);" class="btn btn-success">Post Comments</a>
-                                        </div>
-                                    </div>
-                                </form>
+                                </div>
                             </div>
-                            <!-- end card body -->
+
+                            
+                            <!--end card-body-->
                         </div>
-                        <!-- end card -->
+
+                        <div class="card" id="tasksList">
+                            <div class="card-header align-items-center d-flex">
+                                <h4 class="card-title mb-0 flex-grow-1">Completed Tasks</h4>
+                            </div><!-- end card header -->
+
+
+                            <div class="card-body">
+                                <div class="table-responsive table-card mb-4">
+                                    <table class="table align-middle table-nowrap mb-0" id="tasksTable">
+                                        <thead class="table-light text-muted">
+                                            <tr>
+                                                <th class="sort" data-sort="tasks_name">Task</th>
+                                                <th class="sort" data-sort="client_name">Lead Name</th>
+                                                <th class="sort" data-sort="due_date">Due Date</th>
+                                                <th class="sort" data-sort="status">Status</th>
+                                                <th class="sort" data-sort="priority">Priority</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="list form-check-all">
+                                            <tr>
+                                                <% tasks.filter(task => task.statusFieldVal === "Completed").forEach(function (task) { %>
+                                                
+                                                <td class="id" style="display:none;"><%= task._id %></td>
+                                                <td>
+                                                    <div class="d-flex">
+                                                        <div class="flex-grow-1 tasks_name"><%=task.tasksTitleFieldVal %></div>
+                                                        <div class="flex-shrink-0 ms-4">
+                                                            <ul class="list-inline tasks-list-menu mb-0">
+                                                                <li class="list-inline-item"><a class="edit-item-btn" href="#showModal"
+                                                                        data-bs-toggle="modal"><i
+                                                                            class="ri-pencil-fill align-bottom me-2 text-muted"></i></a>
+                                                                </li>
+                                                                <li class="list-inline-item">
+                                                                    <a class="remove-item-btn" data-bs-toggle="modal"
+                                                                        href="#deleteOrder">
+                                                                        <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i>
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                
+                                                <td class="client_name"><%=task.clientNameFieldVal %></td>
+                                                <td class="due_date"><%= task.dateDueFieldVal.toDateString() %></td> 
+                                                <td class="status">
+                                                    <span  class="badge badge-soft-secondary text-uppercase"><%=task.statusFieldVal %></span>
+                                                </td>
+                                                <td class="priority">
+                                                    <span class="badge bg-danger text-uppercase"><%=task.priorityFieldVal %></span>
+                                                </td>
+                                                <% }) %>
+                                            </tr>
+                                        </tbody> 
+                                    
+                                    </table>
+                                    
+                                    <!--end table-->
+                                </div>
+                                <div class="d-flex justify-content-end mt-2">
+                                    <div class="pagination-wrap hstack gap-2">
+                                        <a class="page-item pagination-prev disabled" href="#">
+                                            Previous
+                                        </a>
+                                        <ul class="pagination listjs-pagination mb-0"></ul>
+                                        <a class="page-item pagination-next" href="#">
+                                            Next
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            
+                            <!--end card-body-->
+                        </div>
+                        <!--end card-->                           
                     </div>
-                    <!-- ene col -->
-                    <div class="col-xl-3 col-lg-4">
+
                         
-                        <!-- end card -->
-
-                        <div class="card">
-                            <div class="card-header align-items-center d-flex border-bottom-dashed">
-                                <h4 class="card-title mb-0 flex-grow-1">Members</h4>
-                                <div class="flex-shrink-0">
-                                    <button type="button" class="btn btn-soft-danger btn-sm" data-bs-toggle="modal"
-                                        data-bs-target="#inviteMembersModal"><i
-                                            class="ri-share-line me-1 align-bottom"></i> Invite Member</button>
-                                </div>
-                            </div>
-
-                            <div class="card-body">
-                                <div data-simplebar style="height: 235px;" class="mx-n3 px-3">
-                                    <div class="vstack gap-3">
-                                        <div class="d-flex align-items-center">
-                                            <div class="avatar-xs flex-shrink-0 me-3">
-                                                <img src="/assets/images/users/avatar-2.jpg" alt=""
-                                                    class="img-fluid rounded-circle">
-                                            </div>
-                                            <div class="flex-grow-1">
-                                                <h5 class="fs-13 mb-0"><a href="#" class="text-body d-block">Nancy
-                                                        Martino</a></h5>
-                                            </div>
-                                            <div class="flex-shrink-0">
-                                                <div class="d-flex align-items-center gap-1">
-                                                    <button type="button" class="btn btn-light btn-sm">Message</button>
-                                                    <div class="dropdown">
-                                                        <button class="btn btn-icon btn-sm fs-16 text-muted dropdown"
-                                                            type="button" data-bs-toggle="dropdown"
-                                                            aria-expanded="false">
-                                                            <i class="ri-more-fill"></i>
-                                                        </button>
-                                                        <ul class="dropdown-menu">
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i
-                                                                        class="ri-eye-fill text-muted me-2 align-bottom"></i>View</a>
-                                                            </li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i
-                                                                        class="ri-star-fill text-muted me-2 align-bottom"></i>Favourite</a>
-                                                            </li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i
-                                                                        class="ri-delete-bin-5-fill text-muted me-2 align-bottom"></i>Delete</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- end member item -->
-                                        <div class="d-flex align-items-center">
-                                            <div class="avatar-xs flex-shrink-0 me-3">
-                                                <div class="avatar-title bg-soft-danger text-danger rounded-circle">
-                                                    HB
-                                                </div>
-                                            </div>
-                                            <div class="flex-grow-1">
-                                                <h5 class="fs-13 mb-0"><a href="#" class="text-body d-block">Henry
-                                                        Baird</a></h5>
-                                            </div>
-                                            <div class="flex-shrink-0">
-                                                <div class="d-flex align-items-center gap-1">
-                                                    <button type="button" class="btn btn-light btn-sm">Message</button>
-                                                    <div class="dropdown">
-                                                        <button class="btn btn-icon btn-sm fs-16 text-muted dropdown"
-                                                            type="button" data-bs-toggle="dropdown"
-                                                            aria-expanded="false">
-                                                            <i class="ri-more-fill"></i>
-                                                        </button>
-                                                        <ul class="dropdown-menu">
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i
-                                                                        class="ri-eye-fill text-muted me-2 align-bottom"></i>View</a>
-                                                            </li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i
-                                                                        class="ri-star-fill text-muted me-2 align-bottom"></i>Favourite</a>
-                                                            </li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i
-                                                                        class="ri-delete-bin-5-fill text-muted me-2 align-bottom"></i>Delete</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- end member item -->
-                                        <div class="d-flex align-items-center">
-                                            <div class="avatar-xs flex-shrink-0 me-3">
-                                                <img src="/assets/images/users/avatar-3.jpg" alt=""
-                                                    class="img-fluid rounded-circle">
-                                            </div>
-                                            <div class="flex-grow-1">
-                                                <h5 class="fs-13 mb-0"><a href="#" class="text-body d-block">Frank
-                                                        Hook</a></h5>
-                                            </div>
-                                            <div class="flex-shrink-0">
-                                                <div class="d-flex align-items-center gap-1">
-                                                    <button type="button" class="btn btn-light btn-sm">Message</button>
-                                                    <div class="dropdown">
-                                                        <button class="btn btn-icon btn-sm fs-16 text-muted dropdown"
-                                                            type="button" data-bs-toggle="dropdown"
-                                                            aria-expanded="false">
-                                                            <i class="ri-more-fill"></i>
-                                                        </button>
-                                                        <ul class="dropdown-menu">
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i
-                                                                        class="ri-eye-fill text-muted me-2 align-bottom"></i>View</a>
-                                                            </li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i
-                                                                        class="ri-star-fill text-muted me-2 align-bottom"></i>Favourite</a>
-                                                            </li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i
-                                                                        class="ri-delete-bin-5-fill text-muted me-2 align-bottom"></i>Delete</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- end member item -->
-                                        <div class="d-flex align-items-center">
-                                            <div class="avatar-xs flex-shrink-0 me-3">
-                                                <img src="/assets/images/users/avatar-4.jpg" alt=""
-                                                    class="img-fluid rounded-circle">
-                                            </div>
-                                            <div class="flex-grow-1">
-                                                <h5 class="fs-13 mb-0"><a href="#" class="text-body d-block">Jennifer
-                                                        Carter</a></h5>
-                                            </div>
-                                            <div class="flex-shrink-0">
-                                                <div class="d-flex align-items-center gap-1">
-                                                    <button type="button" class="btn btn-light btn-sm">Message</button>
-                                                    <div class="dropdown">
-                                                        <button class="btn btn-icon btn-sm fs-16 text-muted dropdown"
-                                                            type="button" data-bs-toggle="dropdown"
-                                                            aria-expanded="false">
-                                                            <i class="ri-more-fill"></i>
-                                                        </button>
-                                                        <ul class="dropdown-menu">
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i
-                                                                        class="ri-eye-fill text-muted me-2 align-bottom"></i>View</a>
-                                                            </li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i
-                                                                        class="ri-star-fill text-muted me-2 align-bottom"></i>Favourite</a>
-                                                            </li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i
-                                                                        class="ri-delete-bin-5-fill text-muted me-2 align-bottom"></i>Delete</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- end member item -->
-                                        <div class="d-flex align-items-center">
-                                            <div class="avatar-xs flex-shrink-0 me-3">
-                                                <div class="avatar-title bg-soft-success text-success rounded-circle">
-                                                    AC
-                                                </div>
-                                            </div>
-                                            <div class="flex-grow-1">
-                                                <h5 class="fs-13 mb-0"><a href="#" class="text-body d-block">Alexis
-                                                        Clarke</a></h5>
-                                            </div>
-                                            <div class="flex-shrink-0">
-                                                <div class="d-flex align-items-center gap-1">
-                                                    <button type="button" class="btn btn-light btn-sm">Message</button>
-                                                    <div class="dropdown">
-                                                        <button class="btn btn-icon btn-sm fs-16 text-muted dropdown"
-                                                            type="button" data-bs-toggle="dropdown"
-                                                            aria-expanded="false">
-                                                            <i class="ri-more-fill"></i>
-                                                        </button>
-                                                        <ul class="dropdown-menu">
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i
-                                                                        class="ri-eye-fill text-muted me-2 align-bottom"></i>View</a>
-                                                            </li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i
-                                                                        class="ri-star-fill text-muted me-2 align-bottom"></i>Favourite</a>
-                                                            </li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i
-                                                                        class="ri-delete-bin-5-fill text-muted me-2 align-bottom"></i>Delete</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- end member item -->
-                                        <div class="d-flex align-items-center">
-                                            <div class="avatar-xs flex-shrink-0 me-3">
-                                                <img src="/assets/images/users/avatar-7.jpg" alt=""
-                                                    class="img-fluid rounded-circle">
-                                            </div>
-                                            <div class="flex-grow-1">
-                                                <h5 class="fs-13 mb-0"><a href="#" class="text-body d-block">Joseph
-                                                        Parker</a></h5>
-                                            </div>
-                                            <div class="flex-shrink-0">
-                                                <div class="d-flex align-items-center gap-1">
-                                                    <button type="button" class="btn btn-light btn-sm">Message</button>
-                                                    <div class="dropdown">
-                                                        <button class="btn btn-icon btn-sm fs-16 text-muted dropdown"
-                                                            type="button" data-bs-toggle="dropdown"
-                                                            aria-expanded="false">
-                                                            <i class="ri-more-fill"></i>
-                                                        </button>
-                                                        <ul class="dropdown-menu">
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i
-                                                                        class="ri-eye-fill text-muted me-2 align-bottom"></i>View</a>
-                                                            </li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i
-                                                                        class="ri-star-fill text-muted me-2 align-bottom"></i>Favourite</a>
-                                                            </li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);"><i
-                                                                        class="ri-delete-bin-5-fill text-muted me-2 align-bottom"></i>Delete</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- end member item -->
+                            <div class="col-xxl-3">
+                                <div class="card" id="company-view-detail">
+                                    <div class="card-body text-center">
+                                        <% companies.forEach(function (company) { %>
+                                        <h5 class="mt-3 mb-1"><%= company.name %></h5>
+                                        <p class="text-muted"><%= company.lead %></p>
+                        
+                                        <ul class="list-inline mb-0">
+                                            <li class="list-inline-item avatar-xs">
+                                                <a href='https://www.<%= company.website %>/' class="avatar-title bg-soft-success text-success fs-15 rounded">
+                                                    <i class="ri-global-line"></i>
+                                                </a>
+                                            </li>
+                                            <li class="list-inline-item avatar-xs">
+                                                <a href="mailto:<%= company.contact_email %>" class="avatar-title bg-soft-danger text-danger fs-15 rounded">
+                                                    <i class="ri-mail-line"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <% }) %>
                                     </div>
-                                    <!-- end list -->
+                                    <div class="card-body">
+                                        <div class="table-responsive table-card">
+                                            <table class="table table-borderless mb-0">
+                                                
+                                                <% companies.forEach(function (company) { %>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="fw-medium" scope="row">Industry Type</td>
+                                                            <td><%= company.industry_type %></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="fw-medium" scope="row">Location</td>
+                                                            <td><%= company.location %></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="fw-medium" scope="row">Employee Count</td>
+                                                            <td><%= company.employee %></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="fw-medium" scope="row">Rating</td>
+                                                            <td> <i class="ri-star-fill text-warning align-bottom"><%= company.star_value %></i></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="fw-medium" scope="row">Website</td>
+                                                            <td>
+                                                                <a href='https://www.<%= company.website %>/'
+                                                                    class="link-primary text-decoration-underline"><%= company.website %></a>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="fw-medium" scope="row">Contact Email</td>
+                                                            <td><%= company.contact_email %></td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <% }) %>
+                                                    
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
+                                <!--end card-->
                             </div>
-                            <!-- end card body -->
-                        </div>
-                        <!-- end card -->
+                            
+                            <!--end col-->
+                </div>
+                
+      
+                    
+
+
+                        
 
                         
 
