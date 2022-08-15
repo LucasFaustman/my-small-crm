@@ -163,10 +163,8 @@ module.exports.getContactDetails_get = async(req,res) => {
     const company = await crm_company.find({ lead: contact[0].name })
 
 
-    const task = await Task.find({_id: contact[0].tasks})
+    const task = await Task.find({_id: contact[0].tasks}).sort({ dateDueFieldVal: 1 })
 
-
-    console.log(task)
         
     res.render('contact', {query : contactId, contacts: contact, companies: company, tasks: task,  layout: './layout/layout-without-bradcrumb', title: 'Project Overview' , page_title: 'Project Overview', folder: 'Projects' });
 
