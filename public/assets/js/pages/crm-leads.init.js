@@ -154,6 +154,7 @@ var idField = document.getElementById("id-field"),
     editBtn = document.getElementById("edit-btn"),
     removeBtns = document.getElementsByClassName("remove-item-btn"),
     editBtns = document.getElementsByClassName("edit-item-btn");
+    taskDetailsBtn = document.getElementsByClassName("task-details-btn")
 refreshCallbacks();
 
 document.getElementById("showModal").addEventListener("show.bs.modal", function (e) {
@@ -284,6 +285,7 @@ addBtn.addEventListener("click", async function (e) {
     
 });
 
+
 editBtn.addEventListener("click", async function (e) {
     document.getElementById("exampleModalLabel").innerHTML = "Edit Contact";
     var editValues = leadsList.get({
@@ -325,6 +327,9 @@ editBtn.addEventListener("click", async function (e) {
             
             console.log(data)
 
+            if (res.redirect) {
+                document.location.href = res.render
+            }
 
             }
             catch(err) {
@@ -431,6 +436,37 @@ function refreshCallbacks() {
         });
     });
 }
+
+//go to lead details page
+
+taskDetailsBtn = document.getElementsByClassName("contact-details-btn")
+Array.from(taskDetailsBtn).forEach(async function (btn) {
+    btn.addEventListener("click", async function (e) {
+
+        itemId = e.target.closest("tr").children[0].innerText;
+
+
+
+        try {
+            //fetch the contact detail with id passed in as queryparam route
+            const res = await fetch(`/contact/${itemId}`, {
+                //get method
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' }
+            });
+            const data = await res
+            console.log(data)
+    
+                //window.location.href = data.url
+            
+            
+        }
+        catch (err) {
+            console.log(err)
+        }   
+    
+})
+})
 
 function clearFields() {
     leadNameField.value = "";

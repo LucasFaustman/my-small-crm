@@ -144,5 +144,31 @@ catch (err) {
 }
 
 
+module.exports.getContactDetails_get = async(req,res) => {
+
+    console.log(req.params.itemId)
+
+    let contactId = req.params.itemId
+
+    
+    try {
+
+        //declare a variable named leads that await to find leads in the database with that specific lead is
+
+    const contact = await crm_lead.find({ _id: contactId })
+
+    
+
+        //render ./layout/layout-without-bradcrumb
+        
+    res.render('contact', {query : contactId, contact: contact, layout: 'layout/layout-without-bradcrumb', title: 'Project Overview' , page_title: 'Project Overview', folder: 'Projects' });
+
+    }
+    catch (err) {
+        console.log(err)
+    }
+
+}
+
 
   

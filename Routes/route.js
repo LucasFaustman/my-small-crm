@@ -152,9 +152,9 @@ route.get('/apps-ecommerce-seller-details', (req, res, next) => {
 route.get('/apps-projects-list', (req, res, next) => {
     res.render('apps-projects-list', { title: 'Project List', page_title: 'Project List', folder: 'Projects' });
 })
-route.get('/apps-projects-overview', (req, res, next) => {
-    res.render('apps-projects-overview', { layout: 'layout/layout-without-bradcrumb', title: 'Project Overview', page_title: 'Project Overview', folder: 'Projects' });
-})
+// route.get('/contact', (req, res, next) => {
+//     res.render('contact', { layout: 'layout/layout-without-bradcrumb', title: 'Project Overview', page_title: 'Project Overview', folder: 'Projects' });
+// })
 route.get('/apps-projects-create', (req, res, next) => {
     res.render('apps-projects-create', { title: 'Create Project', page_title: 'Create Project', folder: 'Projects' });
 })

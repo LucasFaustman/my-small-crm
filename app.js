@@ -10,7 +10,6 @@ const companyroute = require('./Routes/companyroute')
 const expressLayouts = require('express-ejs-layouts');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
-const upload = require('express-fileupload');
 const dotenv = require('dotenv');
 dotenv.config({ path: "./config.env" });
 const mongoose = require('mongoose');
@@ -44,7 +43,7 @@ mongoose.connect(process.env.DATABASE, {
 //middlewar
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'Views'));
-// app.use(upload());
+
 
 app.use(express.json());
 app.use(session({ resave: false, saveUninitialized: true, secret: 'nodedemo' }));
@@ -54,6 +53,7 @@ app.set('layout', 'layout/layout');
 app.use(expressLayouts);
 
 app.use(express.static(__dirname + '/public'));
+
 
 
 app.use('/', tasksroute)
