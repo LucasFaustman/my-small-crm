@@ -417,7 +417,7 @@ var attrList = new List('users', attroptions);
 attrList.add({
     name: 'Leia',
     born: '1954',
-    image: 'assets/images/users/avatar-5.jpg',
+    image: '/assets/images/users/avatar-5.jpg',
     id: 5,
     timestamp: '67893'
 });

@@ -100,7 +100,7 @@ var LeafIcon = L.Icon.extend({
 });
 
 var greenIcon = new LeafIcon({
-    iconUrl: 'assets/images/logo-sm.png'
+    iconUrl: '/assets/images/logo-sm.png'
 });
 
 L.marker([51.5, -0.09], {

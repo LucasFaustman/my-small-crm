@@ -439,34 +439,34 @@ function refreshCallbacks() {
 
 //go to lead details page
 
-taskDetailsBtn = document.getElementsByClassName("contact-details-btn")
-Array.from(taskDetailsBtn).forEach(async function (btn) {
-    btn.addEventListener("click", async function (e) {
+// taskDetailsBtn = document.getElementsByClassName("contact-details-btn")
+// Array.from(taskDetailsBtn).forEach(async function (btn) {
+//     btn.addEventListener("click", async function (e) {
 
-        itemId = e.target.closest("tr").children[0].innerText;
+//         itemId = e.target.closest("tr").children[0].innerText;
 
 
 
-        try {
-            //fetch the contact detail with id passed in as queryparam route
-            const res = await fetch(`/contact/${itemId}`, {
-                //get method
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json' }
-            });
-            const data = await res
-            console.log(data)
+//         try {
+//             //fetch the contact detail with id passed in as queryparam route
+//             const res = await fetch(`/contact/${itemId}`, {
+//                 //get method
+//                 method: 'GET',
+//                 headers: { 'Content-Type': 'application/json' }
+//             });
+//             const data = await res
+//             console.log(data)
     
-                //window.location.href = data.url
+//                 //window.location.href = data.url
             
             
-        }
-        catch (err) {
-            console.log(err)
-        }   
+//         }
+//         catch (err) {
+//             console.log(err)
+//         }   
     
-})
-})
+// })
+// })
 
 function clearFields() {
     leadNameField.value = "";

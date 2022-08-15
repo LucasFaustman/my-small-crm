@@ -245,7 +245,7 @@ route.get('/apps-nft-create', (req, res, next) => {
     res.render('apps-nft-create', { title: 'Create NFT', page_title: 'Create NFT', folder: 'NFT Marketplace' });
 })
 
-
+//
 route.get('/pages-starter', (req, res, next) => {
     res.render('pages-starter', { title: 'Starter', page_title: 'Starter', folder: 'Pages' });
 })

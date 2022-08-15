@@ -1567,11 +1567,11 @@ File: Main Css File
 }
 
 [data-sidebar-image=img-3] .sidebar-background {
-  background-image: url("../images/sidebar/img-3.jpg");
+  background-image: url("..//images/sidebar/img-3.jpg");
 }
 
 [data-sidebar-image=img-4] .sidebar-background {
-  background-image: url("../images/sidebar/img-4.jpg");
+  background-image: url("..//images/sidebar/img-4.jpg");
 }
 
 [data-layout=horizontal] .main-content {

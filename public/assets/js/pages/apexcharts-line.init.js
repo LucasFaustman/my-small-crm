@@ -820,7 +820,7 @@ if (linechartannotationsColors) {
                     size: 0
                 },
                 image: {
-                    path: './assets/images/logo-sm.png',
+                    path: './/assets/images/logo-sm.png',
                     width: 40,
                     height: 40
                 }

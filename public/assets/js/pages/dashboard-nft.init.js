@@ -642,35 +642,35 @@ if (vectorMapWorldMarkersColors) {
                 name: "United States",
                 coords: [37.0902, 95.7129],
                 style: {
-                    image: "assets/images/flags/us.svg",
+                    image: "/assets/images/flags/us.svg",
                 }
             },
             {
                 name: "Russia",
                 coords: [61.524, 105.3188],
                 style: {
-                    image: "assets/images/flags/russia.svg",
+                    image: "/assets/images/flags/russia.svg",
                 }
             },
             {
                 name: "Spain",
                 coords: [40.4637, 3.7492],
                 style: {
-                    image: "assets/images/flags/spain.svg",
+                    image: "/assets/images/flags/spain.svg",
                 }
             },
             {
                 name: "Italy",
                 coords: [41.8719, 12.5674],
                 style: {
-                    image: "assets/images/flags/italy.svg",
+                    image: "/assets/images/flags/italy.svg",
                 }
             },
             {
                 name: "Germany",
                 coords: [51.1657, 10.4515],
                 style: {
-                    image: "assets/images/flags/germany.svg",
+                    image: "/assets/images/flags/germany.svg",
                 }
             },
         ],
