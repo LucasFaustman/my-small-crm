@@ -5,6 +5,7 @@ const crypto = require('crypto')
 const {crm_lead} = require('./crm')
 const {crm_company} = require('./crm')
 const task = require('./task')
+const deal = require('./deals')
 
 const userschema =  new mongoose.Schema({
     // first_name: {
@@ -39,9 +40,17 @@ const userschema =  new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: '{crm_lead}'
 }],
+leads: [{
+  type: mongoose.Schema.Types.ObjectId,
+  ref: '{crm_lead}'
+}],
 companies: [{
   type: mongoose.Schema.Types.ObjectId,
   ref: '{crm_company}'
+}],
+leads: [{
+  type: mongoose.Schema.Types.ObjectId,
+  ref: 'deals'
 }]
     // role: {
     //     type: String,

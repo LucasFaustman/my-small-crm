@@ -6,6 +6,7 @@ const route = require('./Routes/route');
 const authroute = require('./Routes/authroute');
 const leadroute = require('./Routes/leadroute');
 const tasksroute = require('./Routes/tasksroute')
+const dealroute = require('./Routes/dealroute')
 const companyroute = require('./Routes/companyroute')
 const expressLayouts = require('express-ejs-layouts');
 const session = require('express-session');
@@ -60,6 +61,7 @@ app.use('/', tasksroute)
 app.use('/', authroute);
 app.use('/', leadroute)
 app.use('/', companyroute)
+app.use('/', dealroute)
 app.use('/', route);
 
 

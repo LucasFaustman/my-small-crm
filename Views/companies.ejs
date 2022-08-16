@@ -364,6 +364,7 @@
         <!--end card-->
     </div>
     <!--end col-->
+    <% if (companies.length > 0) { %>
     <div class="col-xxl-3">
         <div class="card" id="company-view-detail">
             <div class="card-body text-center">
@@ -382,11 +383,6 @@
                             <i class="ri-mail-line"></i>
                         </a>
                     </li>
-                    <!-- <li class="list-inline-item avatar-xs">
-                        <a href="javascript:void(0);" class="avatar-title bg-soft-warning text-warning fs-15 rounded">
-                            <i class="ri-question-answer-line"></i>
-                        </a>
-                    </li> -->
                 </ul>
             </div>
             <div class="card-body">
@@ -425,6 +421,7 @@
                                     <td><a href="mailto:<%= companies[0].contact_email %>"><%= companies[0].contact_email %></td>
                                 </tr>
                                 
+                                    
                                 
                             </tbody>
                             
@@ -435,6 +432,7 @@
         <!--end card-->
     </div>
     <!--end col-->
+    <% } %>
 </div>
 <!--end row-->
 

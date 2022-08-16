@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const Task = require('./task')
+const Deal = require('./deals')
 
 const contactschema = new mongoose.Schema({
     image_src: String,
@@ -110,6 +111,10 @@ const leadschema = new mongoose.Schema({
     tasks: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Task"
+    }],
+    deals: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Deal"
     }],
     owner: [{
         type: mongoose.Schema.Types.ObjectId,
