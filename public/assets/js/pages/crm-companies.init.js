@@ -425,13 +425,13 @@ function refreshCallbacks() {
 
                             <ul class="list-inline mb-0">
                                 <li class="list-inline-item avatar-xs">
-                                    <a href="${websiteField.value}"
+                                    <a href="https://${websiteField.value}/"
                                         class="avatar-title bg-soft-success text-success fs-15 rounded">
                                         <i class="ri-global-line"></i>
                                     </a>
                                 </li>
                                 <li class="list-inline-item avatar-xs">
-                                    <a href="javascript:void(0);"
+                                    <a href="mailto:${contact_emailField.value}"
                                         class="avatar-title bg-soft-danger text-danger fs-15 rounded">
                                         <i class="ri-mail-line"></i>
                                     </a>
