@@ -3,6 +3,7 @@ const authController = require('./authController');
 const User = require('../Models/user')
 const {crm_lead} = require('../Models/crm')
 const Deal = require('../Models/deals')
+const {crm_company} = require('../Models/crm')
 
 //create deal
 module.exports.addDeal_post = async (req,res) => {
@@ -65,7 +66,35 @@ module.exports.getDeals_get =  async (req,res) => {
     
         //get user email
     const userEmail = res.locals.user.email
-    
 
+
+    //find user by email for leads
+
+const userData = await User.findOne({email: userEmail})
+
+//find lead by id for deals
+
+const leadData = await crm_lead.findOne({owner: [userID]})
+    
+try {
+
+    //declare a variable named taskItems that await to find tasks in the database with an owner of the users id
+
+const dealItems = await Deal.find({ owner:[userData._id]})
+
+const leadItems = await crm_lead.find({ owner:[userData._id]})
+
+const companyItems = await crm_company.find({ owner: [userData._id] })
+
+//render deals.ejs with our dealitems and our leads information as well as companies
+    
+res.render('deals.ejs', {deals: dealItems , leads: leadItems, companies: companyItems, title: 'Deals', page_title: 'Deals', folder: 'CRM' }
+)
+
+}
+//if any errors, console log them
+catch(err) {
+    console.log(err)
+}
     
     }

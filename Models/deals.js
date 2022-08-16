@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const User = require('./user')
-const {crm_lead} = require('./crm')
 
 
 const dealschema = new mongoose.Schema({
@@ -11,7 +10,6 @@ const dealschema = new mongoose.Schema({
     },
     leadOwner: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "crm_lead"
       }],
       companyName: {
         type: String,
