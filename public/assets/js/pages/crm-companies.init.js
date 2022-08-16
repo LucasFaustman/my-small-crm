@@ -183,7 +183,7 @@ addBtn.addEventListener("click", async function (e) {
         employeeField.value !== "" &&
         websiteField.value !== "" &&
         contact_emailField.value !== "" 
-        // sinceField.value !== ""
+
     ) {
 
         companyName = companyNameField.value
@@ -195,7 +195,8 @@ addBtn.addEventListener("click", async function (e) {
         websiteField = websiteField.value
         contactEmail = contact_emailField.value
 
-
+        console.log(ownerField.value)
+        console.log(companyName)
 
 
 
@@ -211,6 +212,7 @@ addBtn.addEventListener("click", async function (e) {
             employee: employeeField.value,
             website: websiteField.value,
             contact_email: contact_emailField.value,
+            
             // since: sinceField.value
             
         });
@@ -227,6 +229,7 @@ addBtn.addEventListener("click", async function (e) {
             timer: 2000,
             showCloseButton: true
         });
+
 
         try {
             // signify to the server this is a post request to our database, and include the all inputs of task stringified to an object to pass onto the db

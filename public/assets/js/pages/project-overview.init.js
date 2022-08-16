@@ -8,33 +8,7 @@ File: Project overview init js
 
 */
 
-// Init list
-var tasksList = new List("tasksList", options).on("updated", function (list) {
-    list.matchingItems.length == 0 ?
-        (document.getElementsByClassName("noresult")[0].style.display = "block") :
-        (document.getElementsByClassName("noresult")[0].style.display = "none");
-    var isFirst = list.i == 1;
-    var isLast = list.i > list.matchingItems.length - list.page;
-    // make the Prev and Nex buttons disabled on first and last pages accordingly
-    document.querySelector(".pagination-prev.disabled") ?
-        document.querySelector(".pagination-prev.disabled").classList.remove("disabled") : "";
-    document.querySelector(".pagination-next.disabled") ?
-        document.querySelector(".pagination-next.disabled").classList.remove("disabled") : "";
-    if (isFirst)
-        document.querySelector(".pagination-prev").classList.add("disabled");
-    if (isLast)
-        document.querySelector(".pagination-next").classList.add("disabled");
-    if (list.matchingItems.length <= perPage)
-        document.querySelector(".pagination-wrap").style.display = "none";
-    else
-        document.querySelector(".pagination-wrap").style.display = "flex";
-    if (list.matchingItems.length == perPage)
-        document.querySelector(".pagination.listjs-pagination").firstElementChild.children[0].click()
-    if (list.matchingItems.length > 0)
-        document.getElementsByClassName("noresult")[0].style.display = "none";
-    else
-        document.getElementsByClassName("noresult")[0].style.display = "block";
-});
+
 
 var checkAll = document.getElementById("checkAll");
 if (checkAll) {
@@ -136,6 +110,73 @@ addBtn.addEventListener("click", async function (e) {
         }
     });
 
+    editBtn.addEventListener("click", async function (e) {
+        document.getElementById("exampleModalLabel").innerHTML = "Edit Order";
+        var editValues = tasksList.get({
+            id: idField.value,
+        });
+    
+        if (
+            tasksTitleField.value !== "" &&
+            clientNameField.value !== "" &&
+            dateDueField.value !== "" &&
+            priorityField.value !== "" &&
+            statusField.value !== ""
+        ) {
+    
+    
+        Array.from(editValues).forEach(async function (x) {
+            isid = new DOMParser().parseFromString(x._values.id, "text/html");
+    
+    
+           
+                tasksTitleFieldVal = tasksTitleField.value,
+                clientNameFieldVal = clientNameField.value,
+                dateDueFieldVal = dateDueField.value,
+                statusFieldVal = statusField.value,
+                priorityFieldVal = priorityField.value
+                
+            
+                try {
+                    const res = await fetch('/editTaskItem', {
+                        //update request
+                        method: 'PUT',
+                        body: JSON.stringify({ id: itemId , //get all the values from the form and send off to the server
+                            tasksTitleFieldVal,
+                            clientNameFieldVal,
+                            dateDueFieldVal,
+                            priorityFieldVal,
+                            statusFieldVal}),
+                        headers: { 'Content-Type': 'application/json' }
+                    });
+                    const data = await res
+                    
+                    console.log(data)
+        
+                    
+                }
+                catch (err) {
+                    console.log(err)
+                }   
+            
+        });
+        document.getElementById("close-modal").click();
+         window.location.reload();
+        clearFields();
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Task updated Successfully!',
+            showConfirmButton: false,
+            timer: 2000,
+            showCloseButton: true
+        });
+    
+    }
+    
+    });
+    
+
     function refreshCallbacks() {
         Array.from(removeBtns).forEach(async function (btn) {
             btn.addEventListener("click", function (e) {
@@ -181,4 +222,13 @@ addBtn.addEventListener("click", async function (e) {
             });
         });
     
+    }
+
+
+    function clearFields() {
+
+        tasksTitleField.value = "";
+        clientNameField.value = "";
+        // assignedtoNameField.value = "";
+        dateDueField.value = "";
     }

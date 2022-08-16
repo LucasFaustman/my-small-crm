@@ -101,18 +101,17 @@ const leadData = await crm_lead.findOne({owner: [userID]})
 module.exports.deleteTaskItem_delete = async (req,res) => {
     //delete request!
 
-        //get user email
-const userID = res.locals.user.id
+    console.log(req.body.id)
+        //get task id
+const taskID = req.body.id
 
-//find user by email
 
-const userData = await crm_lead.findOne({owner: [userID]})
 
 
     //use a try
     try {
         //find oneanddelete from our id
-        await Task.findOneAndDelete({  _id : id })
+        await Task.findOneAndDelete({  _id : taskID })
         //send back that the task was deleted
         res.send('Task deleted')
     }
