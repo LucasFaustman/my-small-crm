@@ -88,7 +88,7 @@
                             <li>
                                 <div class="d-flex">
                                     <div class="flex-shrink-0 avatar-xxs text-muted">
-                                        <i class="ri-question-answer-line"></i>
+                                        <i class="ri-notification-2-fill"></i>
                                     </div>
                                     <div class="flex-grow-1">
                                         <h6 class="mb-0"><%= task.tasksTitleFieldVal
@@ -162,7 +162,7 @@
                         <li>
                             <div class="d-flex">
                                 <div class="flex-shrink-0 avatar-xxs text-muted">
-                                    <i class="ri-question-answer-line"></i>
+                                    <i class="ri-notification-2-fill"></i>
                                 </div>
                                 <div class="flex-grow-1">
                                     <h6 class="mb-0"><%= task.tasksTitleFieldVal
@@ -234,7 +234,7 @@
                             <li>
                                 <div class="d-flex">
                                     <div class="flex-shrink-0 avatar-xxs text-muted">
-                                        <i class="ri-question-answer-line"></i>
+                                        <i class="ri-notification-2-fill"></i>
                                     </div>
                                     <div class="flex-grow-1">
                                         <h6 class="mb-0"><%= task.tasksTitleFieldVal
@@ -265,11 +265,105 @@
             <% } %>
         <!--end col-->
             
-        </div>
-    </div>
-    <% } %>
+       
     
+    <% } %>
+
     <!--end col-->
+
+
+
+
+
+
+    <div class="col">
+        <% if (deals.length > 0) { %>
+        <div class="card">
+            <a class="card-header bg-soft-warning" data-bs-toggle="collapse" href="#leadDiscovered" role="button"
+                aria-expanded="false" aria-controls="leadDiscovered">
+                <h5 class="card-title text-uppercase fw-semibold mb-1 fs-15">In negotation</h5>
+                <p class="text-muted mb-0">$708,200 <span class="fw-medium"><%= deals.filter(deal => deal.stage === "In negotation").length %> Deal(s)</span></p>
+            </a>
+        </div>
+        <!--end card-->
+        <% if (deals.length > 0) { %>
+
+            <% deals.filter(deal => deal.stage === "In negotation").forEach(function (deal) { %>
+    
+        <div class="collapse show" id="leadDiscovered">
+        <div class="card mb-1 ribbon-box ribbon-fill ribbon-sm">
+            
+            <div class="card-body">
+                <a class="d-flex align-items-center" data-bs-toggle="collapse" href="#leadDiscovered<%= deals.indexOf(deal) + 1 %>"
+                    role="button" aria-expanded="false" aria-controls="leadDiscovered<%= deals.indexOf(deal) + 1 %>">
+                    <div class="flex-grow-1 ms-3">
+                        <span class="id" style="display:none;"><%= deal.owner[0] %></span>
+                        <h6 class="fs-14 mb-1"><%= deal.dealTitle %></h6>
+                        <p class="text-muted mb-0">$<%= deal.value %> - <%= deal.dueDate %></p>
+                    </div>
+                </a>
+            </div>
+            <div class="collapse border-top border-top-dashed" id="leadDiscovered<%= deals.indexOf(deal) + 1 %>">
+                <div class="card-body">
+                    <h6 class="fs-14 mb-1"><%= deal.companyName %>
+                    </h6>
+                    <p class="text-muted"><%= deal.description %></p>
+                    <ul class="list-unstyled vstack gap-2 mb-0"><% if (tasks.length > 0) { %>
+                        
+                            <% tasks.filter(task => task.leadOwner[0].toString() === deal.leadOwner[0].toString()).forEach(function (task) { %>
+
+                            
+                        <li>
+                            <div class="d-flex">
+                                <div class="flex-shrink-0 avatar-xxs text-muted">
+                                    <i class="ri-notification-2-fill"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-0"><%= task.tasksTitleFieldVal
+                                        %></h6>
+                                    <small class="text-muted"><%= task.dateDueFieldVal.toDateString()
+                                        %></small>
+                                </div>
+                            </div>
+                        </li>
+                        <% }) %>
+                        <% } %>
+                    </ul>
+                </div>
+                
+                <div class="card-footer ">
+                   <a href="contact/<%= deal.leadOwner[0] %>"> <button class="btn btn-warning btn-sm w-100"><i class="ri-task-fill align-bottom me-1"></i>
+                        View More Details</button></a>
+                </div>
+                
+            </div>
+        </div>
+        <!--end card-->
+        
+    </div>
+  
+
+    <% }) %>
+        <% } %>
+    <!--end col-->
+        
+    </div>
+
+<% } %>
+
+<!--end col-->
+
+
+
+
+
+
+
+
+
+
+
+
     
     <div class="col">
         <% if (deals.length > 0) { %>
@@ -277,7 +371,7 @@
             <a class="card-header bg-soft-warning" data-bs-toggle="collapse" href="#offerAccepted" role="button"
                 aria-expanded="false" aria-controls="offerAccepted">
                 <h5 class="card-title text-uppercase fw-semibold mb-1 fs-15">Offer Accepted</h5>
-                <p class="text-muted mb-0">$708,200 <span class="fw-medium"><%= deals.filter(deal => deal.stage === "offerAccepted").length %> Deal(s)</span></p>
+                <p class="text-muted mb-0">$708,200 <span class="fw-medium"><%= deals.filter(deal => deal.stage === "Offer Accepted").length %> Deal(s)</span></p>
             </a>
         </div>
         <!--end card-->
@@ -311,7 +405,7 @@
                         <li>
                             <div class="d-flex">
                                 <div class="flex-shrink-0 avatar-xxs text-muted">
-                                    <i class="ri-question-answer-line"></i>
+                                    <i class="ri-notification-2-fill"></i>
                                 </div>
                                 <div class="flex-grow-1">
                                     <h6 class="mb-0"><%= task.tasksTitleFieldVal
@@ -343,7 +437,7 @@
     <!--end col-->
         
     </div>
-
+</div>
 <% } %>
 
 <!--end col-->
