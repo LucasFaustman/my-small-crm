@@ -34,7 +34,6 @@ const taskschema = new mongoose.Schema({
     },
     leadOwner: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
       }],
       owner: [{
         type: mongoose.Schema.Types.ObjectId,

@@ -150,6 +150,11 @@ catch (err) {
 module.exports.getContactDetails_get = async(req,res) => {
 
 
+    //get user id
+    const userId = res.locals.user.id
+
+
+    //get lead id
     let contactId = req.params.itemId
 
     
@@ -159,13 +164,15 @@ module.exports.getContactDetails_get = async(req,res) => {
 
     const contact = await crm_lead.find({ _id: contactId })
     
+    //declare variable named company that awaits to find a company with a matching contact name, and owner of our user
 
-    const company = await crm_company.find({ lead: contact[0].name })
-
-    console.log(company)
+    const company = await crm_company.find({ lead: contact[0].name , owner:[userId]})
 
 
-    const task = await Task.find({_id: contact[0].tasks}).sort({ dateDueFieldVal: 1 })
+    //declare variable named task that a
+
+
+    const task = await Task.find({_id: contact[0].tasks, owner:[userId]}).sort({ dateDueFieldVal: 1 })
 
         
     res.render('contact', {query : contactId, contacts: contact, companies: company, tasks: task,  layout: './layout/layout-without-bradcrumb', title: 'Project Overview' , page_title: 'Project Overview', folder: 'Projects' });
