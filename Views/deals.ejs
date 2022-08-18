@@ -57,7 +57,7 @@
             <a class="card-header bg-soft-success" data-bs-toggle="collapse" href="#contactInitiated" role="button"
                 aria-expanded="false" aria-controls="contactInitiated">
                 <h5 class="card-title text-uppercase fw-semibold mb-1 fs-15">Contact Initiated</h5>
-                <p class="text-muted mb-0">$108,700 <span class="fw-medium"><%= deals.filter(deal => deal.stage === "Contact Initiated").length %> Deal(s)</span></p>
+                <p class="text-muted mb-0">$<%= deals.filter(deal => deal.stage === "Contact Initiated").map(deal => deal.value.includes(',') ? Number(deal.value.split(',').join('')) : Number(deal.value)).reduce((acc,num) => acc + num,0) %> <span class="fw-medium"><%= deals.filter(deal => deal.stage === "Contact Initiated").length %> Deal(s)</span></p>
             </a>
         </div>
         <% } %>
@@ -127,7 +127,7 @@
             <a class="card-header bg-soft-warning" data-bs-toggle="collapse" href="#needsIdentified" role="button"
                 aria-expanded="false" aria-controls="needsIdentified">
                 <h5 class="card-title text-uppercase fw-semibold mb-1 fs-15">Needs Identified</h5>
-                <p class="text-muted mb-0">$708,200 <span class="fw-medium"><%= deals.filter(deal => deal.stage === "Needs Identified").length %> Deal(s)</span></p>
+                <p class="text-muted mb-0">$<%= deals.filter(deal => deal.stage === "Needs Identified").map(deal => deal.value.includes(',') ? Number(deal.value.split(',').join('')) : Number(deal.value)).reduce((acc,num) => acc + num,0) %> <span class="fw-medium"><%= deals.filter(deal => deal.stage === "Needs Identified").length %> Deal(s)</span></p>
             </a>
         </div>
         <% } %>
@@ -199,7 +199,7 @@
                 <a class="card-header bg-soft-warning" data-bs-toggle="collapse" href="#meetingArranged" role="button"
                     aria-expanded="false" aria-controls="meetingArranged">
                     <h5 class="card-title text-uppercase fw-semibold mb-1 fs-15">Meeting Arranged</h5>
-                    <p class="text-muted mb-0">$708,200 <span class="fw-medium"><%= deals.filter(deal => deal.stage === "Meeting Arranged").length %> Deal(s)</span></p>
+                    <p class="text-muted mb-0">$<%= deals.filter(deal => deal.stage === "Meeting Arranged").map(deal => deal.value.includes(',') ? Number(deal.value.split(',').join('')) : Number(deal.value)).reduce((acc,num) => acc + num,0) %> <span class="fw-medium"><%= deals.filter(deal => deal.stage === "Meeting Arranged").length %> Deal(s)</span></p>
                 </a>
             </div>
             
@@ -282,7 +282,7 @@
             <a class="card-header bg-soft-warning" data-bs-toggle="collapse" href="#leadDiscovered" role="button"
                 aria-expanded="false" aria-controls="leadDiscovered">
                 <h5 class="card-title text-uppercase fw-semibold mb-1 fs-15">In negotation</h5>
-                <p class="text-muted mb-0">$708,200 <span class="fw-medium"><%= deals.filter(deal => deal.stage === "In negotation").length %> Deal(s)</span></p>
+                <p class="text-muted mb-0">$<%= deals.filter(deal => deal.stage === "In negotation").map(deal => deal.value.includes(',') ? Number(deal.value.split(',').join('')) : Number(deal.value)).reduce((acc,num) => acc + num,0) %> <span class="fw-medium"><%= deals.filter(deal => deal.stage === "In negotation").length %> Deal(s)</span></p>
             </a>
         </div>
         <!--end card-->
@@ -371,7 +371,7 @@
             <a class="card-header bg-soft-warning" data-bs-toggle="collapse" href="#offerAccepted" role="button"
                 aria-expanded="false" aria-controls="offerAccepted">
                 <h5 class="card-title text-uppercase fw-semibold mb-1 fs-15">Offer Accepted</h5>
-                <p class="text-muted mb-0">$708,200 <span class="fw-medium"><%= deals.filter(deal => deal.stage === "Offer Accepted").length %> Deal(s)</span></p>
+                <p class="text-muted mb-0">$<%= deals.filter(deal => deal.stage === "Offer Accepted").map(deal => deal.value.includes(',') ? Number(deal.value.split(',').join('')) : Number(deal.value)).reduce((acc,num) => acc + num,0) %> <span class="fw-medium"><%= deals.filter(deal => deal.stage === "Offer Accepted").length %> Deal(s)</span></p>
             </a>
         </div>
         <!--end card-->
