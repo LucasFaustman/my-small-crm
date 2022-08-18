@@ -7,7 +7,7 @@ const {crm_lead} = require('../Models/crm')
 const {crm_company} = require('../Models/crm')
 const User = require('../Models/user')
 const Task = require('../Models/task');
-const task = require("../Models/task");
+const Deal = require('../Models/deals')
 
 
 
@@ -163,6 +163,10 @@ module.exports.getContactDetails_get = async(req,res) => {
         //declare a variable named contact that await to find leads in the database with that specific lead id
 
     const contact = await crm_lead.find({ _id: contactId })
+
+    //declare variable calls deals that waits for db to find a deal with the id of contactId
+
+    const deal = await Deal.find({ leadOwner: [contactId] })
     
     //declare variable named company that awaits to find a company with a matching contact name, and owner of our user
 
@@ -175,7 +179,7 @@ module.exports.getContactDetails_get = async(req,res) => {
     const task = await Task.find({_id: contact[0].tasks, owner:[userId]}).sort({ dateDueFieldVal: 1 })
 
         
-    res.render('contact', {query : contactId, contacts: contact, companies: company, tasks: task,  layout: './layout/layout-without-bradcrumb', title: 'Project Overview' , page_title: 'Project Overview', folder: 'Projects' });
+    res.render('contact', {query : contactId, contacts: contact, deals: deal, companies: company, tasks: task,  layout: './layout/layout-without-bradcrumb', title: 'Project Overview' , page_title: 'Project Overview', folder: 'Projects' });
 
     }
     catch (err) {
