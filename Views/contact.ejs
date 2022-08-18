@@ -493,6 +493,70 @@
 
                         
                             <div class="col-xxl-3">
+                                <% if (deals.length > 0) { %>
+    
+
+                                    <% deals.forEach(function (deal) { %>
+                                
+                                <div class="collapse show" id="leadDiscovered">
+                                <div class="card mb-1 ribbon-box right ribbon-sm">
+                                    
+                                    <div class="card-body">
+                                            <div class="flex-grow-1 ms-3">
+                                                <h4 class="text-primary">Deal</h4>
+                                                <span class="id" style="display:none;"><%= deal.owner[0] %></span>
+                                                <div class="ribbon ribbon-primary round-shape"><%= deal.stage %></div>
+                                                <h6 class="fs-14 mb-1"><%= deal.dealTitle %></h6>
+                                                <p class="text-muted mb-0">$<%= deal.value %> - <%= deal.dueDate %></p>
+                                            </div>
+
+                                    
+                                   
+                                        <div class="card-body">
+                                            <h6 class="fs-14 mb-1"><%= deal.companyName %>
+                                            </h6>
+                                            <p class="text-muted"><%= deal.description %></p>
+                                            <ul class="list-unstyled vstack gap-2 mb-0"><% if (tasks.length > 0) { %>
+                                                
+                                                    <% tasks.filter(task => task.leadOwner[0].toString() === deal.leadOwner[0].toString()).forEach(function (task) { %>
+                                
+                                                    
+                                                <li>
+                                                    <div class="d-flex">
+                                                        <div class="flex-shrink-0 avatar-xxs text-muted">
+                                                            <i class="ri-notification-2-fill"></i>
+                                                        </div>
+                                                        <div class="flex-grow-1">
+                                                            <h6 class="mb-0"><%= task.tasksTitleFieldVal
+                                                                %></h6>
+                                                            <small class="text-muted"><%= task.dateDueFieldVal.toDateString()
+                                                                %></small>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <% }) %>
+                                                <% } %>
+                                            </ul>
+                                        </div>
+                                        
+                                        <div class="card-footer justify-content-center">
+                                
+                                            <a href="contact/<%= deal.leadOwner[0] %>" style="display:none" class=" btn btn-info btn-sm w-50">View More Details <i
+                                                class="align-bottom me-1"></i></a>
+                                            <button data-bs-toggle="modal" data-bs-target="#editdealstage" class="editDealStageBtns btn btn-outline-success waves-effect waves-light">Move to Stage<i
+                                                    class="ri-arrow-left-right-fill align-items-center ms-1 lh-1"></i></button>
+                                            <p class="itemId"style="display:none"><%= deal._id %></p>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <!--end card-->
+                                
+                                </div>
+                                
+                                
+                                <% }) %>
+                                <% } %>
                                 <div class="card" id="company-view-detail">
                                     <div class="card-body text-center">
                                         <% companies.forEach(function (company) { %>
@@ -554,19 +618,57 @@
                                     </div>
                                 </div>
                                 <!--end card-->
-                            </div>
                             
+                            
+                            </div>
+                            </div>
+                        </div>
                             <!--end col-->
+                            
                 </div>
             
             <!-- end tab pane -->
         </div>
     </div>
     <!-- end col -->
+
 </div>
 <!-- end row -->
 
 
+
+<!-- Modal for editing deal stage-->
+<div class="modal fade" id="editdealstage" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-light p-3">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Deal Stage</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form>
+                <div class="modal-body">                   
+                    <div class="mb-3">
+                        <label for="editStageValue" class="form-label">Stage</label>
+                        <select class="form-select" id="editStageValue">
+                                <option value='Contact Initiated'>Contact Initiated</option>
+                                <option value='Needs Identified'>Needs Identified</option>
+                                <option value='Meeting Arranged'>Meeting Arranged</option>
+                                <option value='In negotation'>In negotation</option>
+                                <option value='Offer Accepted'>Offer Accepted</option>
+                                <option value='Lost'>Lost</option>
+                                <option value='Won'>Won</option>
+                        </select>
+                    </div>                                                         
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id='editdealstage-btn' class="btn btn-success"><i class="align-bottom me-1"></i>
+                        Move</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <!--end modal-->
 
 <%- contentFor('FooterJs') %>
@@ -581,6 +683,9 @@
 <script src="/assets/js/pages/tasks-list.init.js"></script>
 <script src="/assets/libs/sweetalert2/sweetalert2.min.js"></script>
 <!-- App js -->
+
+<!-- Deal editing -->
+<script src="/assets/js/pages/crm-deals.init.js"></script>
 
 
 
