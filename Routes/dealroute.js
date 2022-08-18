@@ -6,6 +6,7 @@ const router = Router();
 
 router.post('/addDeal', checkUser, dealController.addDeal_post)
 router.get('/deals', checkUser, dealController.getDeals_get)
+router.put('/editDealStage', checkUser, dealController.editDealStage_put)
 
 
 

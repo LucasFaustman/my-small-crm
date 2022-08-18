@@ -101,3 +101,24 @@ catch(err) {
 }
     
     }
+
+
+module.exports.editDealStage_put = async (req,res) => {
+
+    console.log(req.body)
+
+    let dealId = req.body.newItemId
+    let newStage = req.body.editedStageVal
+
+    //use a try catch
+
+try {
+    await Deal.findOneAndUpdate({_id: dealId}, {$set:{ //find one deal and update. find one with the id of the one inside the ejs
+        stage: newStage
+    }});
+//send back that the deal was edited
+    res.send('deal edited')
+} catch (err) {
+    console.log(err)
+}
+};

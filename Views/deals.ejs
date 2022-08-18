@@ -70,7 +70,6 @@
                     <a class="d-flex align-items-center" data-bs-toggle="collapse" href="#contactInitiated<%= deals.indexOf(deal) + 1 %>"
                         role="button" aria-expanded="false" aria-controls="contactInitiated<%= deals.indexOf(deal) + 1 %>">
                         <div class="flex-grow-1 ms-3">
-                            <span class="id" style="display:none;"><%= deal.owner[0] %></span>
                             <h6 class="fs-14 mb-1"><%= deal.dealTitle %></h6>
                             <p class="text-muted mb-0">$<%= deal.value %> - <%= deal.dueDate %></p>
                         </div>
@@ -104,8 +103,12 @@
                     </div>
                     
                     <div class="card-footer ">
-                       <a href="contact/<%= deal.leadOwner[0] %>"> <button class="btn btn-warning btn-sm w-100"><i class="ri-task-fill align-bottom me-1"></i>
-                            View More Details</button></a>
+
+                        <a href="contact/<%= deal.leadOwner[0] %>" class=" btn btn-info btn-sm w-50">View More Details <i
+                            class="align-bottom me-1"></i></a>
+                        <button data-bs-toggle="modal" data-bs-target="#editdealstage" class="editDealStageBtns btn btn-sm w-sm btn-outline-success waves-effect waves-light">Move to Stage<i
+                                class="ri-arrow-left-right-fill align-middle ms-1 lh-1"></i></button>
+                        <p class="itemId"style="display:none"><%= deal._id %></p>
                     </div>
                     
                 </div>
@@ -178,23 +181,32 @@
                 </div>
                 
                 <div class="card-footer ">
-                   <a href="contact/<%= deal.leadOwner[0] %>"> <button class="btn btn-warning btn-sm w-100"><i class="ri-task-fill align-bottom me-1"></i>
-                        View More Details</button></a>
+
+                    <a href="contact/<%= deal.leadOwner[0] %>" class=" btn btn-info btn-sm w-50">View More Details <i
+                        class="align-bottom me-1"></i></a>
+                    <button data-bs-toggle="modal" data-bs-target="#editdealstage" class="editDealStageBtns btn btn-sm w-sm btn-outline-success waves-effect waves-light">Move to Stage<i
+                            class="ri-arrow-left-right-fill align-middle ms-1 lh-1"></i></button>
+                    <p class="itemId"style="display:none"><%= deal._id %></p>
                 </div>
                 
             </div>
         </div>
+        </div>
         <!--end card-->
         
-        </div>
-    </div>
+        
+    
 
     <% }) %>
         <% } %>
+    </div>
     <!--end col-->
 
-    <% if (deals.length > 0) { %>
+    
+
+
         <div class="col">
+            <% if (deals.length > 0) { %>
             <div class="card">
                 <a class="card-header bg-soft-warning" data-bs-toggle="collapse" href="#meetingArranged" role="button"
                     aria-expanded="false" aria-controls="meetingArranged">
@@ -250,24 +262,31 @@
                     </div>
                     
                     <div class="card-footer ">
-                       <a href="contact/<%= deal.leadOwner[0] %>"> <button class="btn btn-warning btn-sm w-100"><i class="ri-task-fill align-bottom me-1"></i>
-                            View More Details</button></a>
+
+                        <a href="contact/<%= deal.leadOwner[0] %>" class=" btn btn-info btn-sm w-50">View More Details <i
+                            class="align-bottom me-1"></i></a>
+                        <button data-bs-toggle="modal" data-bs-target="#editdealstage" class="editDealStageBtns btn btn-sm w-sm btn-outline-success waves-effect waves-light">Move to Stage<i
+                                class="ri-arrow-left-right-fill align-middle ms-1 lh-1"></i></button>
+                        <p class="itemId"style="display:none"><%= deal._id %></p>
                     </div>
                     
                 </div>
             </div>
+            </div>
             <!--end card-->
             
-        </div>
-        </div>
+          
+        
     
-        <% }) %>
-            <% } %>
+            <% }) %>
+                <% } %>
+                <% } %>
+        </div>
         <!--end col-->
-            
+        
        
     
-    <% } %>
+   
 
     <!--end col-->
 
@@ -332,8 +351,12 @@
                 </div>
                 
                 <div class="card-footer ">
-                   <a href="contact/<%= deal.leadOwner[0] %>"> <button class="btn btn-warning btn-sm w-100"><i class="ri-task-fill align-bottom me-1"></i>
-                        View More Details</button></a>
+
+                    <a href="contact/<%= deal.leadOwner[0] %>" class=" btn btn-info btn-sm w-50">View More Details <i
+                        class="align-bottom me-1"></i></a>
+                    <button data-bs-toggle="modal" data-bs-target="#editdealstage" class="editDealStageBtns btn btn-sm w-sm btn-outline-success waves-effect waves-light">Move to Stage<i
+                            class="ri-arrow-left-right-fill align-middle ms-1 lh-1"></i></button>
+                    <p class="itemId"style="display:none"><%= deal._id %></p>
                 </div>
                 
             </div>
@@ -421,16 +444,19 @@
                 </div>
                 
                 <div class="card-footer ">
-                   <a href="contact/<%= deal.leadOwner[0] %>"> <button class="btn btn-warning btn-sm w-100"><i class="ri-task-fill align-bottom me-1"></i>
-                        View More Details</button></a>
+
+                    <a href="contact/<%= deal.leadOwner[0] %>" class=" btn btn-info btn-sm w-50">View More Details <i
+                        class="align-bottom me-1"></i></a>
+                    <button data-bs-toggle="modal" data-bs-target="#editdealstage" class="editDealStageBtns btn btn-sm w-sm btn-outline-success waves-effect waves-light">Move to Stage<i
+                            class="ri-arrow-left-right-fill align-middle ms-1 lh-1"></i></button>
+                    <p class="itemId"style="display:none"><%= deal._id %></p>
                 </div>
                 
             </div>
         </div>
+        </div>
         <!--end card-->
         
-    </div>
-    </div>
 
     <% }) %>
         <% } %>
@@ -454,7 +480,7 @@
 <!--end row-->
 
 
-<!-- Modal -->
+<!-- Modal for adding deal-->
 <div class="modal fade" id="adddeals" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -493,6 +519,7 @@
                                 <option value='In negotation'>In negotation</option>
                                 <option value='Offer Accepted'>Offer Accepted</option>
                                 <option value='Lost'>Lost</option>
+                                <option value='Won'>Won</option>
                         </select>
                     </div>
                     
@@ -521,6 +548,43 @@
     </div>
 </div>
 <!--end modal-->
+
+
+<!-- Modal for editing deal stage-->
+<div class="modal fade" id="editdealstage" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-light p-3">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Deal Stage</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form>
+                <div class="modal-body">                   
+                    <div class="mb-3">
+                        <label for="editStageValue" class="form-label">Stage</label>
+                        <select class="form-select" id="editStageValue">
+                                <option value='Contact Initiated'>Contact Initiated</option>
+                                <option value='Needs Identified'>Needs Identified</option>
+                                <option value='Meeting Arranged'>Meeting Arranged</option>
+                                <option value='In negotation'>In negotation</option>
+                                <option value='Offer Accepted'>Offer Accepted</option>
+                                <option value='Lost'>Lost</option>
+                                <option value='Won'>Won</option>
+                        </select>
+                    </div>                                                         
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id='editdealstage-btn' class="btn btn-success"><i class="align-bottom me-1"></i>
+                        Move</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--end modal-->
+
+
 
 
 <%- contentFor('FooterJs') %>

@@ -353,14 +353,6 @@ function refreshCallbacks() {
             var itemValues = companyList.get({
                 id: itemId,
             });
-
-            // Array.from(itemValues).forEach(async function (x) {
-            //     deleteid = new DOMParser().parseFromString(x._values.id, "text/html");
-
-            //     var isElem = deleteid.body.firstElementChild;
-            //     var isdeleteid = deleteid.body.firstElementChild.innerHTML;
-
-            //     if (isdeleteid == itemId) {
                     document.getElementById("delete-record").addEventListener("click", async function () {
 
                         try {
@@ -381,8 +373,6 @@ function refreshCallbacks() {
                         document.getElementById("deleteRecordModal").click();
                         window.location.reload();
                     });
-                // }
-            // });
         });
     });
 
