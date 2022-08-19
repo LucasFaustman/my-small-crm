@@ -1,5 +1,6 @@
 const User = require('../Models/user')
 const Task = require('../Models/task')
+const Deal = require('../Models/deals')
 const { checkUser } = require("../middlewar/authMiddleware");
 const authController = require('./authController');
 const user = require('../Models/user');
@@ -148,7 +149,7 @@ try {
 }
 
 
-// show tasks for index crm dashboard
+// show tasks for index crm dashboard AND deals!!!
 
 module.exports.showTasksInDashboard  = async(req,res) => {
 
@@ -161,13 +162,18 @@ const userData = await User.findOne({email: userEmail})
 
     try {
 
+        //declare variable named dealItems that finds deals with the owner of userData._id
+
+        const dealItems = await Deal.find({ owner:[userData._id]})
+
+
         //declare a variable named taskItems that await to find tasks in the database with an owner of the users id
 
     const taskItems = await Task.find({ owner:[userData._id]}).sort({ dateDueFieldVal: 1 })
 
     //render tasks.ejs with the tasks of the user, as well as the title, page title, and folder for the index views
         
-    res.render('index.ejs', {tasks: taskItems , title: 'Dashboard', page_title: 'Dashboard', folder: 'Dashboards'}
+    res.render('index.ejs', {tasks: taskItems , deals: dealItems, title: 'Dashboard', page_title: 'Dashboard', folder: 'Dashboards'}
     )
     
     }
