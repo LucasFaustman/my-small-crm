@@ -293,9 +293,7 @@ editBtn.addEventListener("click", async function (e) {
                         }),
                     headers: { 'Content-Type': 'application/json' }
                 });
-                const data = await res
-
-                window.location.reload();
+                const data = await res.json()
                 
                 console.log(data)
     
@@ -350,10 +348,18 @@ function refreshCallbacks() {
         btn.addEventListener("click", function (e) {
             e.target.closest("tr").children[1].innerText;
             itemId = e.target.closest("tr").children[0].innerText;
-            var itemValues = companyList.get({
-                id: itemId,
-            });
                     document.getElementById("delete-record").addEventListener("click", async function () {
+
+                        clearFields();
+                    refreshCallbacks();
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Company deleted successfully!',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        showCloseButton: true
+                    });
 
                         try {
                             //fetch the deletecompany route
@@ -371,7 +377,7 @@ function refreshCallbacks() {
                         }   
                         // companyList.remove("id", isElem.outerHTML);
                         document.getElementById("deleteRecordModal").click();
-                        window.location.reload();
+                         window.location.reload();
                     });
         });
     });
@@ -471,7 +477,6 @@ function refreshCallbacks() {
 }
 
 function clearFields() {
-    // companyLogoImg.src = "assets/images/users/multi-user.jpg";
     companyNameField.value = "";
     ownerField.value = "";
     industry_typeField.value = "";
@@ -480,7 +485,6 @@ function clearFields() {
     employeeField.value = "";
     websiteField.value = "";
     contact_emailField.value = "";
-    // sinceField.value = "";
 }
 
 // Delete Multiple Records

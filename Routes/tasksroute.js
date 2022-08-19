@@ -9,10 +9,10 @@ const leadController = require('../controllers/leadController')
 const router = Router();
 
 
-router.post('/addTaskItem', checkUser, taskController.addTaskItem_post)
-router.get('/tasks', checkUser, taskController.getTaskItems_get)
-router.delete('/deleteTaskItem', checkUser, taskController.deleteTaskItem_delete)
-router.put('/editTaskItem', checkUser, taskController.editTaskItem_put)
+router.post('/addTaskItem',requireAuth,  checkUser, taskController.addTaskItem_post)
+router.get('/tasks', requireAuth, checkUser, taskController.getTaskItems_get)
+router.delete('/deleteTaskItem', requireAuth, checkUser, taskController.deleteTaskItem_delete)
+router.put('/editTaskItem', requireAuth, checkUser, taskController.editTaskItem_put)
 
 
 

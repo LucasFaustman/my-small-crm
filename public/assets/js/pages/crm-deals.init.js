@@ -33,7 +33,6 @@ addBtn.addEventListener('click', async function (event) {
     companyNameVal = companyName.value
 
 
-
     try {
         // signify to the server this is a post request to our database, and include the all inputs of task stringified to an object to pass onto the db
         const res = await fetch('/addDeal', {
@@ -47,16 +46,11 @@ addBtn.addEventListener('click', async function (event) {
                 contactDescriptionVal }),
             headers: { 'Content-Type': 'application/json' }
         });
-        const data = await res
+        const data = res
         console.log(data)
-    }
-        catch(err) {
-            console.log(err)
-        }
-    }
 
-    document.getElementById("close-modal").click();
-        form.reset();
+        document.getElementById("close-modal").click();
+        clearFields();
         Swal.fire({
             title: 'Success!',
             text: 'Deal Inserted successfully.',
@@ -68,6 +62,13 @@ addBtn.addEventListener('click', async function (event) {
             showCloseButton: true
         });
         window.location.reload();
+    }
+        catch(err) {
+            console.log(err)
+        }
+    }
+
+    
 
 
 });
@@ -126,13 +127,16 @@ if (editStageValue.value !== "") {
 
     });
 });
-// editStageBtn.addEventListener('click', async function (event) {
-//     event.preventDefault();
 
-
-//     console.log(itemId)
-
-// });
+function clearFields() {
+    dealTitle.value = ""
+    contact.value = ""
+    stageValue.value = ""
+    dealValue.value = ""
+    dueDate.value = ""
+    companyName.value = ""
+    contactDescription = ""
+}
 
 
 

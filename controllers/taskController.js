@@ -15,7 +15,7 @@ module.exports.addTaskItem_post = async (req,res) => {
 //get user id
 const userID = res.locals.user.id
 
-console.log(userID)
+console.log(req.body.dateDueFieldVal)
 
 //find lead by id
 
@@ -72,6 +72,7 @@ const userData = await User.findOne({email: userEmail})
 //find lead by id for tasks
 
 const leadData = await crm_lead.findOne({owner: [userID]})
+
 
 
     try {

@@ -17,6 +17,8 @@
                                             <div class="vr"></div>
                                             <div>Create Date : <span class="fw-medium"><%= contact.date.toDateString() %></span></div> <!--create date-->
                                             <div class="vr"></div>
+                                            <div>Total Profit Projected: <span class="fw-medium">$<%= deals.filter(deal => deal.stage !== 'Lost').map(deal => deal.value.includes(',') ? Number(deal.value.split(',').join('')) : Number(deal.value)).reduce((acc,num) => acc + num,0) %></span></div>
+                                            <div class="vr"></div>
                                             <% contact.tags.forEach(function (tag) { %>
                                             <div class="badge rounded-pill bg-info fs-12"><%= tag %></div> <!--tags-->
                                             <% }) %>
@@ -529,7 +531,7 @@
                                                         <div class="flex-grow-1">
                                                             <h6 class="mb-0"><%= task.tasksTitleFieldVal
                                                                 %></h6>
-                                                            <small class="text-muted"><%= task.dateDueFieldVal.toDateString()
+                                                            <small class="text-muted"><%= task.dateDueFieldVal.toLocaleString("pt-BR", {timeZone:"GMT", day: "numeric", month: "numeric", year:"numeric"});
                                                                 %></small>
                                                         </div>
                                                     </div>

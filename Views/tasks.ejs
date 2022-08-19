@@ -194,7 +194,7 @@
                                                 </td>
                                                 <td class="client_name"><%=task.clientNameFieldVal %></td>
                                                 
-                                                <td class="due_date"><%= task.dateDueFieldVal.toDateString() %></td> 
+                                                <td class="due_date"><%= task.dateDueFieldVal.toLocaleString("pt-BR", {timeZone:"GMT", day: "numeric", month: "numeric", year:"numeric"}); %></td> 
                                                 <td class="status">
                                                     <span  class="badge badge-soft-secondary text-uppercase"><%=task.statusFieldVal %></span>
                                                 </td>

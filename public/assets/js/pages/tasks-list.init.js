@@ -180,7 +180,7 @@ document.getElementById("showModal").addEventListener("show.bs.modal", function 
 });
 
 document.getElementById("showModal").addEventListener("hidden.bs.modal", function () {
-    // clearFields();
+    clearFields();
 });
 
 document.querySelector("#tasksList").addEventListener("click", function () {
@@ -213,9 +213,9 @@ addBtn.addEventListener("click", async function (e) {
         statusFieldVal = statusField.value
 
         document.getElementById("close-modal").click();
-        // clearFields();
+         clearFields();
         refreshCallbacks();
-        // count++;
+         count++;
         Swal.fire({
             position: 'center',
             icon: 'success',
@@ -236,7 +236,8 @@ addBtn.addEventListener("click", async function (e) {
                     statusFieldVal }),
                 headers: { 'Content-Type': 'application/json' }
             });
-            const data = await res
+            const data = res.json()
+            console.log(data)
             if (data) 
             window.location.reload();
         }
@@ -288,7 +289,7 @@ editBtn.addEventListener("click", async function (e) {
                         statusFieldVal}),
                     headers: { 'Content-Type': 'application/json' }
                 });
-                const data = await res
+                const data = res.json()
                 
                 console.log(data)
     
@@ -324,47 +325,47 @@ editBtn.addEventListener("click", async function (e) {
 //     searchEnabled: false,
 // });
 
-function SearchData() {
-    var isstatus = document.getElementById("idStatus").value;
-    var pickerVal = document.getElementById("demo-datepicker").value;
+// function SearchData() {
+//     var isstatus = document.getElementById("idStatus").value;
+//     var pickerVal = document.getElementById("demo-datepicker").value;
 
-    var date1 = pickerVal.split(" to ")[0];
-    var date2 = pickerVal.split(" to ")[1];
+//     var date1 = pickerVal.split(" to ")[0];
+//     var date2 = pickerVal.split(" to ")[1];
 
-    tasksList.filter(function (data) {
-        matchData = new DOMParser().parseFromString(
-            data.values().status,
-            "text/html"
-        );
-        var status = matchData.body.firstElementChild.innerHTML;
-        var statusFilter = false;
-        var dateFilter = false;
+//     tasksList.filter(function (data) {
+//         matchData = new DOMParser().parseFromString(
+//             data.values().status,
+//             "text/html"
+//         );
+//         var status = matchData.body.firstElementChild.innerHTML;
+//         var statusFilter = false;
+//         var dateFilter = false;
 
-        if (status == "all" || isstatus == "all") {
-            statusFilter = true;
-        } else {
-            statusFilter = status == isstatus;
-        }
+//         if (status == "all" || isstatus == "all") {
+//             statusFilter = true;
+//         } else {
+//             statusFilter = status == isstatus;
+//         }
 
-        if (
-            new Date(data.values().due_date.slice(0, 12)) >= new Date(date1) &&
-            new Date(data.values().due_date.slice(0, 12)) <= new Date(date2)
-        ) {
-            dateFilter = true;
-        } else {
-            dateFilter = false;
-        }
+//         if (
+//             new Date(data.values().due_date.slice(0, 12)) >= new Date(date1) &&
+//             new Date(data.values().due_date.slice(0, 12)) <= new Date(date2)
+//         ) {
+//             dateFilter = true;
+//         } else {
+//             dateFilter = false;
+//         }
 
-        if (statusFilter && dateFilter) {
-            return statusFilter && dateFilter;
-        } else if (statusFilter && pickerVal == "") {
-            return statusFilter;
-        } else if (dateFilter && pickerVal == "") {
-            return dateFilter;
-        }
-    });
-    tasksList.update();
-}
+//         if (statusFilter && dateFilter) {
+//             return statusFilter && dateFilter;
+//         } else if (statusFilter && pickerVal == "") {
+//             return statusFilter;
+//         } else if (dateFilter && pickerVal == "") {
+//             return dateFilter;
+//         }
+//     });
+//     tasksList.update();
+// }
 
 function ischeckboxcheck() {
     Array.from(document.getElementsByName("checkAll")).forEach(function (x) {
@@ -434,7 +435,7 @@ function clearFields() {
 
     tasksTitleField.value = "";
     clientNameField.value = "";
-    // assignedtoNameField.value = "";
+
     dateDueField.value = "";
 }
 
@@ -473,26 +474,5 @@ function isPriority(val) {
             return ('<span class="badge bg-warning text-uppercase">' + val + "</span>");
     }
 }
-
-
-
-// function assignToUsers() {
-//     var assignedTo = document.querySelectorAll('input[name="assignedTo[]"]:checked');
-//     var assignedtousers = `<div class="avatar-group">`;
-
-//     if (assignedTo.length > 0) {
-//         Array.from(assignedTo).forEach(function (ele) {
-//             assignedtousers += `<a href="javascript: void(0);" class="avatar-group-item" data-img="${ele.value}" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Username">
-//                     <img src="assets/images/users/${ele.value}" alt="" class="rounded-circle avatar-xxs" />
-//                 </a>`;
-//         })
-//     } else {
-//         assignedtousers += `<a href="javascript: void(0);" class="avatar-group-item" data-img="https://icon-library.com/images/no-user-image-icon/no-user-image-icon-3.jpg" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Title">
-//                 <img src="https://icon-library.com/images/no-user-image-icon/no-user-image-icon-3.jpg" alt="" class="rounded-circle avatar-xxs" />
-//             </a>`;
-//     }
-//     assignedtousers += `</div>`;
-//     return assignedtousers;
-// }
 
 

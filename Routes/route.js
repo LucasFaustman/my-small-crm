@@ -64,9 +64,9 @@ route.get('*', checkUser)
 // route.get('/auth-twostep-cover', (req, res, next) => {
 //     res.render('auth-twostep-cover', { title: 'Two Step Verification', layout: 'layout/layout-WithoutNav' });
 // })
-// route.get('/auth-404-basic', (req, res, next) => {
-//     res.render('auth-404-basic', { title: '404 Error', layout: 'layout/layout-WithoutNav' });
-// })
+route.get('/auth-404-basic', (req, res, next) => {
+    res.render('auth-404-basic', { title: '404 Error', layout: 'layout/layout-WithoutNav' });
+})
 // route.get('/auth-404-cover', (req, res, next) => {
 //     res.render('auth-404-cover', { title: '404 Error', layout: 'layout/layout-WithoutNav' });
 // })
