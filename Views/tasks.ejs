@@ -1,5 +1,5 @@
 <%- contentFor('HeaderCss') %>
-<link href="assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+<link href="/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
 <%- contentFor('body') %>
 <div class="row">
     <div class="col-xxl-4 col-sm-6">
@@ -9,7 +9,7 @@
                     <div>
                         <p class="fw-medium text-muted mb-0">Total Upcoming Tasks</p>
                         <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value"
-                                data-target=<%= tasks.filter(task => task.statusFieldVal !== "Completed").length %>>0</span></h2>
+                                data-target=<%= tasks.filter(task => allTasks.statusFieldVal !== "Completed").length %>>0</span></h2>
                     </div>
                     <div>
                         <div class="avatar-sm flex-shrink-0">
@@ -30,7 +30,7 @@
                     <div>
                         <p class="fw-medium text-muted mb-0">Pending Tasks</p>
                         <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value"
-                                data-target=<%= tasks.filter(task => task.statusFieldVal === "Pending").length %>>0</span></h2>
+                                data-target=<%= tasks.filter(task => allTasks.statusFieldVal === "Pending").length %>>0</span></h2>
                                 
                     </div>
                     <div>
@@ -52,7 +52,7 @@
                     <div>
                         <p class="fw-medium text-muted mb-0">Completed Tasks</p>
                         <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value"
-                                data-target=<%= tasks.filter(task => task.statusFieldVal === "Completed").length %>>0</span></h2>
+                                data-target=<%= tasks.filter(task => allTasks.statusFieldVal === "Completed").length %>>0</span></h2>
                     </div>
                     <div>
                         <div class="avatar-sm flex-shrink-0">
@@ -214,13 +214,34 @@
                                 </div>
                                 <div class="d-flex justify-content-end mt-2">
                                     <div class="pagination-wrap hstack gap-2">
-                                        <a class="page-item pagination-prev disabled" href="#">
-                                            Previous
-                                        </a>
-                                        <ul class="pagination listjs-pagination mb-0"></ul>
-                                        <a class="page-item pagination-next" href="#">
-                                            Next
-                                        </a>
+                                        <% if (pages > 0) { %>
+                                            <ul class="pagination listjs-pagination mb-0">
+                                                <% if (current == 1) { %>
+                                                    <li class="disabled"><a class="page">First</a></li>
+                                                <% } else { %>
+                                                    <li><a class="page" href="/tasks/1">First</a></li>
+                                                <% } %>
+                                                <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+                                                <% if (i !== 1) { %>
+                                                    <li class="disabled"><a>...</a></li>
+                                                <% } %>
+                                                <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+                                                    <% if (i == current) { %>
+                                                        <li class="active"><a class="page"><%= i %></a></li>
+                                                    <% } else { %>
+                                                        <li><a class="page" href="/tasks/<%= i %>"><%= i %></a></li>
+                                                    <% } %>
+                                                    <% if (i == Number(current) + 4 && i < pages) { %>
+                                                        <li class="disabled"><a>...</a></li>
+                                                    <% } %>
+                                                <% } %>
+                                                <% if (current == pages) { %>
+                                                    <li class="disabled"><a class="page">Last</a></li>
+                                                <% } else { %>
+                                                    <li><a class="page" href="/tasks/<%= pages %>">Last</a></li>
+                                                <% } %>
+                                            </ul>
+                                        <% } %>
                                     </div>
                                 </div>
                             </div>
@@ -326,25 +347,37 @@
                                     <!--end table-->
                     
                     <!--end table-->
-                    <div class="noresult" style="display: none">
-                        <div class="text-center">
-                            <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop"
-                                colors="primary:#121331,secondary:#08a88a" style="width:75px;height:75px"></lord-icon>
-                            <h5 class="mt-2">Sorry! No Result Found</h5>
-                            <p class="text-muted mb-0">We've searched more than 200k+ tasks We did not find any tasks
-                                for you search.</p>
-                        </div>
-                    </div>
                 </div>
                 <div class="d-flex justify-content-end mt-2">
                     <div class="pagination-wrap hstack gap-2">
-                        <a class="page-item pagination-prev disabled" href="#">
-                            Previous
-                        </a>
-                        <ul class="pagination listjs-pagination mb-0"></ul>
-                        <a class="page-item pagination-next" href="#">
-                            Next
-                        </a>
+                        <% if (pages > 0) { %>
+                            <ul class="pagination listjs-pagination mb-0">
+                                <% if (current == 1) { %>
+                                    <li class="disabled"><a class="page">First</a></li>
+                                <% } else { %>
+                                    <li><a class="page" href="/tasks/1">First</a></li>
+                                <% } %>
+                                <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+                                <% if (i !== 1) { %>
+                                    <li class="disabled"><a>...</a></li>
+                                <% } %>
+                                <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+                                    <% if (i == current) { %>
+                                        <li class="active"><a class="page"><%= i %></a></li>
+                                    <% } else { %>
+                                        <li><a class="page" href="/tasks/<%= i %>"><%= i %></a></li>
+                                    <% } %>
+                                    <% if (i == Number(current) + 4 && i < pages) { %>
+                                        <li class="disabled"><a>...</a></li>
+                                    <% } %>
+                                <% } %>
+                                <% if (current == pages) { %>
+                                    <li class="disabled"><a class="page">Last</a></li>
+                                <% } else { %>
+                                    <li><a class="page" href="/tasks/<%= pages %>">Last</a></li>
+                                <% } %>
+                            </ul>
+                        <% } %>
                     </div>
                 </div>
             </div>
@@ -466,14 +499,14 @@
 
 
 <!-- list.js min js -->
-<script src="assets/libs/list.js/list.min.js"></script>
+<script src="/assets/libs/list.js/list.min.js"></script>
 
 <!--list pagination js-->
-<script src="assets/libs/list.pagination.js/list.pagination.min.js"></script>
+<script src="/assets/libs/list.pagination.js/list.pagination.min.js"></script>
 
 <!-- titcket init js -->
-<script src="assets/js/pages/tasks-list.init.js"></script>
-<script src="assets/libs/sweetalert2/sweetalert2.min.js"></script>
+<script src="/assets/js/pages/tasks-list.init.js"></script>
+<script src="/assets/libs/sweetalert2/sweetalert2.min.js"></script>
 <!-- App js -->
 
 
