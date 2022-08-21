@@ -114,11 +114,11 @@
                     <table class="table align-middle table-nowrap mb-0" id="tasksTable">
                         <thead class="table-light text-muted">
                             <tr>
-                                <th class="sort" data-sort="tasks_name"><a href="tasksTitleFieldVal">Task</th></a>
-                                <th class="sort" data-sort="client_name"><a href="clientNameFieldVal">Lead Name</th></a>
-                                <th class="sort" data-sort="due_date"><a href="dateDueFieldVal">Due Date</th></a>
-                                <th class="sort" data-sort="status"><a href="statusFieldVal">Status</th></a>
-                                <th class="sort" data-sort="priority"><a href="priorityFieldVal">Priority</a></th>
+                                <th class="sort"  data-sort="tasksTitleFieldVal"><a href="tasksTitleFieldVal%20<%= sortOrder === 'desc' ? 'asc' : 'desc' %>">Task</a></th>
+                                <th class="sort" data-sort="clientNameFieldVal"><a href="clientNameFieldVal%20<%= sortOrder === 'desc' ? 'asc' : 'desc' %>">Lead Name</a></th>
+                                <th class="sort" data-sort="dateDueFieldVal"><a href="dateDueFieldVal%20<%= sortOrder === 'desc' ? 'asc' : 'desc' %>"> Due Date</a></th>
+                                <th class="sort" data-sort="statusFieldVal"><a href="statusFieldVal%20<%= sortOrder === 'desc' ? 'asc' : 'desc' %>">Status</a></th>
+                                <th class="sort" data-sort="priorityFieldVal"><a href="priorityFieldVal%20<%= sortOrder === 'desc' ? 'asc' : 'desc' %>">Priority</a></th>
                             </tr>
                         </thead>
                         
@@ -213,7 +213,7 @@
                                                 <% if (current == 1) { %>
                                                     <li class="disabled"><a class="page">First</a></li>
                                                 <% } else { %>
-                                                    <li><a class="page" href="/tasks/1/<%= thingToSort %>">First</a></li>
+                                                    <li><a class="page" href="/tasks/1/<%= thingToSort %>%20<%= sortOrder %>">First</a></li>
                                                 <% } %>
                                                 <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
                                                 <% if (i !== 1) { %>
@@ -223,7 +223,7 @@
                                                     <% if (i == current) { %>
                                                         <li class="active"><a class="page"><%= i %></a></li>
                                                     <% } else { %>
-                                                        <li><a class="page" href="/tasks/<%= i %>/<%= thingToSort %>"><%= i %></a></li>
+                                                        <li><a class="page" href="/tasks/<%= i %>/<%= thingToSort %>%20<%= sortOrder %>"><%= i %></a></li>
                                                     <% } %>
                                                     <% if (i == Number(current) + 4 && i < pages) { %>
                                                         <li class="disabled"><a>...</a></li>
@@ -255,11 +255,11 @@
                                     <table class="table align-middle table-nowrap mb-0" id="tasksTable">
                                         <thead class="table-light text-muted">
                                             <tr>
-                                                <th class="sort" data-sort="tasks_name"><a href="tasksTitleFieldVal"></a> Task</th></a>
-                                                <th class="sort" data-sort="client_name"><a href="clientNameFieldVal">Lead Name</th></a>
-                                                <th class="sort" data-sort="due_date"><a href="ateDueFieldVal">Due Date</th></a>
-                                                <th class="sort" data-sort="status"><a href="statusFieldVal">Status</th></a>
-                                                <th class="sort" data-sort="priority"><a href="priorityFieldVal">Priority</a></th>
+                                                <th class="sort" data-sort="tasksTitleFieldVal"><a href="tasksTitleFieldVal%20<%= sortOrder === 'desc' ? 'asc' : 'desc' %>">Task</a></th>
+                                                <th class="sort" data-sort="clientNameFieldVal"><a href="clientNameFieldVal%20<%= sortOrder === 'desc' ? 'asc' : 'desc' %>">Lead Name</a></th>
+                                                <th class="sort" data-sort="dateDueFieldVal"><a href="dateDueFieldVal%20<%= sortOrder === 'desc' ? 'asc' : 'desc' %>"> Due Date</a></th>
+                                                <th class="sort" data-sort="statusFieldVal"><a href="statusFieldVal%20<%= sortOrder === 'desc' ? 'asc' : 'desc' %>">Status</a></th>
+                                                <th class="sort"  data-sort="priorityFieldVal"><a href="priorityFieldVal%20<%= sortOrder === 'desc' ? 'asc' : 'desc' %>">Priority</a></th>
                                             </tr>
                                         </thead>
                                         <tbody class="list form-check-all">
@@ -349,7 +349,7 @@
                                 <% if (current == 1) { %>
                                     <li class="disabled"><a class="page">First</a></li>
                                 <% } else { %>
-                                    <li><a class="page" href="/tasks/1/<%= thingToSort %>">First</a></li>
+                                    <li><a class="page" href="/tasks/1/<%= thingToSort %>%20<%= sortOrder %>">First</a></li>
                                 <% } %>
                                 <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
                                 <% if (i !== 1) { %>
@@ -359,7 +359,7 @@
                                     <% if (i == current) { %>
                                         <li class="active"><a class="page"><%= i %></a></li>
                                     <% } else { %>
-                                        <li><a class="page" href="/tasks/<%= i %>/<%= thingToSort %>"><%= i %></a></li>
+                                        <li><a class="page" href="/tasks/<%= i %>/<%= thingToSort %>%20<%= sortOrder %>"><%= i %></a></li>
                                     <% } %>
                                     <% if (i == Number(current) + 4 && i < pages) { %>
                                         <li class="disabled"><a>...</a></li>
@@ -368,7 +368,7 @@
                                 <% if (current == pages) { %>
                                     <li class="disabled"><a class="page">Last</a></li>
                                 <% } else { %>
-                                    <li><a class="page" href="/tasks/<%= pages %>/<%= thingToSort %>">Last</a></li>
+                                    <li><a class="page" href="/tasks/<%= pages %>/<%= thingToSort %>%20<%= sortOrder %>">Last</a></li>
                                 <% } %>
                             </ul>
                         <% } %>

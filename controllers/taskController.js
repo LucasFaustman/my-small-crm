@@ -62,7 +62,14 @@ module.exports.getTaskItems_get =  async (req,res) => {
 
 console.log(req.params.sort)
 
-const thingToSort = req.params.sort
+//the actual column we are sorting(ex. due date)
+let thingToSort = req.params.sort.split(' ')[0]
+
+//either ascending or descending
+let sortOrder = req.params.sort.split(' ')[1]
+
+//make asc or desc into a numeric value that we can sort with
+let sortOrderInNumerics = sortOrder === 'asc' ? 1 : -1
 
 
 
@@ -113,7 +120,7 @@ const leadData = await crm_lead.findOne({owner: [userID]})
 
         //declare a variable named taskItems that await to find tasks in the database with an owner of the users id. also will skip anything after our page, and limit it to 9 a page
 
-    const taskItems = await Task.find({ owner:[userData._id]}).skip((perPage * page) - perPage).limit(perPage).sort(thingToSort)
+    const taskItems = await Task.find({ owner:[userData._id]}).skip((perPage * page) - perPage).limit(perPage).sort({ [thingToSort]: sortOrderInNumerics })
 
 
     const leadItems = await crm_lead.find({ owner:[userData._id]})
@@ -121,7 +128,7 @@ const leadData = await crm_lead.findOne({owner: [userID]})
     //render tasks.ejs with the tasks of the user, as well as the title, page title, and folder for the views. and the numbers of pages we have, and our current page for pagination
 
         
-    res.render('tasks.ejs', {tasks: taskItems , allTasks: allTaskItems, thingToSort: thingToSort, current: page,  pages: pages, leads: leadItems, title: 'Tasks List', page_title: 'Upcoming Tasks', folder: 'Tasks'}
+    res.render('tasks.ejs', {tasks: taskItems , allTasks: allTaskItems, sortOrder: sortOrder, thingToSort: thingToSort, current: page,  pages: pages, leads: leadItems, title: 'Tasks List', page_title: 'Upcoming Tasks', folder: 'Tasks'}
     )
     
     }

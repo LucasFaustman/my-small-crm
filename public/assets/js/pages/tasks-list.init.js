@@ -483,23 +483,45 @@ function isPriority(val) {
 //sort our table on onclick
 
 
-sortBtns = document.getElementsByClassName("sort")
+// sortBtns = document.getElementsByClassName("sort")
 
-Array.from(sortBtns).forEach(async function (btn) {
-    btn.addEventListener("click", async function (e) {
+// Array.from(sortBtns).forEach(async function (btn) {
+//     btn.addEventListener("click", async function (e) {
 
-        var column = btn.dataset.sort
-        var order = btn.dataset.order
+//         var column = btn.dataset.sort
+//         var order = btn.dataset.order
+//         console.log(column, order)
 
-        if (order === 'desc') {
-            btn.dataset.order = 'asc'
-
-
-        } else {
-            btn.dataset.order = 'desc'
-        }
+//         if (order === 'desc') {
+//             btn.dataset.order = 'asc'
 
 
-    })
+//         } else {
+//             btn.dataset.order = 'desc'
+//         }
 
-});
+
+//         // try {
+//         //     //fetch the sorted get request
+//         //     const res = await fetch(`/tasks/:page/${column} ${order}`, {
+//         //         //delete method
+//         //         method: 'GET',
+//         //         headers: { 'Content-Type': 'application/json' }
+//         //     });
+//         //     const data = await res
+//         //     console.log(data)
+//         //     window.location.href = data.url
+            
+            
+//         // }
+//         // catch (err) {
+//         //     console.log(err)
+//         // }   
+
+
+//     console.log('Column was clicked', column, order)
+
+
+//     })
+
+// });
