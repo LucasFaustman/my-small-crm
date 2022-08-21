@@ -45,13 +45,17 @@ var options = {
     // ],
 };
 
-// Init list
-var tasksList = new List("tasksList", options).on("updated", function (list) {
-    list.matchingItems.length == 0 ?
-        (document.getElementsByClassName("noresult")[0].style.display = "block") :
-        (document.getElementsByClassName("noresult")[0].style.display = "none");
-    var isFirst = list.i == 1;
-    var isLast = list.i > list.matchingItems.length - list.page;
+
+
+
+
+// // Init list
+// var tasksList = new List("tasksList", options).on("updated", function (list) {
+//     list.matchingItems.length == 0 ?
+//         (document.getElementsByClassName("noresult")[0].style.display = "block") :
+//         (document.getElementsByClassName("noresult")[0].style.display = "none");
+//     var isFirst = list.i == 1;
+//     var isLast = list.i > list.matchingItems.length - list.page;
     // make the Prev and Nex buttons disabled on first and last pages accordingly
     // document.querySelector(".pagination-prev.disabled") ?
     //     document.querySelector(".pagination-prev.disabled").classList.remove("disabled") : "";
@@ -67,11 +71,11 @@ var tasksList = new List("tasksList", options).on("updated", function (list) {
     //     document.querySelector(".pagination-wrap").style.display = "flex";
     // if (list.matchingItems.length == perPage)
     //     document.querySelector(".pagination.listjs-pagination").firstElementChild.children[0].click()
-    if (list.matchingItems.length > 0)
-        document.getElementsByClassName("noresult")[0].style.display = "none";
-    else
-        document.getElementsByClassName("noresult")[0].style.display = "block";
-});
+//     if (list.matchingItems.length > 0)
+//         document.getElementsByClassName("noresult")[0].style.display = "none";
+//     else
+//         document.getElementsByClassName("noresult")[0].style.display = "block";
+// });
 
 // const xhttp = new XMLHttpRequest();
 // xhttp.onload = function () {
@@ -103,10 +107,10 @@ var tasksList = new List("tasksList", options).on("updated", function (list) {
 // }
 
 
-isCount = new DOMParser().parseFromString(
-    tasksList.items.slice(-1)[0]._values.id,
-    "text/html"
-);
+// isCount = new DOMParser().parseFromString(
+//     tasksList.items.slice(-1)[0]._values.id,
+//     "text/html"
+// );
 
 // var isValue = isCount.body.firstElementChild.innerHTML;
 
@@ -476,3 +480,26 @@ function isPriority(val) {
 }
 
 
+//sort our table on onclick
+
+
+sortBtns = document.getElementsByClassName("sort")
+
+Array.from(sortBtns).forEach(async function (btn) {
+    btn.addEventListener("click", async function (e) {
+
+        var column = btn.dataset.sort
+        var order = btn.dataset.order
+
+        if (order === 'desc') {
+            btn.dataset.order = 'asc'
+
+
+        } else {
+            btn.dataset.order = 'desc'
+        }
+
+
+    })
+
+});
