@@ -37,23 +37,12 @@
         <div class="card" id="companyList">
             <div class="card-header">
                 <div class="row g-2">
-                    <div class="col-md-3">
+                    <!-- <div class="col-md-3">
                         <div class="search-box">
                             <input type="text" class="form-control search" placeholder="Search for company...">
                             <i class="ri-search-line search-icon"></i>
                         </div>
-                    </div>
-                    <div class="col-md-auto ms-auto">
-                        <div class="d-flex align-items-center gap-2">
-                            <span class="text-muted">Sort by: </span>
-                            <select class="form-control mb-0" data-choices data-choices-search-false
-                                id="choices-single-default">
-                                <option value="Owner">Lead</option>
-                                <option value="Company">Company</option>
-                                <option value="location">Location</option>
-                            </select>
-                        </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <div class="card-body">
@@ -62,18 +51,12 @@
                         <table class="table align-middle table-nowrap mb-0" id="customerTable">
                             <thead class="table-light">
                                 <tr>
-                                    <!-- <th scope="col" style="width: 50px;">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="checkAll"
-                                                value="option">
-                                        </div>
-                                    </th> -->
-                                    <th class="sort" data-sort="name" scope="col">Company Name</th>
-                                    <th class="sort" data-sort="owner" scope="col">Lead</th>
-                                    <th class="sort" data-sort="industry_type" scope="col">Industry
-                                        Type</th>
-                                    <th class="sort" data-sort="star_value" scope="col">Rating</th>
-                                    <th class="sort" data-sort="location" scope="col">Location</th>
+                                    <th class="sort" data-sort="name" scope="col"><a href="name%20<%= sortOrder === 'desc' ? 'asc' : 'desc' %>">Company Name</a></th>
+                                    <th class="sort" data-sort="owner" scope="col"><a href="lead%20<%= sortOrder === 'desc' ? 'asc' : 'desc' %>">Lead</a></th>
+                                    <th class="sort" data-sort="industry_type" scope="col"><a href="industry_type%20<%= sortOrder === 'desc' ? 'asc' : 'desc' %>">Industry
+                                        Type</a></th>
+                                    <th class="sort" data-sort="star_value" scope="col"><a href="star_value%20<%= sortOrder === 'desc' ? 'asc' : 'desc' %>">Rating</a></th>
+                                    <th class="sort" data-sort="location" scope="col"><a href="location%20<%= sortOrder === 'desc' ? 'asc' : 'desc' %>">Location</a></th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -110,18 +93,6 @@
                                     <td class="employee-field" style="display:none;"><%= company.employee %></td>
                                     <td>
                                         <ul class="list-inline hstack gap-2 mb-0">
-                                            <!-- <li class="list-inline-item edit" data-bs-toggle="tooltip"
-                                                data-bs-trigger="hover" data-bs-placement="top" title="Call">
-                                                <a href="javascript:void(0);" class="text-muted d-inline-block">
-                                                    <i class="ri-phone-line fs-16"></i>
-                                                </a>
-                                            </li> -->
-                                            <!-- <li class="list-inline-item edit" data-bs-toggle="tooltip"
-                                                data-bs-trigger="hover" data-bs-placement="top" title="Message">
-                                                <a href="javascript:void(0);" class="text-muted d-inline-block">
-                                                    <i class="ri-question-answer-line fs-16"></i>
-                                                </a>
-                                            </li> -->
                                             <li class="list-inline-item" data-bs-toggle="tooltip"
                                                 data-bs-trigger="hover" data-bs-placement="top" title="View">
                                                 <a href="javascript:void(0);" class="view-item-btn"><i
@@ -188,13 +159,34 @@
                     </div>
                     <div class="d-flex justify-content-end mt-3">
                         <div class="pagination-wrap hstack gap-2">
-                            <a class="page-item pagination-prev disabled" href="#">
-                                Previous
-                            </a>
-                            <ul class="pagination listjs-pagination mb-0"></ul>
-                            <a class="page-item pagination-next" href="#">
-                                Next
-                            </a>
+                            <% if (pages > 0) { %>
+                                <ul class="pagination listjs-pagination mb-0">
+                                    <% if (current == 1) { %>
+                                        <li class="disabled"><a class="page">First</a></li>
+                                    <% } else { %>
+                                        <li><a class="page" href="/companies/1/<%= thingToSort %>%20<%= sortOrder %>">First</a></li>
+                                    <% } %>
+                                    <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+                                    <% if (i !== 1) { %>
+                                        <li class="disabled"><a>...</a></li>
+                                    <% } %>
+                                    <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+                                        <% if (i == current) { %>
+                                            <li class="active"><a class="page"><%= i %></a></li>
+                                        <% } else { %>
+                                            <li><a class="page" href="/companies/<%= i %>/<%= thingToSort %>%20<%= sortOrder %>"><%= i %></a></li>
+                                        <% } %>
+                                        <% if (i == Number(current) + 4 && i < pages) { %>
+                                            <li class="disabled"><a>...</a></li>
+                                        <% } %>
+                                    <% } %>
+                                    <% if (current == pages) { %>
+                                        <li class="disabled"><a class="page">Last</a></li>
+                                    <% } else { %>
+                                        <li><a class="page" href="/companies/<%= pages %>/<%= thingToSort %>%20<%= sortOrder %>">Last</a></li>
+                                    <% } %>
+                                </ul>
+                            <% } %>
                         </div>
                     </div>
                 </div>
@@ -405,7 +397,7 @@
                                 </tr>
                                 <tr>
                                     <td class="fw-medium" scope="row">Rating</td>
-                                    <td> <i class="ri-star-fill text-warning align-bottom"></i><%= companies[0].star_value %></td>
+                                    <td><%= companies[0].star_value %> <i class="ri-star-fill text-warning align-bottom"></i></td>
                                 </tr>
                                 <tr>
                                     <td class="fw-medium" scope="row">Website</td>
