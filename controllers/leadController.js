@@ -58,6 +58,26 @@ console.log(leadData._id)
 }
 
 module.exports.getLeads_get = async (req,res) => {
+
+
+        //sorting
+
+//the actual column we are sorting(ex. due date)
+let thingToSort = req.params.sort.split(' ')[0]
+
+//either ascending or descending
+let sortOrder = req.params.sort.split(' ')[1]
+
+//make asc or desc into a numeric value that we can sort with
+let sortOrderInNumerics = sortOrder === 'asc' ? 1 : -1
+
+    //pagination
+
+var perPage = 8;
+
+var page = req.params.page || 1
+
+
         //get user email
 const userEmail = res.locals.user.email
 
@@ -65,16 +85,26 @@ const userEmail = res.locals.user.email
 
 const userData = await User.findOne({email: userEmail})
 
+// total number of records from database for pagination 
+
+var total = await crm_lead.countDocuments({owner:[userData._id]}); 
+
+console.log(thingToSort, sortOrderInNumerics)
+
+
+// Calculating number of pagination links required
+var pages = Math.ceil(total / perPage);
+
     try {
 
         //declare a variable named taskItems that await to find tasks in the database with an owner of the users id
 
-    const leads = await crm_lead.find({ owner:[userData._id]}).sort({ date: -1 })
+    const leads = await crm_lead.find({ owner:[userData._id]}).skip((perPage * page) - perPage).limit(perPage).sort({ [thingToSort]: sortOrderInNumerics })
 
     //render tasks.ejs with the tasks of the user, as well as the title, page title, and folder for the views
         
     //res.render('leads.ejs', {tasks: taskItems , title: 'Tasks List', page_title: 'Upcoming Tasks', folder: 'Tasks'}
-    res.render('contacts', { leads: leads, title: 'Contacts', page_title: 'Contacts', folder: 'CRM' })
+    res.render('contacts', { leads: leads, sortOrder: sortOrder, thingToSort: thingToSort, current: page,  pages: pages, title: 'Contacts', page_title: 'Contacts', folder: 'CRM' })
     
     
     }
@@ -187,6 +217,7 @@ module.exports.getContactDetails_get = async(req,res) => {
     }
 
 }
+
 
 
   

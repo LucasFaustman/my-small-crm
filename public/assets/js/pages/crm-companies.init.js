@@ -23,106 +23,6 @@ if (checkAll) {
     };
 }
 
-var perPage = 8;
-
-//Table
-var options = {
-    valueNames: [
-        "id",
-        "name",
-        "owner",
-        "industry_type",
-        "star_value",
-        "location",
-        "employee",
-        "website",
-        "contact_email",
-        "since",
-        // { attr: "src", name: "image_src" }
-    ],
-    page: perPage,
-    pagination: true,
-    plugins: [
-        ListPagination({
-            left: 2,
-            right: 2
-        })
-    ]
-};
-// Init list
-var companyList = new List("companyList", options).on("updated", function (list) {
-    list.matchingItems.length == 0 ?
-        (document.getElementsByClassName("noresult")[0].style.display = "block") :
-        (document.getElementsByClassName("noresult")[0].style.display = "none");
-    var isFirst = list.i == 1;
-    var isLast = list.i > list.matchingItems.length - list.page;
-    // make the Prev and Nex buttons disabled on first and last pages accordingly
-    (document.querySelector(".pagination-prev.disabled")) ? document.querySelector(".pagination-prev.disabled").classList.remove("disabled"): '';
-    (document.querySelector(".pagination-next.disabled")) ? document.querySelector(".pagination-next.disabled").classList.remove("disabled"): '';
-    if (isFirst) {
-        document.querySelector(".pagination-prev").classList.add("disabled");
-    }
-    if (isLast) {
-        document.querySelector(".pagination-next").classList.add("disabled");
-    }
-    if (list.matchingItems.length <= perPage) {
-        document.querySelector(".pagination-wrap").style.display = "none";
-    } else {
-        document.querySelector(".pagination-wrap").style.display = "flex";
-    }
-
-    if (list.matchingItems.length > 0) {
-        document.getElementsByClassName("noresult")[0].style.display = "none";
-    } else {
-        document.getElementsByClassName("noresult")[0].style.display = "block";
-    }
-});
-
-// const xhttp = new XMLHttpRequest();
-// xhttp.onload = function () {
-//     var json_records = JSON.parse(this.responseText);
-//     Array.from(json_records).forEach(function (raw){
-//         companyList.add({
-//             id: '<a href="javascript:void(0);" class="fw-medium link-primary">#VZ' + raw.id + "</a>",
-//             name: raw.name,
-//             owner: raw.owner,
-//             industry_type: raw.industry_type,
-//             star_value: raw.star_value,
-//             location: raw.location,
-//             employee: raw.employee,
-//             website: raw.website,
-//             contact_email: raw.contact_email,
-//             since: raw.since,
-//             // image_src: raw.image_src
-//         });
-//         companyList.sort('id', { order: "desc" });
-//         refreshCallbacks();
-//     });
-//     companyList.remove("id", `<a href="javascript:void(0);" class="fw-medium link-primary">#VZ001</a>`);
-// }
-// xhttp.open("GET", "assets/json/company-list.json");
-// xhttp.send();
-
-// isCount = new DOMParser().parseFromString(
-//     companyList.items.slice(-1)[0]._values.id,
-//     "text/html"
-// );
-
-// customer image
-// document.querySelector("#company-logo-input").addEventListener("change", function () {
-//     var preview = document.querySelector("#companylogo-img");
-//     var file = document.querySelector("#company-logo-input").files[0];
-//     var reader = new FileReader();
-//     reader.addEventListener("load",function () {
-//         preview.src = reader.result;
-//     },false);
-//     if (file) {
-//         reader.readAsDataURL(file);
-//     }
-// });
-
-// var isValue = isCount.body.firstElementChild.innerHTML;
-
 var idField = document.getElementById("id-field"),
     companyNameField = document.getElementById("companyname-field"),
     companyLogoImg = document.getElementById("companylogo-img"),
@@ -195,32 +95,10 @@ addBtn.addEventListener("click", async function (e) {
         websiteField = websiteField.value
         contactEmail = contact_emailField.value
 
-        console.log(ownerField.value)
-        console.log(companyName)
 
-
-
-
-        companyList.add({
-            id: '<a href="javascript:void(0);" class="fw-medium link-primary">#VZ' + count + "</a>",
-            // image_src: companyLogoImg.src,
-            name: companyNameField.value,
-            owner: ownerField.value,
-            industry_type: industry_typeField.value,
-            star_value: star_valueField.value,
-            location: locationField.value,
-            employee: employeeField.value,
-            website: websiteField.value,
-            contact_email: contact_emailField.value,
-            
-            // since: sinceField.value
-            
-        });
-        companyList.sort('id', { order: "desc" });
         document.getElementById("close-modal").click();
         clearFields();
         refreshCallbacks();
-        count++;
         Swal.fire({
             position: 'center',
             icon: 'success',
@@ -413,7 +291,6 @@ function refreshCallbacks() {
             contact_emailField.value = e.target.closest("tr").children[7].innerText;
             employeeField.value = e.target.closest("tr").children[8].innerText;
 
-
                     var codeBlock = `
                         <div class="card-body text-center">
                             <h5 class="mt-3 mb-1">${companyNameField.value}</h5>
@@ -534,11 +411,3 @@ function deleteMultiple(){
     }
 }
 
-document.querySelector(".pagination-next").addEventListener("click", function () {
-    (document.querySelector(".pagination.listjs-pagination")) ? (document.querySelector(".pagination.listjs-pagination").querySelector(".active")) ?
-    document.querySelector(".pagination.listjs-pagination").querySelector(".active").nextElementSibling.children[0].click(): '': '';
-});
-document.querySelector(".pagination-prev").addEventListener("click", function () {
-    (document.querySelector(".pagination.listjs-pagination")) ? (document.querySelector(".pagination.listjs-pagination").querySelector(".active")) ?
-    document.querySelector(".pagination.listjs-pagination").querySelector(".active").previousSibling.children[0].click(): '': '';
-});

@@ -7,140 +7,6 @@ File: CRM-leads Js File
 */
 
 
-// list js
-function formatDate(date) {
-    var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-    ];
-    var d = new Date(date),
-        month = '' + monthNames[(d.getMonth())],
-        day = '' + d.getDate(),
-        year = d.getFullYear();
-    if (month.length < 2)
-        month = '0' + month;
-    if (day.length < 2)
-        day = '0' + day;
-    return [day + " " + month, year].join(', ');
-};
-
-var checkAll = document.getElementById("checkAll");
-if (checkAll) {
-    checkAll.onclick = function () {
-        var checkboxes = document.querySelectorAll('.form-check-all input[type="checkbox"]');
-        for (var i = 0; i < checkboxes.length; i++) {
-            checkboxes[i].checked = this.checked;
-            if (checkboxes[i].checked) {
-                checkboxes[i].closest("tr").classList.add("table-active");
-            } else {
-                checkboxes[i].closest("tr").classList.remove("table-active");
-            }
-        }
-    };
-}
-
-var perPage = 8;
-
-//Table
-var options = {
-    valueNames: [
-        "id",
-        "name",
-        "company_name",
-        "date",
-        "leads_score",
-        "phone",
-        "location",
-        "tags",
-        // { attr: "src", name: "image_src" }
-    ],
-    page: perPage,
-    pagination: true,
-    plugins: [
-        ListPagination({
-            left: 2,
-            right: 2
-        })
-    ]
-};
-
-// Init list
-var leadsList = new List("leadsList", options).on("updated", function (list) {
-    list.matchingItems.length == 0 ?
-        (document.getElementsByClassName("noresult")[0].style.display = "block") :
-        (document.getElementsByClassName("noresult")[0].style.display = "none");
-    var isFirst = list.i == 1;
-    var isLast = list.i > list.matchingItems.length - list.page;
-
-    // make the Prev and Nex buttons disabled on first and last pages accordingly
-    (document.querySelector(".pagination-prev.disabled")) ? document.querySelector(".pagination-prev.disabled").classList.remove("disabled"): '';
-    (document.querySelector(".pagination-next.disabled")) ? document.querySelector(".pagination-next.disabled").classList.remove("disabled"): '';
-    if (isFirst) {
-        document.querySelector(".pagination-prev").classList.add("disabled");
-    }
-    if (isLast) {
-        document.querySelector(".pagination-next").classList.add("disabled");
-    }
-    if (list.matchingItems.length <= perPage) {
-        document.querySelector(".pagination-wrap").style.display = "none";
-    } else {
-        document.querySelector(".pagination-wrap").style.display = "flex";
-    }
-
-    if (list.matchingItems.length > 0) {
-        document.getElementsByClassName("noresult")[0].style.display = "none";
-    } else {
-        document.getElementsByClassName("noresult")[0].style.display = "block";
-    }
-});
-
-// const xhttp = new XMLHttpRequest();
-// xhttp.onload = function () {
-//     var json_records = JSON.parse(this.responseText);
-//     Array.from(json_records).forEach(function (raw){
-//         var tags = raw.tags;
-//         var tagHtml = '';
-//         Array.from(tags).forEach((tag, index) => {
-//             tagHtml += '<span class="badge badge-soft-primary me-1">'+tag+'</span>'
-//         })
-
-//         leadsList.add({
-//             id: '<a href="javascript:void(0);" class="fw-medium link-primary">#VZ'+raw.id+"</a>",
-//             // image_src: raw.image_src,
-//             name: raw.name,
-//             company_name: raw.company_name,
-//             date: formatDate(raw.date),
-//             leads_score: raw.leads_score,
-//             phone: raw.phone,
-//             location: raw.location,
-//             tags: tagHtml,
-//         });
-//         leadsList.sort('id', { order: "desc" });
-//         refreshCallbacks();
-//     });
-//     leadsList.remove("id", `<a href="javascript:void(0);" class="fw-medium link-primary">#VZ2101</a>`);
-// }
-// xhttp.open("GET", "assets/json/leads-list.json");
-// xhttp.send();
-
-// customer image
-// document.querySelector("#lead-image-input").addEventListener("change", function () {
-//     var preview = document.querySelector("#lead-img");
-//     var file = document.querySelector("#lead-image-input").files[0];
-//     var reader = new FileReader();
-//     reader.addEventListener("load",function () {
-//         // preview.src = reader.result;
-//     },false);
-//     if (file) {
-//         reader.readAsDataURL(file);
-//     }
-// });
-
-isCount = new DOMParser().parseFromString(
-    leadsList.items.slice(-1)[0]._values.id,
-    "text/html"
-);
-
-
 
 var idField = document.getElementById("id-field"),
     leadNameField = document.getElementById("leadname-field"),
@@ -189,8 +55,7 @@ var table = document.getElementById("customerTable");
 var tr = table.getElementsByTagName("tr");
 var trlist = table.querySelectorAll(".list tr");
 
-var count = 11;
-// multiple Remove CancelButton
+
 var tagInputField = new Choices('#taginput-choices', {
     removeItemButton: true,
   }
@@ -214,7 +79,6 @@ addBtn.addEventListener("click", async function (e) {
     ) {
 
         leadNameField = leadNameField.value 
-        // leadImg = leadImg.value 
         company_nameField = company_nameField.value 
         dateField = dateField.value 
         leads_scoreField = leads_scoreField.value  
@@ -227,28 +91,9 @@ addBtn.addEventListener("click", async function (e) {
             tagHtmlValue += '<span class="badge badge-soft-primary me-1">' + tag + '</span>'
         })
 
-        
-
-        
-        leadsList.add({
-            id: '<a href="javascript:void(0);" class="fw-medium link-primary">#VZ'+count+"</a>",
-            // image_src: leadImg.src,
-            name: leadNameField.value,
-            company_name: company_nameField.value,
-            date: formatDate(dateField.value),
-            leads_score: leads_scoreField.value,
-            phone: phoneField.value,
-            location: locationField.value,
-            tags: tagHtmlValue,
-        });
-
-
-
-        leadsList.sort('id', { order: "desc" });
         document.getElementById("close-modal").click();
         clearFields();
         refreshCallbacks();
-        count++;
         Swal.fire({
             position: 'center',
             icon: 'success',
@@ -448,13 +293,3 @@ function clearFields() {
     tagInputField.setChoiceByValue("0");
 }
 
-
-document.querySelector(".pagination-next").addEventListener("click", function () {
-    (document.querySelector(".pagination.listjs-pagination")) ? (document.querySelector(".pagination.listjs-pagination").querySelector(".active")) ?
-    document.querySelector(".pagination.listjs-pagination").querySelector(".active").nextElementSibling.children[0].click(): '': '';
-});
-
-document.querySelector(".pagination-prev").addEventListener("click", function () {
-    (document.querySelector(".pagination.listjs-pagination")) ? (document.querySelector(".pagination.listjs-pagination").querySelector(".active")) ?
-    document.querySelector(".pagination.listjs-pagination").querySelector(".active").previousSibling.children[0].click(): '': '';
-});

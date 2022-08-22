@@ -73,7 +73,7 @@ let sortOrderInNumerics = sortOrder === 'asc' ? 1 : -1
 
     //pagination
 
-var perPage = 9;
+var perPage = 8;
 
 var page = req.params.page || 1
 
@@ -111,11 +111,15 @@ try {
 
 const companies = await crm_company.find({ owner:[userData._id]}).skip((perPage * page) - perPage).limit(perPage).sort({ [thingToSort]: sortOrderInNumerics })
 
+//pass all companies in, so when picking a company from form, we onmly pick companies with no leads assigned to a company already
+
+const allCompanies = await crm_company.find({ owner:[userData._id]})
+
 const leadItems = await crm_lead.find({ owner:[userData._id]})
 
 //render tasks.ejs with the tasks of the user, as well as the title, page title, and folder for the views
     
-res.render('companies', { companies: companies, sortOrder: sortOrder, thingToSort: thingToSort, current: page,  pages: pages, leads: leadItems, title: 'Companies', page_title: 'Companies', folder: 'CRM' })
+res.render('companies', { companies: companies, allCompanies: allCompanies, sortOrder: sortOrder, thingToSort: thingToSort, current: page,  pages: pages, leads: leadItems, title: 'Companies', page_title: 'Companies', folder: 'CRM' })
 }
 
 catch(err) {

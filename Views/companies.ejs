@@ -1,5 +1,5 @@
 <%- contentFor('HeaderCss') %>
-<link href="assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+<link href="/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
 <%- contentFor('body') %>
 
 <div class="row">
@@ -11,7 +11,7 @@
                         <button class="btn btn-info add-btn" data-bs-toggle="modal" data-bs-target="#showModal"><i
                                 class="ri-add-fill me-1 align-bottom"></i> Add Company</button>
                     </div>
-                    <div class="flex-shrink-0">
+                    <!-- <div class="flex-shrink-0">
                         <div class="hstack text-nowrap gap-2">
                             <button class="btn btn-soft-danger" onClick="deleteMultiple()"><i
                                     class="ri-delete-bin-2-line"></i></button>
@@ -27,7 +27,7 @@
                                 <li><a class="dropdown-item" href="#">Last Year</a></li>
                             </ul>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
@@ -37,12 +37,6 @@
         <div class="card" id="companyList">
             <div class="card-header">
                 <div class="row g-2">
-                    <!-- <div class="col-md-3">
-                        <div class="search-box">
-                            <input type="text" class="form-control search" placeholder="Search for company...">
-                            <i class="ri-search-line search-icon"></i>
-                        </div>
-                    </div> -->
                 </div>
             </div>
             <div class="card-body">
@@ -65,19 +59,11 @@
                                 <% companies.forEach(function (company) { %>
                             <tbody class="list form-check-all">
                                 <tr>
-                                    <!-- <th scope="row">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="chk_child"
-                                                value="option1">
-                                        </div>
-                                    </th> -->
                                     <td class="id" style="display:none;"><a href="javascript:void(0);"
                                             class="fw-medium link-primary"><%= company._id %></a></td>
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <div class="flex-shrink-0">
-                                                <!-- <img src="assets/images/brands/dribbble.png" alt=""
-                                                    class="avatar-xxs rounded-circle image_src"> -->
                                             </div>
                                             <div class="flex-grow-1 ms-2 name"><%= company.name %>
                                             </div>
@@ -208,21 +194,20 @@
                                             <div>
                                                 <label for="companyname-field" class="form-label">Company Name</label>
                                                 <select class="form-select" id="companyname-field">
-                                                    <% leads.forEach(function (lead) { %>
+                                 
+
+                                                    
+                                                    <% leads.filter(lead => allCompanies.map(company => company.name).includes(lead.company)).forEach(function (lead) { %>
                                                         <option value='<%= lead.company %>'><%= lead.company %></option>
                                                             <% }) %>
                                                 </select>
-
-                                                <!-- <label for="companyname-field" class="form-label">Name</label>
-                                                <input type="text" id="companyname-field" class="form-control"
-                                                    placeholder="Enter company name" required /> -->
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div>
                                                 <label for="owner-field" class="form-label">Contact Name</label> <button type="button" class="btn rounded-pill btn-light waves-effect"><a href='/contacts'>Add a Contact</a></button>
                                                 <select class="form-select" id="owner-field">
-                                                    <% leads.forEach(function (lead) { %>
+                                                    <% leads.filter(lead => allCompanies.map(company => company.lead).includes(lead.name)).forEach(function (lead) { %>
                                                         <option value='<%= lead.name %>'><%= lead.name %></option>
                                                             <% }) %>
                                                 </select>
@@ -318,6 +303,8 @@
                     </div>
                 </div>
                 <!--end add modal-->
+
+                
 
                 <div class="modal fade zoomIn" id="deleteRecordModal" tabindex="-1" aria-labelledby="deleteRecordLabel"
                     aria-hidden="true">
@@ -428,11 +415,11 @@
 
 
 <%- contentFor('FooterJs') %>
-<script src="assets/libs/sweetalert2/sweetalert2.min.js"></script>
+<script src="/assets/libs/sweetalert2/sweetalert2.min.js"></script>
 <!-- list.js min js -->
-<script src="assets/libs/list.js/list.min.js"></script>
-<script src="assets/libs/list.pagination.js/list.pagination.min.js"></script>
+<script src="/assets/libs/list.js/list.min.js"></script>
+<script src="/assets/libs/list.pagination.js/list.pagination.min.js"></script>
 
-<script src="assets/js/pages/crm-companies.init.js"></script>
+<script src="/assets/js/pages/crm-companies.init.js"></script>
 
 <!-- App js -->

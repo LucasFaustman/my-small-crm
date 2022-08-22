@@ -555,4 +555,8 @@ route.get('/layouts-vertical-hovered', (req, res, next) => {
 //     res.render('Auth/forgotpassword', { title: 'Register', layout: false })
 // })
 
+route.get('*', function(req, res){
+    res.render('auth-404-basic', { title: '404 Error', layout: 'layout/layout-WithoutNav' });
+  });
+
 module.exports = route;

@@ -49,108 +49,9 @@ if (checkAll) {
     };
 }
 
-var perPage = 8;
 
-//Table
-var options = {
-    valueNames: [
-        "id",
-        "name",
-        "company_name",
-        "designation",
-        "date",
-        "email_id",
-        "phone",
-        "lead_score",
-        "tags",
-    ],
-    page: perPage,
-    pagination: true,
-    plugins: [
-        ListPagination({
-            left: 2,
-            right: 2
-        })
-    ]
-};
-// Init list
-var contactList = new List("contactList", options).on("updated", function (list) {
-    list.matchingItems.length == 0 ?
-        (document.getElementsByClassName("noresult")[0].style.display = "block") :
-        (document.getElementsByClassName("noresult")[0].style.display = "none");
-    var isFirst = list.i == 1;
-    var isLast = list.i > list.matchingItems.length - list.page;
-    // make the Prev and Nex buttons disabled on first and last pages accordingly
-    (document.querySelector(".pagination-prev.disabled")) ? document.querySelector(".pagination-prev.disabled").classList.remove("disabled"): '';
-    (document.querySelector(".pagination-next.disabled")) ? document.querySelector(".pagination-next.disabled").classList.remove("disabled"): '';
-    if (isFirst) {
-        document.querySelector(".pagination-prev").classList.add("disabled");
-    }
-    if (isLast) {
-        document.querySelector(".pagination-next").classList.add("disabled");
-    }
-    if (list.matchingItems.length <= perPage) {
-        document.querySelector(".pagination-wrap").style.display = "none";
-    } else {
-        document.querySelector(".pagination-wrap").style.display = "flex";
-    }
 
-    if (list.matchingItems.length > 0) {
-        document.getElementsByClassName("noresult")[0].style.display = "none";
-    } else {
-        document.getElementsByClassName("noresult")[0].style.display = "block";
-    }
-});
 
-const xhttp = new XMLHttpRequest();
-xhttp.onload = function () {
-    var json_records = JSON.parse(this.responseText);
-    Array.from(json_records).forEach(function (raw){
-        var tags = raw.tags;
-        var tagHtml = '';
-        Array.from(tags).forEach((tag, index) => {
-            tagHtml += '<span class="badge badge-soft-primary me-1">'+tag+'</span>'
-        })
-
-        contactList.add({
-            id: `<a href="javascript:void(0);" class="fw-medium link-primary">#VZ${raw.id}</a>`,
-            name: '<div class="d-flex align-items-center">\
-            <div class="flex-shrink-0"><img src="'+raw.name[0]+'" alt="" class="avatar-xs rounded-circle"></div>\
-            <div class="flex-grow-1 ms-2 name">'+raw.name[1]+'</div>\
-            </div>',
-            company_name: raw.company_name,
-            designation: raw.designation,
-            date: formatDate(raw.date)+' <small class="text-muted">'+timeConvert(raw.date)+'</small>',
-            email_id: raw.email_id,
-            phone: raw.phone,
-            lead_score: raw.lead_score,
-            tags: tagHtml,
-        });
-        contactList.sort('id', { order: "desc" });
-        refreshCallbacks();
-    });
-    contactList.remove("id", `<a href="javascript:void(0);" class="fw-medium link-primary">#VZ001</a>`);
-}
-xhttp.open("GET", "assets/json/contact-list.json");
-xhttp.send();
-
-isCount = new DOMParser().parseFromString(
-    contactList.items.slice(-1)[0]._values.id,
-    "text/html"
-);
-
-// customer image
-document.querySelector("#customer-image-input").addEventListener("change", function () {
-    var preview = document.querySelector("#customer-img");
-    var file = document.querySelector("#customer-image-input").files[0];
-    var reader = new FileReader();
-    reader.addEventListener("load",function () {
-        preview.src = reader.result;
-    },false);
-    if (file) {
-        reader.readAsDataURL(file);
-    }
-});
 
 var idField = document.getElementById("id-field"),
     customerImg = document.getElementById("customer-img"),
@@ -536,11 +437,3 @@ function deleteMultiple(){
     }
 }
 
-document.querySelector(".pagination-next").addEventListener("click", function () {
-    (document.querySelector(".pagination.listjs-pagination")) ? (document.querySelector(".pagination.listjs-pagination").querySelector(".active")) ?
-    document.querySelector(".pagination.listjs-pagination").querySelector(".active").nextElementSibling.children[0].click(): '': '';
-});
-document.querySelector(".pagination-prev").addEventListener("click", function () {
-    (document.querySelector(".pagination.listjs-pagination")) ? (document.querySelector(".pagination.listjs-pagination").querySelector(".active")) ?
-    document.querySelector(".pagination.listjs-pagination").querySelector(".active").previousSibling.children[0].click(): '': '';
-});
