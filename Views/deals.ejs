@@ -506,7 +506,7 @@
                         <label for="contact" class="form-label">Contact Name</label>
                         <select class="form-select" id="contact">
                             <% leads.forEach(function (lead) { %>
-                                <option value='<%= lead.name %>'><%= lead.name %></option>
+                                <option value='<%= lead.name %>'><%= lead.name %> (from <%= lead.company %>)</option>
                                 <% }) %>
                         </select>
                     </div>

@@ -26,7 +26,6 @@ if (!userData) {
     console.log('User not found.')
 }
 
-
 // extract the lead payload , then create a new company with the info we got from the fetch
 
 
@@ -49,9 +48,6 @@ await User.updateOne({
 }, {
     $push: {companies: companyData._id}
 })
-
-
-    console.log(req.body)
 
     res.send('Company added')
 

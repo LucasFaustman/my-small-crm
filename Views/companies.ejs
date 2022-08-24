@@ -208,7 +208,7 @@
                                                 <label for="owner-field" class="form-label">Contact Name</label> <button type="button" class="btn rounded-pill btn-light waves-effect"><a href='/contacts'>Add a Contact</a></button>
                                                 <select class="form-select" id="owner-field">
                                                     <% leads.forEach(function (lead) { %>
-                                                        <option value='<%= lead.name %>'><%= lead.name %></option>
+                                                        <option value='<%= lead.name %>'><%= lead.name %> (<%= lead.company %>)</option>
                                                             <% }) %>
                                                 </select>
                                             </div>
