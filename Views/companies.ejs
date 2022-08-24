@@ -197,7 +197,7 @@
                                  
 
                                                     
-                                                    <% leads.filter(lead => allCompanies.map(company => company.name).includes(lead.company)).forEach(function (lead) { %>
+                                                    <% leads.forEach(function (lead) { %>
                                                         <option value='<%= lead.company %>'><%= lead.company %></option>
                                                             <% }) %>
                                                 </select>
@@ -207,7 +207,7 @@
                                             <div>
                                                 <label for="owner-field" class="form-label">Contact Name</label> <button type="button" class="btn rounded-pill btn-light waves-effect"><a href='/contacts'>Add a Contact</a></button>
                                                 <select class="form-select" id="owner-field">
-                                                    <% leads.filter(lead => allCompanies.map(company => company.lead).includes(lead.name)).forEach(function (lead) { %>
+                                                    <% leads.forEach(function (lead) { %>
                                                         <option value='<%= lead.name %>'><%= lead.name %></option>
                                                             <% }) %>
                                                 </select>

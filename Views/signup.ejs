@@ -43,6 +43,30 @@
                                 <form class="needs-validation" novalidate action="index">
 
                                     <div class="mb-3">
+                                        <label for="userFirstName" class="form-label">First Name <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" name ="firstName" class="form-control" id="userFirstName"
+                                            placeholder="Enter first name" required>
+                                        <div class = "firstName error"></div>
+                                        <div class="invalid-feedback">
+                                            Please enter first name
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="userLastName" class="form-label">Last name <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" name ="lastName" class="form-control" id="userLastName"
+                                            placeholder="Enter last name" required>
+                                        <div class = "lastName error"></div>
+                                        <div class="invalid-feedback">
+                                            Please enter last name
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="mb-3">
                                         <label for="useremail" class="form-label">Email <span
                                                 class="text-danger">*</span></label>
                                         <input type="email" name ="email" class="form-control" id="useremail"
@@ -82,32 +106,13 @@
                                         <p id="pass-number" class="invalid fs-12 mb-0">A least <b>number</b> (0-9)</p>
                                     </div>
 
+                                    
+
                                     <div class="mt-4">
                                         <button class="btn btn-success w-100" type="submit">Sign Up</button>
                                     </div>
 
-                                    <!-- signin with styling -->
-
-                                    <!-- <div class="mt-4 text-center">
-                                        <div class="signin-other-title">
-                                            <h5 class="fs-13 mb-4 title text-muted">Create account with</h5>
-                                        </div>
-
-                                        <div>
-                                            <button type="button"
-                                                class="btn btn-primary btn-icon waves-effect waves-light"><i
-                                                    class="ri-facebook-fill fs-16"></i></button>
-                                            <button type="button"
-                                                class="btn btn-danger btn-icon waves-effect waves-light"><i
-                                                    class="ri-google-fill fs-16"></i></button>
-                                            <button type="button"
-                                                class="btn btn-dark btn-icon waves-effect waves-light"><i
-                                                    class="ri-github-fill fs-16"></i></button>
-                                            <button type="button"
-                                                class="btn btn-info btn-icon waves-effect waves-light"><i
-                                                    class="ri-twitter-fill fs-16"></i></button>
-                                        </div>
-                                    </div> -->
+                                    
                                 </form>
 
                             </div>
@@ -164,6 +169,9 @@
     //grab the error divs that we have in our input
     const emailError = document.querySelector('.email.error')
     const passwordError = document.querySelector('.password.error')
+    const firstNameError = document.querySelector('.firstName.error')
+    const lastNameError = document.querySelector('.lastName.error')
+
 
     //add the event listener to the form on a submit
     form.addEventListener('submit' , async (e) => {
@@ -174,16 +182,20 @@
 
         emailError.textContent = ''
         passwordError.textContent = ''
+        firstNameError.textContent = ''
+        lastNameError.textContent = ''
         // get values
 
         const email = form.email.value;
         const password = form.password.value;
+        const firstName = form.firstName.value;
+        const lastName = form.lastName.value;
 
         try {
             // signify to the server this is a post request to our database, and include the email and password stringified to an object to pass onto the db
             const res = await fetch('/signup', {
                 method: 'POST',
-                body: JSON.stringify({ email, password }),
+                body: JSON.stringify({ email, password, firstName, lastName }),
                 headers: { 'Content-Type': 'application/json' }
             });
 
@@ -192,6 +204,8 @@
                 //if there are errors, update the dom to notify the user
                 emailError.textContent = data.errors.email
                 passwordError.textContent = data.errors.password
+                firstNameError.textContent = data.errors.firstName
+                lastNameError.textContent = data.errors.lastName
             }
             //if no errors, go to homepage  
             if (data.user) {

@@ -6,10 +6,10 @@ const companyController = require('../controllers/companyController')
 const router = Router();
 
 
-router.post('/addCompany', checkUser, companyController.addCompany_post)
-router.get('/companies/:page/:sort', checkUser, companyController.getCompanies_get)
-router.delete('/deleteCompany', checkUser, companyController.deleteCompany_delete)
-router.put('/editCompany', checkUser, companyController.editCompany_put)
+router.post('/addCompany', checkUser,requireAuth,  companyController.addCompany_post)
+router.get('/companies/:page/:sort', checkUser, requireAuth, companyController.getCompanies_get)
+router.delete('/deleteCompany', checkUser, requireAuth, companyController.deleteCompany_delete)
+router.put('/editCompany', checkUser,requireAuth,  companyController.editCompany_put)
 
 
 

@@ -8,12 +8,14 @@ const task = require('./task')
 const deal = require('./deals')
 
 const userschema =  new mongoose.Schema({
-    // first_name: {
-    //     type: String,
-    // },
-    // last_name: {
-    //     type: String,
-    // },
+    firstName: {
+        type: String,
+        required: [true, 'Please enter a first name.']
+    },
+    lastName: {
+        type: String,
+        required: [true, 'Please enter a last name.']
+    },
     email: {
         type: String,
         required: [true, 'Please Enter an email.'],
