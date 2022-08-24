@@ -121,6 +121,22 @@
             </div><!-- end card body -->
         </div><!-- end card -->
     </div><!-- end col -->
+    <div class="col-xxl-3 col-md-6">
+        <div class="card">
+            <div class="card-header align-items-center d-flex">
+                <h4 class="card-title mb-0 flex-grow-1">Opportunities</h4>
+                <div class="flex-shrink-0">
+                    <div class="dropdown card-header-dropdown">
+                    </div>
+                </div>
+            </div><!-- end card header -->
+            <div class="card-body pb-0">
+                
+                <div id="sales-forecast-chart" data-colors='["--vz-primary", "--vz-dark", "--vz-danger", "--vz-info", "--vz-success"]'
+                    class="apex-charts" dir="ltr"></div>
+            </div>
+        </div><!-- end card -->
+    </div><!-- end col -->
     
 </div><!-- end row -->
 
@@ -130,13 +146,6 @@
         <div class="card card-height-100">
             <div class="card-header align-items-center d-flex">
                 <h4 class="card-title mb-0 flex-grow-1">Closing Deals</h4>
-                <div class="flex-shrink-0">
-                    <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                        <option selected="">Closing Deals</option>
-                        <option value="2">Won Deals</option>
-                        <option value="3">Lost Deals</option>
-                    </select>
-                </div>
             </div><!-- end card header -->
 
             <div class="card-body">
@@ -190,7 +199,7 @@
                         <div class="text-muted"><span class="fw-semibold"><%= tasks.filter(task => task.statusFieldVal !== "Completed").length %></span><span
                                 class="fw-semibold"></span> remaining</div>
                     </div>
-                    <a href='/tasks'<button type="button" class="btn btn-sm btn-success"></i>
+                    <a href='/tasks'><button type="button" class="btn btn-sm btn-success"></i>
                         Go to Tasks</button></a>
                 </div><!-- end card header -->
 
@@ -229,9 +238,9 @@
 <%- contentFor('FooterJs') %>
 
 <!-- apexcharts -->
-<script src="assets/libs/apexcharts/apexcharts.min.js"></script>
+<script src="/assets/libs/apexcharts/apexcharts.min.js"></script>
 
 <!-- Dashboard init -->
-<script src="assets/js/pages/dashboard-crm.init.js"></script>
+<script src="/assets/js/pages/dashboard-crm.init.js"></script>
 
 <!-- App js -->

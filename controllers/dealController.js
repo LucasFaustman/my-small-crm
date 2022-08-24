@@ -122,3 +122,23 @@ try {
     console.log(err)
 }
 };
+
+module.exports.getDealsData_get =  async (req,res) => {
+ //get user id
+    
+ const userID = res.locals.user.id
+    
+    
+ //get user email
+const userEmail = res.locals.user.email
+
+    const userData = await User.findOne({email: userEmail})
+
+const dealItems = await Deal.find({ owner:[userData._id]})
+
+res.send(dealItems)
+
+
+
+}
+

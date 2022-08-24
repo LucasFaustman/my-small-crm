@@ -35,19 +35,69 @@ function getChartColorsArray(chartId) {
     }
 }
 
-// Sales forecast charts
+async function getdealDataForChart () {
+
+    // creates variable for url we want to fetch
+const url = '/deals/data';
+
+// fetch call to our /api/data page
+fetch(url)
+
+  // creates promise to work with response from /api/data
+  .then(res => {
+
+    // throws error if there is a problem fetching page
+    if (!res.ok) {
+
+      // returns error with response text of error
+
+      throw new Error(res.statusText);
+
+    }
+
+    // returns data from /api/data page in json format to next promise
+
+    return res.json();
+
+  })
+  .then(data => {
+
+    // creates employees variable to store JSON data form /api/data
+    let deals = data;
+
+    // creates empty employeeInfo array
+    let dealInfo = [];
+
+    // loops through data from employee variable
+    deals.forEach(deal => {
+
+      // pushes values from employees variable to empty employeeInfo array
+      dealInfo.push(deal.stage);
+    });
+    
+    
+
 var areachartSalesColors = getChartColorsArray("sales-forecast-chart");
 if (areachartSalesColors) {
+    
+    console.log(dealInfo)
+
     var options = {
         series: [{
-            name: 'Goal',
-            data: [37]
+            name: 'Contact Initiated',
+            data: [dealInfo.filter(dealStage => dealStage === 'Contact Initiated').length]
         }, {
-            name: 'Pending Forcast',
-            data: [12]
+            name: 'Needs Identified',
+            data: [dealInfo.filter(dealStage => dealStage === 'Needs Identified').length]
         }, {
-            name: 'Revenue',
-            data: [18]
+            name: 'Meeting Arranged',
+            data: [dealInfo.filter(dealStage => dealStage === 'Meeting Arranged').length]
+        }, {
+            name: 'In negotiation',
+            data: [dealInfo.filter(dealStage => dealStage === 'In negotiation').length]
+        }, {
+            name: 'Offer Accepted',
+            data: [dealInfo.filter(dealStage => dealStage === 'Offer Accepted').length]
         }],
         chart: {
             type: 'bar',
@@ -78,7 +128,7 @@ if (areachartSalesColors) {
                 offsetY: 0
             },
             title: {
-                text: 'Total Forecasted Value',
+                text: 'Opportunities',
                 offsetX: 0,
                 offsetY: -30,
                 style: {
@@ -91,7 +141,7 @@ if (areachartSalesColors) {
         yaxis: {
             labels: {
                 formatter: function (value) {
-                    return "$" + value + "k";
+                   return value
                 }
             },
             tickAmount: 4,
@@ -121,6 +171,14 @@ if (areachartSalesColors) {
     var chart = new ApexCharts(document.querySelector("#sales-forecast-chart"), options);
     chart.render();
 }
+    
+
+});
+}
+getdealDataForChart ()
+
+// Sales forecast charts
+
 
 // Deal Type Charts
 var dealTypeChartsColors = getChartColorsArray("deal-type-charts");

@@ -300,14 +300,14 @@
         <div class="card">
             <a class="card-header bg-soft-warning" data-bs-toggle="collapse" href="#leadDiscovered" role="button"
                 aria-expanded="false" aria-controls="leadDiscovered">
-                <h5 class="card-title text-uppercase fw-semibold mb-1 fs-15">In negotation</h5>
-                <p class="text-muted mb-0">$<%= deals.filter(deal => deal.stage === "In negotation").map(deal => deal.value.includes(',') ? Number(deal.value.split(',').join('')) : Number(deal.value)).reduce((acc,num) => acc + num,0) %> <span class="fw-medium"><%= deals.filter(deal => deal.stage === "In negotation").length %> Deal(s)</span></p>
+                <h5 class="card-title text-uppercase fw-semibold mb-1 fs-15">In negotiation</h5>
+                <p class="text-muted mb-0">$<%= deals.filter(deal => deal.stage === "In negotiation").map(deal => deal.value.includes(',') ? Number(deal.value.split(',').join('')) : Number(deal.value)).reduce((acc,num) => acc + num,0) %> <span class="fw-medium"><%= deals.filter(deal => deal.stage === "In negotiation").length %> Deal(s)</span></p>
             </a>
         </div>
         <!--end card-->
         <% if (deals.length > 0) { %>
 
-            <% deals.filter(deal => deal.stage === "In negotation").forEach(function (deal) { %>
+            <% deals.filter(deal => deal.stage === "In negotiation").forEach(function (deal) { %>
     
         <div class="collapse show" id="leadDiscovered">
         <div class="card mb-1 ribbon-box ribbon-fill ribbon-sm">
@@ -516,7 +516,7 @@
                                 <option value='Contact Initiated'>Contact Initiated</option>
                                 <option value='Needs Identified'>Needs Identified</option>
                                 <option value='Meeting Arranged'>Meeting Arranged</option>
-                                <option value='In negotation'>In negotation</option>
+                                <option value='In negotiation'>In negotiation</option>
                                 <option value='Offer Accepted'>Offer Accepted</option>
                                 <option value='Lost'>Lost</option>
                                 <option value='Won'>Won</option>
@@ -567,7 +567,7 @@
                                 <option value='Contact Initiated'>Contact Initiated</option>
                                 <option value='Needs Identified'>Needs Identified</option>
                                 <option value='Meeting Arranged'>Meeting Arranged</option>
-                                <option value='In negotation'>In negotation</option>
+                                <option value='In negotiation'>In negotiation</option>
                                 <option value='Offer Accepted'>Offer Accepted</option>
                                 <option value='Lost'>Lost</option>
                                 <option value='Won'>Won</option>
