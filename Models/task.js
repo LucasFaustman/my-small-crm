@@ -3,11 +3,6 @@ const User = require('./user')
 
 
 const taskschema = new mongoose.Schema({
-    // taskId: String,
-    // project: {
-    //     type: String,
-    //     required: [true, 'please enter project name'],
-    // },
     tasksTitleFieldVal: {
         type: String,
         required: [true, 'Please enter task name.'],
@@ -16,10 +11,6 @@ const taskschema = new mongoose.Schema({
         type: String,
         required: [true, 'Please enter client name.'],
     },
-    // subItem: [{
-    //     id: String,
-    //     img: String,
-    // }],
     dateDueFieldVal: {
         type: Date,
         required: [true, 'please enter due date'],

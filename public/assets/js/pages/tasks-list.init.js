@@ -128,24 +128,7 @@ var idField = document.getElementById("tasksId"),
 refreshCallbacks();
 //filterOrder("All");
 
-function filterOrder(isValue) {
-    var values_status = isValue;
-    tasksList.filter(function (data) {
-        var statusFilter = false;
-        matchData = new DOMParser().parseFromString(
-            data.values().status,
-            "text/html"
-        );
-        var status = matchData.body.firstElementChild.innerHTML;
-        if (status == "All" || values_status == "All") {
-            statusFilter = true;
-        } else {
-            statusFilter = status == values_status;
-        }
-        return statusFilter;
-    });
-    tasksList.update();
-}
+
 
 function updateList() {
     var values_status = document.querySelector(
@@ -187,10 +170,10 @@ document.getElementById("showModal").addEventListener("hidden.bs.modal", functio
     clearFields();
 });
 
-document.querySelector("#tasksList").addEventListener("click", function () {
-    refreshCallbacks();
-    ischeckboxcheck();
-});
+// document.querySelector("#tasksList").addEventListener("click", function () {
+//     refreshCallbacks();
+//     ischeckboxcheck();
+// });
 
 var table = document.getElementById("tasksTable");
 // save all tr
@@ -256,9 +239,7 @@ addBtn.addEventListener("click", async function (e) {
 
 editBtn.addEventListener("click", async function (e) {
     document.getElementById("exampleModalLabel").innerHTML = "Edit Order";
-    var editValues = tasksList.get({
-        id: idField.value,
-    });
+    
 
     if (
         tasksTitleField.value !== "" &&
@@ -390,9 +371,7 @@ function refreshCallbacks() {
         btn.addEventListener("click", function (e) {
             e.target.closest("tr").children[1].innerText;
             itemId = e.target.closest("tr").children[0].innerText;
-            var itemValues = tasksList.get({
-                id: itemId,
-            });
+
                     document.getElementById("delete-record").addEventListener("click", async function () {
 
                         try {

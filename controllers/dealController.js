@@ -83,7 +83,7 @@ try {
 
 const dealItems = await Deal.find({ owner:[userData._id]})
 
-const taskItems = await Task.find({ owner:[userData._id]}).sort({ dateDueFieldVal: 1 })
+const allTaskItems = await Task.find({ owner:[userData._id]}).sort({ dateDueFieldVal: 1 })
 
 const leadItems = await crm_lead.find({ owner:[userData._id]})
 
@@ -91,7 +91,7 @@ const companyItems = await crm_company.find({ owner: [userData._id] })
 
 //render deals.ejs with our dealitems and our leads information as well as companies
     
-res.render('deals.ejs', {deals: dealItems , tasks: taskItems, leads: leadItems, companies: companyItems, title: 'Deals', page_title: 'Deals', folder: 'CRM' }
+res.render('deals.ejs', {deals: dealItems , allTasks: allTaskItems, leads: leadItems, companies: companyItems, title: 'Deals', page_title: 'Deals', folder: 'CRM' }
 )
 
 }

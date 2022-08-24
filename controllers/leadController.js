@@ -96,6 +96,9 @@ console.log(thingToSort, sortOrderInNumerics)
 var pages = Math.ceil(total / perPage);
 
     try {
+         //get tasks for header
+    const allTaskItems = await Task.find({ owner:[userData._id]}).sort({ dateDueFieldVal: 1 })
+        
 
         //declare a variable named taskItems that await to find tasks in the database with an owner of the users id
 
@@ -104,7 +107,7 @@ var pages = Math.ceil(total / perPage);
     //render tasks.ejs with the tasks of the user, as well as the title, page title, and folder for the views
         
     //res.render('leads.ejs', {tasks: taskItems , title: 'Tasks List', page_title: 'Upcoming Tasks', folder: 'Tasks'}
-    res.render('contacts', { leads: leads, sortOrder: sortOrder, thingToSort: thingToSort, current: page,  pages: pages, title: 'Contacts', page_title: 'Contacts', folder: 'CRM' })
+    res.render('contacts', { leads: leads, sortOrder: sortOrder, allTasks: allTaskItems, thingToSort: thingToSort, current: page,  pages: pages, title: 'Contacts', page_title: 'Contacts', folder: 'CRM' })
     
     
     }
@@ -202,6 +205,8 @@ module.exports.getContactDetails_get = async(req,res) => {
 
     const company = await crm_company.find({ lead: contact[0].name , owner:[userId]})
 
+    //get tasks for header
+    const allTaskItems = await Task.find({ owner:[userId]}).sort({ dateDueFieldVal: 1 })
 
     //declare variable named task that a
 
@@ -209,7 +214,7 @@ module.exports.getContactDetails_get = async(req,res) => {
     const task = await Task.find({_id: contact[0].tasks, owner:[userId]}).sort({ dateDueFieldVal: 1 })
 
         
-    res.render('contact', {query : contactId, contacts: contact, deals: deal, companies: company, tasks: task,  layout: './layout/layout-without-bradcrumb', title: 'Project Overview' , page_title: 'Project Overview', folder: 'Projects' });
+    res.render('contact', {query : contactId, allTasks: allTaskItems,  contacts: contact, deals: deal, companies: company, tasks: task,  layout: './layout/layout-without-bradcrumb', title: 'Project Overview' , page_title: 'Project Overview', folder: 'Projects' });
 
     }
     catch (err) {

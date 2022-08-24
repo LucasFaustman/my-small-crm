@@ -1,8 +1,10 @@
-const User = require('../Models/user')
-const {crm_company} = require('../Models/crm')
+const User = require('../Models/user');
+const {crm_company} = require('../Models/crm');
 const { checkUser } = require("../middlewar/authMiddleware");
 const authController = require('./authController');
-const {crm_lead} = require('../Models/crm')
+const {crm_lead} = require('../Models/crm');
+const Task = require('../Models/task');
+
 
 //create company
 module.exports.addCompany_post = async (req,res) => {
@@ -115,11 +117,15 @@ const companies = await crm_company.find({ owner:[userData._id]}).skip((perPage 
 
 const allCompanies = await crm_company.find({ owner:[userData._id]})
 
+//get tasks for header
+const allTaskItems = await Task.find({ owner:[userData._id]}).sort({ dateDueFieldVal: 1 })
+
+
 const leadItems = await crm_lead.find({ owner:[userData._id]})
 
 //render tasks.ejs with the tasks of the user, as well as the title, page title, and folder for the views
     
-res.render('companies', { companies: companies, allCompanies: allCompanies, sortOrder: sortOrder, thingToSort: thingToSort, current: page,  pages: pages, leads: leadItems, title: 'Companies', page_title: 'Companies', folder: 'CRM' })
+res.render('companies', { companies: companies, allTasks: allTaskItems, allCompanies: allCompanies, sortOrder: sortOrder, thingToSort: thingToSort, current: page,  pages: pages, leads: leadItems, title: 'Companies', page_title: 'Companies', folder: 'CRM' })
 }
 
 catch(err) {

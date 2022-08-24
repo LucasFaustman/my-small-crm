@@ -81,9 +81,9 @@
                         </h6>
                         <p class="text-muted"><%= deal.description %></p>
                         <ul class="list-unstyled vstack gap-2 mb-0">
-                            <% if (tasks.length > 0) { %>
+                            <% if (allTasks.length > 0) { %>
 
-                                <% tasks.filter(task => task.leadOwner[0].toString() === deal.leadOwner[0].toString()).forEach(function (task) { %>
+                                <% allTasks.filter(task => task.leadOwner[0].toString() === deal.leadOwner[0].toString()).forEach(function (task) { %>
                             <li>
                                 <div class="d-flex">
                                     <div class="flex-shrink-0 avatar-xxs text-muted">
@@ -157,9 +157,9 @@
                     <h6 class="fs-14 mb-1"><%= deal.companyName %>
                     </h6>
                     <p class="text-muted"><%= deal.description %></p>
-                    <ul class="list-unstyled vstack gap-2 mb-0"><% if (tasks.length > 0) { %>
+                    <ul class="list-unstyled vstack gap-2 mb-0"><% if (allTasks.length > 0) { %>
                         
-                            <% tasks.filter(task => task.leadOwner[0].toString() === deal.leadOwner[0].toString()).forEach(function (task) { %>
+                            <% allTasks.filter(task => task.leadOwner[0].toString() === deal.leadOwner[0].toString()).forEach(function (task) { %>
 
                             
                         <li>
@@ -238,9 +238,9 @@
                         <h6 class="fs-14 mb-1"><%= deal.companyName %>
                         </h6>
                         <p class="text-muted"><%= deal.description %></p>
-                        <ul class="list-unstyled vstack gap-2 mb-0"><% if (tasks.length > 0) { %>
+                        <ul class="list-unstyled vstack gap-2 mb-0"><% if (allTasks.length > 0) { %>
                             
-                                <% tasks.filter(task => task.leadOwner[0].toString() === deal.leadOwner[0].toString()).forEach(function (task) { %>
+                                <% allTasks.filter(task => task.leadOwner[0].toString() === deal.leadOwner[0].toString()).forEach(function (task) { %>
     
                                 
                             <li>
@@ -327,9 +327,9 @@
                     <h6 class="fs-14 mb-1"><%= deal.companyName %>
                     </h6>
                     <p class="text-muted"><%= deal.description %></p>
-                    <ul class="list-unstyled vstack gap-2 mb-0"><% if (tasks.length > 0) { %>
+                    <ul class="list-unstyled vstack gap-2 mb-0"><% if (allTasks.length > 0) { %>
                         
-                            <% tasks.filter(task => task.leadOwner[0].toString() === deal.leadOwner[0].toString()).forEach(function (task) { %>
+                            <% allTasks.filter(task => task.leadOwner[0].toString() === deal.leadOwner[0].toString()).forEach(function (task) { %>
 
                             
                         <li>
@@ -420,9 +420,9 @@
                     <h6 class="fs-14 mb-1"><%= deal.companyName %>
                     </h6>
                     <p class="text-muted"><%= deal.description %></p>
-                    <ul class="list-unstyled vstack gap-2 mb-0"><% if (tasks.length > 0) { %>
+                    <ul class="list-unstyled vstack gap-2 mb-0"><% if (allTasks.length > 0) { %>
                         
-                            <% tasks.filter(task => task.leadOwner[0].toString() === deal.leadOwner[0].toString()).forEach(function (task) { %>
+                            <% allTasks.filter(task => task.leadOwner[0].toString() === deal.leadOwner[0].toString()).forEach(function (task) { %>
 
                             
                         <li>

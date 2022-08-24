@@ -206,6 +206,7 @@ const userEmail = res.locals.user.email
 const userData = await User.findOne({email: userEmail})
 
     try {
+        const allTaskItems = await Task.find({ owner:[userData._id]})
 
         //declare variable named dealItems that finds deals with the owner of userData._id
 
@@ -218,7 +219,7 @@ const userData = await User.findOne({email: userEmail})
 
     //render tasks.ejs with the tasks of the user, as well as the title, page title, and folder for the index views
         
-    res.render('index.ejs', {tasks: taskItems , deals: dealItems, title: 'Dashboard', page_title: 'Dashboard', folder: 'Dashboards'}
+    res.render('index.ejs', {tasks: taskItems , allTasks: allTaskItems, deals: dealItems, title: 'Dashboard', page_title: 'Dashboard', folder: 'Dashboards'}
     )
     
     }
