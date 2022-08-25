@@ -6,11 +6,11 @@ const router = Router();
 
 router.post('/signup', authController.signup_post)
 router.get('/signup', (req, res, next) => {
-    res.render('signup', { title: 'Sign Up', layout: 'layout: false' });
+    res.render('signup', { title: 'Sign Up'});
 }, authController.login_get)
 
 router.get('/login', (req, res, next) => {
-    res.render('login', { title: 'Sign In', layout: 'layout: false' });
+    res.render('login', { title: 'Sign In'});
 }, authController.login_get)
 
 router.post('/login', authController.login_post)
