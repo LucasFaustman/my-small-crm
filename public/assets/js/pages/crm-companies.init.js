@@ -62,11 +62,6 @@ document.getElementById("showModal").addEventListener("hidden.bs.modal", functio
     clearFields();
 });
 
-document.querySelector("#companyList").addEventListener("click", function () {
-    refreshCallbacks();
-    ischeckboxcheck();
-});
-
 var table = document.getElementById("customerTable");
 // save all tr
 var tr = table.getElementsByTagName("tr");
@@ -135,13 +130,9 @@ addBtn.addEventListener("click", async function (e) {
 
 editBtn.addEventListener("click", async function (e) {
     document.getElementById("exampleModalLabel").innerHTML = "Edit Company";
-    var editValues = companyList.get({
-        id: idField.value,
-    });
-    Array.from(editValues).forEach(async function (x) {
-        isid = new DOMParser().parseFromString(x._values.id, "text/html");
-        var selectedid = isid.body.firstElementChild.innerHTML;
-        if (selectedid == itemId) {
+
+    
+
         
                 companyName = companyNameField.value
                 ownerName = ownerField.value
@@ -181,22 +172,8 @@ editBtn.addEventListener("click", async function (e) {
                     console.log(err)
                 }
 
-
-
-            
-            x.values({
-                id: `<a href="javascript:void(0);" class="fw-medium link-primary">${idField.value}</a>`,
-                name: companyNameField.value,
-                owner: ownerField.value,
-                industry_type: industry_typeField.value,
-                star_value: star_valueField.value,
-                location: locationField.value,
-                employee: employeeField.value,
-                website: websiteField.value,
-                contact_email: contact_emailField.value,
-            });
-        }
-    });
+        
+  
     document.getElementById("close-modal").click();
     clearFields();
     Swal.fire({
@@ -207,6 +184,7 @@ editBtn.addEventListener("click", async function (e) {
         timer: 2000,
         showCloseButton: true
     });
+    window.location.reload();
 });
 
 function ischeckboxcheck() {
@@ -364,50 +342,5 @@ function clearFields() {
     contact_emailField.value = "";
 }
 
-// Delete Multiple Records
-function deleteMultiple(){
-    ids_array = [];
-    var items = document.getElementsByName('chk_child');
-    for (i = 0; i < items.length; i++) {
-        if (items[i].checked == true) {
-            var trNode = items[i].parentNode.parentNode.parentNode;
-            var id = trNode.querySelector("td a").innerHTML;
-            ids_array.push(id);
-        }
-    }
-    if (typeof ids_array !== 'undefined' && ids_array.length > 0) {
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonClass: 'btn btn-primary w-xs me-2 mt-2',
-            cancelButtonClass: 'btn btn-danger w-xs mt-2',
-            confirmButtonText: "Yes, delete it!",
-            buttonsStyling: false,
-            showCloseButton: true
-        }).then(function (result) {
-            if (result.value) {
-                for (i = 0; i < ids_array.length; i++) {
-                    companyList.remove("id", `<a href="javascript:void(0);" class="fw-medium link-primary">${ids_array[i]}</a>`);
-                }
-                document.getElementById("checkAll").checked = false;
-                Swal.fire({
-                    title: 'Deleted!',
-                    text: 'Your data has been deleted.',
-                    icon: 'success',
-                    confirmButtonClass: 'btn btn-info w-xs mt-2',
-                    buttonsStyling: false
-                });
-            }
-        });
-    } else {
-        Swal.fire({
-            title: 'Please select at least one checkbox',
-            confirmButtonClass: 'btn btn-info',
-            buttonsStyling: false,
-            showCloseButton: true
-        });
-    }
-}
+
 

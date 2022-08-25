@@ -21,98 +21,8 @@ if (checkAll) {
         }
     };
 }
-// var perPage = 8;
-
-//Table
-var options = {
-    valueNames: [
-        "id",
-       // "project_name",
-        "tasks_name",
-        "client_name",
-        //"assignedto",
-        "due_date",
-        "status",
-        "priority",
-    ],
-    // page: perPage,
-    // pagination: true,
-    // plugins: [
-    //     ListPagination({
-    //         left: 2,
-    //         right: 2,
-    //     }),
-    // ],
-};
 
 
-
-
-
-// // Init list
-// var tasksList = new List("tasksList", options).on("updated", function (list) {
-//     list.matchingItems.length == 0 ?
-//         (document.getElementsByClassName("noresult")[0].style.display = "block") :
-//         (document.getElementsByClassName("noresult")[0].style.display = "none");
-//     var isFirst = list.i == 1;
-//     var isLast = list.i > list.matchingItems.length - list.page;
-    // make the Prev and Nex buttons disabled on first and last pages accordingly
-    // document.querySelector(".pagination-prev.disabled") ?
-    //     document.querySelector(".pagination-prev.disabled").classList.remove("disabled") : "";
-    // document.querySelector(".pagination-next.disabled") ?
-    //     document.querySelector(".pagination-next.disabled").classList.remove("disabled") : "";
-    // if (isFirst)
-    //     document.querySelector(".pagination-prev").classList.add("disabled");
-    // if (isLast)
-    //     document.querySelector(".pagination-next").classList.add("disabled");
-    // if (list.matchingItems.length <= perPage)
-    //     document.querySelector(".pagination-wrap").style.display = "none";
-    // else
-    //     document.querySelector(".pagination-wrap").style.display = "flex";
-    // if (list.matchingItems.length == perPage)
-    //     document.querySelector(".pagination.listjs-pagination").firstElementChild.children[0].click()
-//     if (list.matchingItems.length > 0)
-//         document.getElementsByClassName("noresult")[0].style.display = "none";
-//     else
-//         document.getElementsByClassName("noresult")[0].style.display = "block";
-// });
-
-// const xhttp = new XMLHttpRequest();
-// xhttp.onload = function () {
-//     var json_records = JSON.parse(this.responseText);
-//     Array.from(json_records).forEach(function (raw) {
-//         var imgHtml = `<div class="avatar-group">`;
-//         // Array.from(raw.assignedto).forEach(function (img) {
-//         //     imgHtml += `
-//         //         <a href="javascript: void(0);" class="avatar-group-item" data-img="${img}" data-bs-toggle="tooltip" data-bs-trigger="hover" data-bs-placement="top" title="Username">
-//         //             <img src="assets/images/users/${img}" alt="" class="rounded-circle avatar-xxs" />
-//         //         </a>
-//         //     `;
-//         // });
-//         // imgHtml += `</div>`;
-//         tasksList.add({
-//             id: '<a href="apps-tasks-details" class="fw-medium link-primary">#VLZ' + raw.id + "</a>",
-//             // project_name: '<a href="apps-projects-overview" class="fw-medium link-primary">' + raw.project_name + "</a>",
-//             tasks_name: raw.tasks_name,
-//             client_name: raw.client_name,
-//             // assignedto: imgHtml,
-//             due_date: raw.due_date,
-//             status: isStatus(raw.status),
-//             priority: isPriority(raw.priority)
-//         });
-//         tasksList.sort('id', { order: "desc" });
-//         refreshCallbacks();
-//     });
-//     tasksList.remove("id", `<a href="apps-tasks-details" class="fw-medium link-primary">#VLZ501</a>`);
-// }
-
-
-// isCount = new DOMParser().parseFromString(
-//     tasksList.items.slice(-1)[0]._values.id,
-//     "text/html"
-// );
-
-// var isValue = isCount.body.firstElementChild.innerHTML;
 
 var idField = document.getElementById("tasksId"),
     tasksTitleField = document.getElementById("taskName-field"),
@@ -250,8 +160,7 @@ editBtn.addEventListener("click", async function (e) {
     ) {
 
 
-    Array.from(editValues).forEach(async function (x) {
-        isid = new DOMParser().parseFromString(x._values.id, "text/html");
+    
 
 
        
@@ -260,6 +169,8 @@ editBtn.addEventListener("click", async function (e) {
             dateDueFieldVal = dateDueField.value,
             statusFieldVal = statusField.value,
             priorityFieldVal = priorityField.value
+            console.log(dateDueFieldVal)
+
             
         
             try {
@@ -274,7 +185,7 @@ editBtn.addEventListener("click", async function (e) {
                         statusFieldVal}),
                     headers: { 'Content-Type': 'application/json' }
                 });
-                const data = res.json()
+                const data = res
                 
                 console.log(data)
     
@@ -284,7 +195,6 @@ editBtn.addEventListener("click", async function (e) {
                 console.log(err)
             }   
         
-    });
     document.getElementById("close-modal").click();
      window.location.reload();
     clearFields();
@@ -302,55 +212,7 @@ editBtn.addEventListener("click", async function (e) {
 });
 
 
-// var example = new Choices(priorityField, {
-//     searchEnabled: false,
-// });
 
-// var statusVal = new Choices(statusField, {
-//     searchEnabled: false,
-// });
-
-// function SearchData() {
-//     var isstatus = document.getElementById("idStatus").value;
-//     var pickerVal = document.getElementById("demo-datepicker").value;
-
-//     var date1 = pickerVal.split(" to ")[0];
-//     var date2 = pickerVal.split(" to ")[1];
-
-//     tasksList.filter(function (data) {
-//         matchData = new DOMParser().parseFromString(
-//             data.values().status,
-//             "text/html"
-//         );
-//         var status = matchData.body.firstElementChild.innerHTML;
-//         var statusFilter = false;
-//         var dateFilter = false;
-
-//         if (status == "all" || isstatus == "all") {
-//             statusFilter = true;
-//         } else {
-//             statusFilter = status == isstatus;
-//         }
-
-//         if (
-//             new Date(data.values().due_date.slice(0, 12)) >= new Date(date1) &&
-//             new Date(data.values().due_date.slice(0, 12)) <= new Date(date2)
-//         ) {
-//             dateFilter = true;
-//         } else {
-//             dateFilter = false;
-//         }
-
-//         if (statusFilter && dateFilter) {
-//             return statusFilter && dateFilter;
-//         } else if (statusFilter && pickerVal == "") {
-//             return statusFilter;
-//         } else if (dateFilter && pickerVal == "") {
-//             return dateFilter;
-//         }
-//     });
-//     tasksList.update();
-// }
 
 function ischeckboxcheck() {
     Array.from(document.getElementsByName("checkAll")).forEach(function (x) {

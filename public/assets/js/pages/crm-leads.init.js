@@ -133,10 +133,7 @@ addBtn.addEventListener("click", async function (e) {
 
 editBtn.addEventListener("click", async function (e) {
     document.getElementById("exampleModalLabel").innerHTML = "Edit Contact";
-    var editValues = leadsList.get({
-        id: idField.value,
-    });
-    Array.from(editValues).forEach(async function (x) {
+    
         // isid = new DOMParser().parseFromString(x._values.id, "text/html");
         // var selectedid = isid.body.firstElementChild.innerHTML;
 
@@ -153,6 +150,8 @@ editBtn.addEventListener("click", async function (e) {
         leads_scoreField = leads_scoreField.value  
         phone = phoneField.value 
         locationField = locationField.value 
+
+        console.log(dateField)
 
         try {
             const res = await fetch('/editLead', {
@@ -180,20 +179,7 @@ editBtn.addEventListener("click", async function (e) {
             catch(err) {
                 console.log(err)
             }
-            
-            x.values({
-                id: '<a href="javascript:void(0);" class="fw-medium link-primary">'+idField.value+"</a>",
-                // image_src: leadImg.src,
-                name: leadNameField.value,
-                company_name: company_nameField.value,
-                date: formatDate(dateField.value),
-                leads_score: leads_scoreField.value,
-                phone: phoneField.value,
-                tags: tagHtmlValue,
-                location: locationField.value,
-            });
-       // }
-    });
+
     document.getElementById("close-modal").click();
     window.location.reload();
     clearFields();
