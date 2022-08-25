@@ -196,7 +196,7 @@ editBtn.addEventListener("click", async function (e) {
             }   
         
     document.getElementById("close-modal").click();
-     window.location.reload();
+    //  window.location.reload();
     clearFields();
     Swal.fire({
         position: 'center',
@@ -277,10 +277,8 @@ function refreshCallbacks() {
 }
 
 function clearFields() {
-
     tasksTitleField.value = "";
     clientNameField.value = "";
-
     dateDueField.value = "";
 }
 

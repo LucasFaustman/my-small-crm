@@ -26,7 +26,7 @@ if (!userData) {
     console.log('User not found.')
 }
 
-// extract the lead payload , then create a new company with the info we got from the fetch
+// extract the company payload , then create a new company with the info we got from the fetch
 
 
 const companyData = await crm_company.create({
@@ -92,6 +92,8 @@ const userEmail = res.locals.user.email
 
 const userData = await User.findOne({email: userEmail})
 
+//find lead by user id
+
 const leadData = await crm_lead.findOne({owner: [userID]})
 
 // total number of records from database for pagination 
@@ -116,10 +118,11 @@ const allCompanies = await crm_company.find({ owner:[userData._id]})
 //get tasks for header
 const allTaskItems = await Task.find({ owner:[userData._id]}).sort({ dateDueFieldVal: 1 })
 
+//get lead items so we can use leads when picking a lead for company
 
 const leadItems = await crm_lead.find({ owner:[userData._id]})
 
-//render tasks.ejs with the tasks of the user, as well as the title, page title, and folder for the views
+//render companies.ejs with the tasks of the user, as well as the title, page title, and folder for the views
     
 res.render('companies', { companies: companies, allTasks: allTaskItems, allCompanies: allCompanies, sortOrder: sortOrder, thingToSort: thingToSort, current: page,  pages: pages, leads: leadItems, title: 'Companies', page_title: 'Companies', folder: 'CRM' })
 }

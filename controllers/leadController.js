@@ -208,7 +208,7 @@ module.exports.getContactDetails_get = async(req,res) => {
     //get tasks for header
     const allTaskItems = await Task.find({ owner:[userId]}).sort({ dateDueFieldVal: 1 })
 
-    //declare variable named task that a
+    //declare variable named task that find tasks and sort then based on due date
 
 
     const task = await Task.find({_id: contact[0].tasks, owner:[userId]}).sort({ dateDueFieldVal: 1 })

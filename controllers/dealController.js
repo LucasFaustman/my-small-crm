@@ -13,7 +13,7 @@ module.exports.addDeal_post = async (req,res) => {
     //get user id
 const userID = res.locals.user.id
 
-//we are going to find a lead that matches the iser id, the name of the contact, and the name of the company 
+//we are going to find a lead that matches the user id, the name of the contact, and the name of the company 
 
 const leadData = await crm_lead.findOne({owner: [userID], name:  req.body.contactVal, company: req.body.companyNameVal})
 
@@ -27,7 +27,7 @@ if (!userData) {
 }
 
 
-// extract the lead payload , then create a new deal with the info we got from the fetch
+// extract the deal payload , then create a new deal with the info we got from the fetch
 
 
 const dealData = await Deal.create({
@@ -79,13 +79,18 @@ const leadData = await crm_lead.findOne({owner: [userID]})
     
 try {
 
-    //declare a variable named taskItems that await to find tasks in the database with an owner of the users id
+    //declare a variable named dealItems that await to find tasks in the database with an owner of the users id
 
 const dealItems = await Deal.find({ owner:[userData._id]})
 
+//get alltask items for topbar
+
 const allTaskItems = await Task.find({ owner:[userData._id]}).sort({ dateDueFieldVal: 1 })
 
+//get leads for when users input something when creating a deal
 const leadItems = await crm_lead.find({ owner:[userData._id]})
+
+//get company items for when users input something when creating a deal
 
 const companyItems = await crm_company.find({ owner: [userData._id] })
 
@@ -105,7 +110,7 @@ catch(err) {
 
 module.exports.editDealStage_put = async (req,res) => {
 
-    console.log(req.body)
+    //get deal id and the stage of the edited deal
 
     let dealId = req.body.newItemId
     let newStage = req.body.editedStageVal
@@ -122,6 +127,8 @@ try {
     console.log(err)
 }
 };
+
+//get deals data for our chart on our dashboard
 
 module.exports.getDealsData_get =  async (req,res) => {
  //get user id
