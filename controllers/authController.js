@@ -45,7 +45,7 @@ module.exports.signup_get = (req,res) => {
 }
 
 module.exports.login_get = (req,res) => {
-    res.render('/login', { title: 'Login', layout: false })
+    res.render('/login')
 }
 
 module.exports.signup_post = async (req,res) => {
