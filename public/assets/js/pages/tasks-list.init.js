@@ -133,7 +133,7 @@ addBtn.addEventListener("click", async function (e) {
                     statusFieldVal }),
                 headers: { 'Content-Type': 'application/json' }
             });
-            const data = res.json()
+            const data = res
             console.log(data)
             if (data) 
             window.location.reload();

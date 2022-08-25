@@ -50,9 +50,11 @@
             <div class="card-body">
                 <div class="d-flex justify-content-between">
                     <div>
+                        <a href="/completedtasks/1/sort">
                         <p class="fw-medium text-muted mb-0">Completed Tasks</p>
                         <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value"
                                 data-target=<%= allTasks.filter(task => task.statusFieldVal === "Completed").length %>>0</span></h2>
+                        </a>
                     </div>
                     <div>
                         <div class="avatar-sm flex-shrink-0">
@@ -65,31 +67,7 @@
             </div><!-- end card body -->
         </div>
     </div>
-    <!--end col-->
-    <!-- <div class="col-xxl-3 col-sm-6">
-        <div class="card card-animate">
-            <div class="card-body">
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <p class="fw-medium text-muted mb-0">Deleted Tasks</p>
-                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value"
-                                data-target="14.84">0</span>%</h2>
-                        <p class="mb-0 text-muted"><span class="badge bg-light text-success mb-0">
-                                <i class="ri-arrow-up-line align-middle"></i> 0.63 %
-                            </span> vs. previous month</p>
-                    </div>
-                    <div>
-                        <div class="avatar-sm flex-shrink-0">
-                            <span class="avatar-title bg-soft-danger text-danger rounded-circle fs-4">
-                                <i class="ri-delete-bin-line"></i>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>end card body
-        </div>
-    </div> -->
-    <!--end col-->
+   
 </div>
 <!--end row-->
 
@@ -98,12 +76,10 @@
         <div class="card" id="tasksList">
             <div class="card-header border-0">
                 <div class="d-flex align-items-center">
-                    <h5 class="card-title mb-0 flex-grow-1">Upcoming Tasks</h5> <div class="col-xxl-5 col-sm-12">
-                    </div>
+                    <h5 class="card-title mb-0 flex-grow-1">All Tasks</h5>
                     <div class="flex-shrink-0">
                         <button class="btn btn-danger add-btn" data-bs-toggle="modal" data-bs-target="#showModal"><i
                                 class="ri-add-line align-bottom me-1"></i> Create Task</button>
-
                     </div>
                 </div>
             </div>
@@ -244,138 +220,7 @@
                             <!--end card-body-->
                         </div>
 
-                        <div class="card" id="tasksList">
-                            <div class="card-header align-items-center d-flex">
-                                <h4 class="card-title mb-0 flex-grow-1">Completed Tasks</h4>
-                            </div><!-- end card header -->
-
-
-                            <div class="card-body">
-                                <div class="table-responsive table-card mb-4">
-                                    <table class="table align-middle table-nowrap mb-0" id="tasksTable">
-                                        <thead class="table-light text-muted">
-                                            <tr>
-                                                <th class="sort" data-sort="tasksTitleFieldVal"><a href="tasksTitleFieldVal%20<%= sortOrder === 'desc' ? 'asc' : 'desc' %>">Task</a></th>
-                                                <th class="sort" data-sort="clientNameFieldVal"><a href="clientNameFieldVal%20<%= sortOrder === 'desc' ? 'asc' : 'desc' %>">Lead Name</a></th>
-                                                <th class="sort" data-sort="dateDueFieldVal"><a href="dateDueFieldVal%20<%= sortOrder === 'desc' ? 'asc' : 'desc' %>"> Due Date</a></th>
-                                                <th class="sort" data-sort="statusFieldVal"><a href="statusFieldVal%20<%= sortOrder === 'desc' ? 'asc' : 'desc' %>">Status</a></th>
-                                                <th class="sort"  data-sort="priorityFieldVal"><a href="priorityFieldVal%20<%= sortOrder === 'desc' ? 'asc' : 'desc' %>">Priority</a></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="list form-check-all">
-                                            <% if (tasks.length > 0 && tasks.some(task => task.statusFieldVal === 'Completed')) { %>
-
-                                                <% tasks.filter(task => task.statusFieldVal === "Completed").forEach(function (task) { %>
-                                            <tr>
-                                                <td class="id" style="display:none;"><%= task._id %></td>
-                                                <td>
-                                                    <div class="d-flex">
-                                                        <div class="flex-grow-1 tasks_name"><%=task.tasksTitleFieldVal %></div>
-                                                        <div class="flex-shrink-0 ms-4">
-                                                            <ul class="list-inline tasks-list-menu mb-0">
-                                                                <li class="list-inline-item"><a class="edit-item-btn" href="#showModal"
-                                                                        data-bs-toggle="modal"><i
-                                                                            class="ri-pencil-fill align-bottom me-2 text-muted"></i></a>
-                                                                </li>
-                                                                <li class="list-inline-item">
-                                                                    <a class="remove-item-btn" data-bs-toggle="modal"
-                                                                        href="#deleteOrder">
-                                                                        <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i>
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                
-                                                <td class="client_name"><%=task.clientNameFieldVal %></td>
-                                                <td class="due_date"><%= task.dateDueFieldVal.toDateString() %></td> 
-                                                <td class="status">
-                                                    <span  class="badge badge-soft-secondary text-uppercase"><%=task.statusFieldVal %></span>
-                                                </td>
-                                                <td class="priority">
-                                                    <span class="badge bg-danger text-uppercase"><%=task.priorityFieldVal %></span>
-                                                </td>
-                                                
-                                            </tr>
-                                            
-                                        </tbody> <% }) %>
-                                        <% } else { %> 
-                                            <tr>
-                                                <td class="id" style="display:none;"></td>
-                                                <td>
-                                                    <div class="d-flex">
-                                                        <div class="flex-grow-1 tasks_name">Your completed tasks are empty!</div>
-                                                        <div class="flex-shrink-0 ms-4">
-                                                            <ul class="list-inline tasks-list-menu mb-0">
-                                                                <li class="list-inline-item"><a class="edit-item-btn" href="#showModal"
-                                                                        data-bs-toggle="modal"><i
-                                                                            class="ri-pencil-fill align-bottom me-2 text-muted"></i></a>
-                                                                </li>
-                                                                <li class="list-inline-item">
-                                                                    <a class="remove-item-btn" data-bs-toggle="modal"
-                                                                        href="#deleteOrder">
-                                                                        <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i>
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                
-                                                <td class="client_name"></td>
-                                                <td class="due_date"></td> 
-                                                <td class="status">
-                                                    <span  class="badge badge-soft-secondary text-uppercase"></span>
-                                                </td>
-                                                <td class="priority">
-                                                    <span class="badge bg-danger text-uppercase"></span>
-                                                </td>
-                                                
-                                            </tr>
-                                            
-                                        </tbody><% } %>
-                                    
-                                    </table>
-                                    
-                                    <!--end table-->
-                    
-                    <!--end table-->
-                </div>
-                <div class="d-flex justify-content-end mt-2">
-                    <div class="pagination-wrap hstack gap-2">
-                        <% if (pages > 0) { %>
-                            <ul class="pagination listjs-pagination mb-0">
-                                <% if (current == 1) { %>
-                                    <li class="disabled"><a class="page">First</a></li>
-                                <% } else { %>
-                                    <li><a class="page" href="/tasks/1/<%= thingToSort %>%20<%= sortOrder %>">First</a></li>
-                                <% } %>
-                                <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
-                                <% if (i !== 1) { %>
-                                    <li class="disabled"><a>...</a></li>
-                                <% } %>
-                                <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
-                                    <% if (i == current) { %>
-                                        <li class="active"><a class="page"><%= i %></a></li>
-                                    <% } else { %>
-                                        <li><a class="page" href="/tasks/<%= i %>/<%= thingToSort %>%20<%= sortOrder %>"><%= i %></a></li>
-                                    <% } %>
-                                    <% if (i == Number(current) + 4 && i < pages) { %>
-                                        <li class="disabled"><a>...</a></li>
-                                    <% } %>
-                                <% } %>
-                                <% if (current == pages) { %>
-                                    <li class="disabled"><a class="page">Last</a></li>
-                                <% } else { %>
-                                    <li><a class="page" href="/tasks/<%= pages %>/<%= thingToSort %>%20<%= sortOrder %>">Last</a></li>
-                                <% } %>
-                            </ul>
-                        <% } %>
-                    </div>
-                </div>
-            </div>
-            <!--end card-body-->
+                       
         </div>
         <!--end card-->
     </div>
@@ -428,7 +273,7 @@
                         <div class="col-lg-12">
                             <div class="col-lg-6">
                                 <div>
-                                    <label for="clientName-field" class="form-label">Contact Name</label> <button type="button" class="btn rounded-pill btn-light waves-effect"><a href="/leads">Add a Contact</a></button>
+                                    <label for="clientName-field" class="form-label">Contact Name</label> <button type="button" class="btn rounded-pill btn-light waves-effect"><a href="/contacts/sort/1">Add a Contact</a></button>
                                     <select class="form-select" id="clientName-field">
                                         <% leads.forEach(function (lead) { %>
                                         <option value='<%= lead.name %>'><%= lead.name %></option>

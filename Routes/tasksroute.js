@@ -11,6 +11,7 @@ const router = Router();
 
 router.post('/addTaskItem',requireAuth,  checkUser, taskController.addTaskItem_post)
 router.get('/tasks/:page/:sort', requireAuth, checkUser, taskController.getTaskItems_get)
+router.get('/completedtasks/:page/:sort', requireAuth, checkUser, taskController.getCompletedTaskItems_get)
 router.delete('/deleteTaskItem', requireAuth, checkUser, taskController.deleteTaskItem_delete)
 router.put('/editTaskItem', requireAuth, checkUser, taskController.editTaskItem_put)
 

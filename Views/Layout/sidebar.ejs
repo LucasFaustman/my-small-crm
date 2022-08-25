@@ -42,7 +42,18 @@
                                 <a href="/index" class="nav-link" data-key="Home"> Home </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/tasks/1/sort" class="nav-link" data-key="Tasks"> Tasks </a>
+                                <a href="#sidebarTasks" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarTasks" data-key="t-tasks"> Tasks
+                                </a>
+                                <div class="collapse menu-dropdown" id="sidebarTasks">
+                                    <ul class="nav nav-sm flex-column">
+                                        <li class="nav-item">
+                                            <a href="/tasks/1/sort" class="nav-link" data-key="t-kanbanboard"> Upcoming Tasks </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="/tasks/1/sort" class="nav-link" data-key="t-list-view"> Completed Tasks </a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </li>
                             <li class="nav-item">
                                 <a href="/contacts/1/sort" class="nav-link" data-key="t-contacts"> Contacts </a>
