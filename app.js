@@ -35,7 +35,7 @@ app.use(express.json());
 app.use(session({ resave: false, saveUninitialized: true, secret: 'nodedemo' }));
 app.use(cookieParser());
 
-app.set('layout', 'Layout/Layout');
+app.set('layout', 'Layout/layout');
 app.use(expressLayouts);
 
 app.use(express.static(__dirname + '/public'));
