@@ -18,7 +18,7 @@ route.get('/landing', (req, res, next) => {
 
 
 route.get('*', function(req, res){
-    res.render('auth-404-basic', { title: '404 Error', layout: 'layout/layout-withoutNav' });
+    res.render('auth-404-basic', { title: '404 Error', layout: 'layout/layout-withoutNav', folder: "Layout"});
   });
 
 module.exports = route;
