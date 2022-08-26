@@ -41,12 +41,12 @@ const createToken = (id) => {
 }
 
 module.exports.signup_get = (req,res) => {
-    res.render('signup', { title: 'Sign Up', layout: false });
+    res.render('/signup', { title: 'Sign Up', layout: "layout/layout-withoutNav", folder: 'Layouts' });
                                                             
 }
 
 module.exports.login_get = (req,res) => {
-    res.render('login', { title: 'Sign In', layout: false});
+    res.render('/login', { title: 'Sign In', layout: "layout/layout-withoutNav" , folder: 'Layouts'});
 }
 
 module.exports.signup_post = async (req,res) => {
