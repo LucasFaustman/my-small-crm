@@ -9,7 +9,7 @@ Link to project: https://my-small-crm.herokuapp.com/
 ## How It's Made:
 
 **Tech used:**
-Tech used: EJS, Node, Express, Javascript
+Tech used: EJS, Node, Express, Javascript, MongoDB
 
 By working on My Small CRM, I was able to have a deep understanding about how MVC architecture works. 
 
