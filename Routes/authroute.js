@@ -5,7 +5,7 @@ const router = Router();
 
 
 router.post('/signup', authController.signup_post)
-router.get('/signup', authController.login_get)
+router.get('/signup', authController.signup_get)
 
 router.get('/login', authController.login_get)
 
