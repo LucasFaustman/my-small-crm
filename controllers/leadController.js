@@ -214,7 +214,7 @@ module.exports.getContactDetails_get = async(req,res) => {
     const task = await Task.find({_id: contact[0].tasks, owner:[userId]}).sort({ dateDueFieldVal: 1 })
 
         
-    res.render('contact', {query : contactId, allTasks: allTaskItems,  contacts: contact, deals: deal, companies: company, tasks: task,  layout: './layout/layout-without-bradcrumb', title: 'Contact Details' , page_title: 'Contact Details', folder: 'Projects' });
+    res.render('contact', {query : contactId, allTasks: allTaskItems,  contacts: contact, deals: deal, companies: company, tasks: task,  layout: 'Layout/layout-without-bradcrumb', title: 'Contact Details' , page_title: 'Contact Details', folder: 'Projects' });
 
     }
     catch (err) {
