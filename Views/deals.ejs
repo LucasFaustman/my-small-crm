@@ -4,42 +4,12 @@
 <div class="card">
     <div class="card-body">
         <div class="row g-3">
-            <div class="col-md-3">
-                <div class="search-box">
-                    <input type="text" class="form-control search" placeholder="Search for deals...">
-                    <i class="ri-search-line search-icon"></i>
-                </div>
-            </div>
             <!--end col-->
             <div class="col-md-auto ms-auto">
                 <div class="d-flex hastck gap-2 flex-wrap">
-                    <div class="d-flex align-items-center gap-2">
-                        <span class="text-muted">Sort by: </span>
-                        <select class="form-control mb-0" data-choices data-choices-search-false
-                            id="choices-single-default">
-                            <option value="Owner">Owner</option>
-                            <option value="Company">Company</option>
-                            <option value="Date">Date</option>
-                        </select>
-                    </div>
                     <button data-bs-toggle="modal" data-bs-target="#adddeals" class="btn btn-success"><i
                             class="ri-add-fill align-bottom me-1"></i> Add
                         Deals</button>
-                    <div class="dropdown">
-                        <button class="btn btn-soft-info btn-icon fs-14" type="button" id="dropdownMenuButton1"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="ri-settings-4-line"></i>
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="#">Copy</a></li>
-                            <li><a class="dropdown-item" href="#">Move to pipline</a></li>
-                            <li><a class="dropdown-item" href="#">Add to exceptions</a></li>
-                            <li><a class="dropdown-item" href="#">Switch to common form view</a>
-                            </li>
-                            <li><a class="dropdown-item" href="#">Reset form view to default</a>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
             </div>
             <!--end col-->

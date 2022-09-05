@@ -79,8 +79,6 @@ fetch(url)
 
 var areachartSalesColors = getChartColorsArray("sales-forecast-chart");
 if (areachartSalesColors) {
-    
-    console.log(dealInfo)
 
     var options = {
         series: [{
