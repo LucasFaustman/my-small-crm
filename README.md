@@ -2,7 +2,7 @@
 
 The Customer Relationship Management tool for Small Businesses. Users can keep track of contacts, companies, upcoming and completed tasks, as well as projected revenue all in one platform.
 
-Link to project: https://my-small-crm.herokuapp.com/ 
+Link to project: https://my-small-crm.herokuapp.com/landing 
 
 Demo Email: demo@google.com
 Demo Password: demo12345
