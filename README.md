@@ -14,18 +14,20 @@ Demo Password: demo12345
 **Tech used:**
 Tech used: EJS, Node, Express, Javascript, MongoDB
 
-By working on My Small CRM, I was able to have a deep understanding about how MVC architecture works. 
+- By working on My Small CRM, I was able to have a deep understanding about how MVC architecture works. 
 
 ## Optimizations
 
 1. I would utilize something like Ajax in order to automatically update the page when adding, deleting, or editing an item. Currently the page refreshes after those actions are done.
+
 2. I would add an option for search or filtering through items. Currently there is only an option for sorting and pagination.
  
 ## Lessons Learned:
 
-I learned how MVC architecture can be used to create a web application! I had to deepen my knowledge of Express and EJS in order for everything to work.
+- I learned how MVC architecture can be used to create a web application! I had to deepen my knowledge of Express and EJS in order for everything to work.
 
-I also learned how I can use EJS for lots of different Javascript functions! In order to get data such as monthly revenue projected on the dashboard, I had to use the filter array method as well as reduce in order to get to the right number.
+- I learned how I can use EJS for lots of different Javascript functions! In order to get data such as monthly revenue projected on the dashboard, I had to use the filter array method as well as reduce in order to get to the right number.
+- Finally, I learned how vital project planning was. In this project, I had to create a rough mock up using Figma, then begin on the front end inside of EJS, set up my database, then start adding features. I learned the importance of planning, executing, then optimizing a project.
 
 ## Examples
 
