@@ -1,16 +1,6 @@
-/*
-Template Name: Velzon - Admin & Dashboard Template
-Author: Themesbrand
-Website: https://Themesbrand.com/
-Contact: Themesbrand@gmail.com
-File: CRM-leads Js File
-*/
-
-
 
 var idField = document.getElementById("id-field"),
     leadNameField = document.getElementById("leadname-field"),
-    // leadImg = document.getElementById("lead-img"),
     company_nameField = document.getElementById("company_name-field"),
     dateField = document.getElementById("date-field"),
     leads_scoreField = document.getElementById("leads_score-field"),
@@ -39,7 +29,6 @@ document.getElementById("showModal").addEventListener("show.bs.modal", function 
         document.getElementById("showModal").querySelector(".modal-footer").style.display = "none";
     }
 });
-// ischeckboxcheck();
 
 document.getElementById("showModal").addEventListener("hidden.bs.modal", function () {
     clearFields();
@@ -133,16 +122,12 @@ addBtn.addEventListener("click", async function (e) {
 
 editBtn.addEventListener("click", async function (e) {
     document.getElementById("exampleModalLabel").innerHTML = "Edit Contact";
-    
-        // isid = new DOMParser().parseFromString(x._values.id, "text/html");
-        // var selectedid = isid.body.firstElementChild.innerHTML;
 
         var tagInputFieldValue = tagInputField.getValue(true);
         var tagHtmlValue = '';
         Array.from(tagInputFieldValue).forEach((tag, index) => {
             tagHtmlValue += '<span class="badge badge-soft-primary me-1">' + tag + '</span>'
         })
-        // if (selectedid == itemId) {
 
             leadNameField = leadNameField.value 
         company_nameField = company_nameField.value 
@@ -150,8 +135,6 @@ editBtn.addEventListener("click", async function (e) {
         leads_scoreField = leads_scoreField.value  
         phone = phoneField.value 
         locationField = locationField.value 
-
-        console.log(dateField)
 
         try {
             const res = await fetch('/editLead', {

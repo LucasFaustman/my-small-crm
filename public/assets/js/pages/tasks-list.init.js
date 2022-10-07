@@ -1,11 +1,3 @@
-/*
-Template Name: Velzon - Admin & Dashboard Template
-Author: Themesbrand
-Website: https://Themesbrand.com/
-Contact: Themesbrand@gmail.com
-File: Tasks-list init js
-*/
-
 
 var checkAll = document.getElementById("checkAll");
 if (checkAll) {
@@ -27,7 +19,6 @@ if (checkAll) {
 var idField = document.getElementById("tasksId"),
     tasksTitleField = document.getElementById("taskName-field"),
     clientNameField = document.getElementById("clientName-field"),
-   // assignedtoNameField = 'Demo Assign', //document.getElementById("assignedtoName-field"),
     dateDueField = document.getElementById("duedate-field"),
     priorityField = document.getElementById("priority-field"),
     statusField = document.getElementById("ticket-status"),
@@ -36,7 +27,6 @@ var idField = document.getElementById("tasksId"),
     removeBtns = document.getElementsByClassName("remove-item-btn"),
     editBtns = document.getElementsByClassName("edit-item-btn");
 refreshCallbacks();
-//filterOrder("All");
 
 
 
@@ -79,11 +69,6 @@ document.getElementById("showModal").addEventListener("show.bs.modal", function 
 document.getElementById("showModal").addEventListener("hidden.bs.modal", function () {
     clearFields();
 });
-
-// document.querySelector("#tasksList").addEventListener("click", function () {
-//     refreshCallbacks();
-//     ischeckboxcheck();
-// });
 
 var table = document.getElementById("tasksTable");
 // save all tr
@@ -282,17 +267,6 @@ function clearFields() {
     dateDueField.value = "";
 }
 
-// document.querySelector(".pagination-next").addEventListener("click", function () {
-//     document.querySelector(".pagination.listjs-pagination") ?
-//         document.querySelector(".pagination.listjs-pagination").querySelector(".active") ?
-//         document.querySelector(".pagination.listjs-pagination").querySelector(".active").nextElementSibling.children[0].click() : "" : "";
-// });
-
-// document.querySelector(".pagination-prev").addEventListener("click", function () {
-//     document.querySelector(".pagination.listjs-pagination") ?
-//         document.querySelector(".pagination.listjs-pagination").querySelector(".active") ?
-//         document.querySelector(".pagination.listjs-pagination").querySelector(".active").previousSibling.children[0].click() : "" : "";
-// });
 
 function isStatus(val) {
     switch (val) {

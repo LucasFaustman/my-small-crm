@@ -6,28 +6,19 @@ const {crm_lead} = require('../Models/crm')
 const Deal = require('../Models/deals')
 const {crm_company} = require('../Models/crm')
 
+
 //create deal
 module.exports.addDeal_post = async (req,res) => {
 
-
-    //get user id
 const userID = res.locals.user.id
-
-//we are going to find a lead that matches the user id, the name of the contact, and the name of the company 
 
 const leadData = await crm_lead.findOne({owner: [userID], name:  req.body.contactVal, company: req.body.companyNameVal})
 
-
-
 const userData = await User.findOne({_id: userID})
 
-//add check if there is user, go to next. if not, console.log error
 if (!userData) {
     console.log('User not found.')
 }
-
-
-// extract the deal payload , then create a new deal with the info we got from the fetch
 
 
 const dealData = await Deal.create({
@@ -41,31 +32,24 @@ const dealData = await Deal.create({
     owner: userID
 })
 
-//now push deal id to the lead. should have the same user id as an owner, contact and company name
 
 await crm_lead.updateOne({
     owner: [userID],
     name: req.body.contactVal,
     company: req.body.companyNameVal
-}, { //then push our dealdata._id to the deals array
+}, { 
     $push: {deals: dealData._id}
 })
-
-
-    console.log(req.body)
 
     res.send('Company added')
 
 }
 
+//get deal
 module.exports.getDeals_get =  async (req,res) => {
 
-    //get user id
-    
     const userID = res.locals.user.id
-    
-    
-        //get user email
+     
     const userEmail = res.locals.user.email
 
 
@@ -79,28 +63,21 @@ const leadData = await crm_lead.findOne({owner: [userID]})
     
 try {
 
-    //declare a variable named dealItems that await to find tasks in the database with an owner of the users id
 
 const dealItems = await Deal.find({ owner:[userData._id]})
 
-//get alltask items for topbar
-
 const allTaskItems = await Task.find({ owner:[userData._id]}).sort({ dateDueFieldVal: 1 })
 
-//get leads for when users input something when creating a deal
 const leadItems = await crm_lead.find({ owner:[userData._id]})
 
-//get company items for when users input something when creating a deal
 
 const companyItems = await crm_company.find({ owner: [userData._id] })
 
-//render deals.ejs with our dealitems and our leads information as well as companies
     
 res.render('deals.ejs', {deals: dealItems , allTasks: allTaskItems, leads: leadItems, companies: companyItems, title: 'Deals', page_title: 'Deals', folder: 'CRM' }
 )
 
 }
-//if any errors, console log them
 catch(err) {
     console.log(err)
 }
@@ -108,38 +85,31 @@ catch(err) {
     }
 
 
+    //edit deal
 module.exports.editDealStage_put = async (req,res) => {
-
-    //get deal id and the stage of the edited deal
 
     let dealId = req.body.newItemId
     let newStage = req.body.editedStageVal
 
-    //use a try catch
 
 try {
-    await Deal.findOneAndUpdate({_id: dealId}, {$set:{ //find one deal and update. find one with the id of the one inside the ejs
+    await Deal.findOneAndUpdate({_id: dealId}, {$set:{ 
         stage: newStage
     }});
-//send back that the deal was edited
     res.send('deal edited')
 } catch (err) {
     console.log(err)
 }
 };
 
-//get deals data for our chart on our dashboard
-
+//get deal data
 module.exports.getDealsData_get =  async (req,res) => {
- //get user id
     
  const userID = res.locals.user.id
     
-    
- //get user email
 const userEmail = res.locals.user.email
 
-    const userData = await User.findOne({email: userEmail})
+const userData = await User.findOne({email: userEmail})
 
 const dealItems = await Deal.find({ owner:[userData._id]})
 

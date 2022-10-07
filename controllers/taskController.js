@@ -8,25 +8,15 @@ const mongoose = require('mongoose');
 const {crm_lead} = require('../Models/crm');
 const { vary } = require('express/lib/response');
 
-
-module.exports.addTaskItem_post = async (req,res) => {
-
 //create task
-
-//get user id
+module.exports.addTaskItem_post = async (req,res) => {
 const userID = res.locals.user.id
-
-console.log(req.body.dateDueFieldVal)
-
-//find lead by id
 
 const leadData = await crm_lead.findOne({owner: [userID], name: req.body.clientNameFieldVal})
 
-//add check if there is user, go to next. if not, console.log error
 if (!leadData) {
     console.log('User not found.')
 } 
-//now we want to create the task by extracting the task payload, or each element of our task form.
 
 const taskData = await Task.create({
     tasksTitleFieldVal: req.body.tasksTitleFieldVal,
@@ -38,8 +28,6 @@ const taskData = await Task.create({
     owner: userID
 })
 
-//now push task id to the lead
-
 await crm_lead.updateOne({
     owner:[userID],
     name:  req.body.clientNameFieldVal
@@ -47,20 +35,12 @@ await crm_lead.updateOne({
     $push: {tasks: taskData._id}
 })
 
-// console.log(userEmail, req.body.tasksTitleFieldVal)
 res.send('Task added')
 }
-
-
-
-
-//get the tasks page, and also the tasks assigned to the user
 
 module.exports.getTaskItems_get =  async (req,res) => {
 
 //sorting
-
-console.log(req.params.sort)
 
 //the actual column we are sorting(ex. due date)
 let thingToSort = req.params.sort.split(' ')[0]
@@ -71,9 +51,6 @@ let sortOrder = req.params.sort.split(' ')[1]
 //make asc or desc into a numeric value that we can sort with
 let sortOrderInNumerics = sortOrder === 'asc' ? 1 : -1
 
-
-
-
 //pagination
 
 var perPage = 8;
@@ -81,44 +58,25 @@ var perPage = 8;
 var page = req.params.page || 1
 
 
-
-
-
 //get user id
 
 const userID = res.locals.user.id
 
-
-    //get user email
 const userEmail = res.locals.user.email
 
-//find user by email for leads
 
 const userData = await User.findOne({email: userEmail})
 
-// total number of records from database for pagination 
-
 var total = await Task.countDocuments({owner:[userData._id]}); 
 
-
-
-// Calculating number of pagination links required
 var pages = Math.ceil(total / perPage);
 
-
-//find lead by id for tasks
-
 const leadData = await crm_lead.findOne({owner: [userID]})
-
-
 
     try {
 
 
         const allTaskItems = await Task.find({ owner:[userData._id]})
-
-
-        //declare a variable named taskItems that await to find tasks in the database with an owner of the users id. also will skip anything after our page, and limit it to 9 a page
 
     const taskItems = await Task.find({ owner:[userData._id], statusFieldVal: {$nin: ['Completed']}}).skip((perPage * page) - perPage).limit(perPage).sort({ [thingToSort]: sortOrderInNumerics })
 
@@ -132,7 +90,6 @@ const leadData = await crm_lead.findOne({owner: [userID]})
     )
     
     }
-//if any errors, console log them
     catch(err) {
         console.log(err)
     }
@@ -286,29 +243,17 @@ module.exports.getCompletedTaskItems_get =  async (req,res) => {
     
     const leadData = await crm_lead.findOne({owner: [userID]})
     
-    
-    
         try {
-    
-    
-            const allTaskItems = await Task.find({ owner:[userData._id]})
-    
-    
-            //declare a variable named taskItems that await to find tasks in the database with an owner of the users id. also will skip anything after our page, and limit it to 9 a page
-    
+         const allTaskItems = await Task.find({ owner:[userData._id]})
+        
         const taskItems = await Task.find({ owner:[userData._id], statusFieldVal:'Completed'}).skip((perPage * page) - perPage).limit(perPage).sort({ [thingToSort]: sortOrderInNumerics })
     
-    
-        const leadItems = await crm_lead.find({ owner:[userData._id]})
-    
-        //render tasks.ejs with the tasks of the user, as well as the title, page title, and folder for the views. and the numbers of pages we have, and our current page for pagination
-    
+        const leadItems = await crm_lead.find({ owner:[userData._id]})    
             
         res.render('completedtasks.ejs', {tasks: taskItems , allTasks: allTaskItems, sortOrder: sortOrder, thingToSort: thingToSort, current: page,  pages: pages, leads: leadItems, title: 'Completed Tasks', page_title: 'Completed Tasks', folder: 'Tasks'}
         )
         
         }
-    //if any errors, console log them
         catch(err) {
             console.log(err)
         }

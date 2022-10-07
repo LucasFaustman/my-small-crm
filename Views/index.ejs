@@ -178,17 +178,6 @@
             <div class="card-header align-items-center d-flex">
                 <h4 class="card-title mb-0 flex-grow-1">My Tasks</h4>
                 <div class="flex-shrink-0">
-                    <!-- <div class="dropdown card-header-dropdown">
-                        <a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                            <span class="text-muted"><i
-                                    class="ri-settings-4-line align-middle me-1 fs-15"></i>Settings</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end">
-                            <a class="dropdown-item" href="#">Edit</a>
-                            <a class="dropdown-item" href="#">Remove</a>
-                        </div>
-                    </div> -->
                 </div>
             </div><!-- end card header -->
 
@@ -215,7 +204,7 @@
                                     <label class="form-check-label mb-0 ps-2" for="task_one"><%=task.tasksTitleFieldVal %></label>
                                 </div>
                                 <div class="flex-shrink-0 ms-2">
-                                    <p class="text-muted fs-12 mb-0"><%= task.dateDueFieldVal.toDateString() %></p>
+                                    <p class="text-muted fs-12 mb-0"><%= task.dateDueFieldVal.toUTCString().slice(0,-12) %></p>
                                 </div>
                             </div>
                         </li>

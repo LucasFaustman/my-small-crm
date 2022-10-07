@@ -1,10 +1,3 @@
-<!-- declare variable holding today that gets a string of today -->
-<% var today = new Date();
-                                        var dd = String(today.getDate()).padStart(2, '0');
-                                        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-                                        var yyyy = today.getFullYear();
-                                        
-                                        let newToday = dd + '/' + mm + '/' + yyyy %>
 <header id="page-topbar">
     <div class="layout-width">
         <div class="navbar-header">
@@ -43,23 +36,13 @@
             </div>
 
             <div class="d-flex align-items-center">
-
-
-                <!-- <div class="ms-1 header-item d-none d-sm-flex">
-                    <button type="button"
-                        class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle light-dark-mode">
-                        <i class='bx bx-moon fs-22'></i>
-                    </button>
-                </div> -->
-
                 <div class="dropdown topbar-head-dropdown ms-1 header-item">
                     <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle"
                         id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
                         <i class='bx bx-bell fs-22'></i>
                         <span
-                            class="position-absolute topbar-badge fs-10 translate-middle badge rounded-pill bg-danger"><%= allTasks.filter(task => task.statusFieldVal !== "Completed" && task.dateDueFieldVal.toLocaleString("pt-BR", {timeZone:"GMT", day: "numeric", month: "numeric", year:"numeric"}) === newToday).map(task => task.dateDueFieldVal.toLocaleString("pt-BR", {timeZone:"GMT", day: "numeric", month: "numeric", year:"numeric"})).length %><span
-                                class="visually-hidden">unread messages</span></span>
+                            class="position-absolute topbar-badge fs-10 translate-middle badge rounded-pill bg-danger"><%= allTasks.filter(task => task.statusFieldVal !== "Completed" && task.dateDueFieldVal <= new Date().getTime()).map(task => task.dateDueFieldVal.toLocaleString("pt-BR", {timeZone:"GMT", day: "numeric", month: "numeric", year:"numeric"})).length %>
                     </button>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
                         aria-labelledby="page-header-notifications-dropdown">
@@ -73,9 +56,7 @@
                                     </div>
                                     <div class="col-auto dropdown-tabs">
                                         
-
-                                        
-                                        <span class="badge badge-soft-light fs-13"> <%= allTasks.filter(task => task.statusFieldVal !== "Completed" && task.dateDueFieldVal.toLocaleString("pt-BR", {timeZone:"GMT", day: "numeric", month: "numeric", year:"numeric"}) === newToday).map(task => task.dateDueFieldVal.toLocaleString("pt-BR", {timeZone:"GMT", day: "numeric", month: "numeric", year:"numeric"})).length %> Due Today</span>
+                                        <span class="badge badge-soft-light fs-13"> <%= allTasks.filter(task => task.statusFieldVal !== "Completed" && task.dateDueFieldVal <= new Date().getTime()).map(task => task.dateDueFieldVal.toLocaleString("pt-BR", {timeZone:"GMT", day: "numeric", month: "numeric", year:"numeric"})).length %> Due Today</span>
                                     </div>
                                 </div>
                                 
@@ -87,7 +68,7 @@
                                     <li class="nav-item waves-effect waves-light">
                                         <a class="nav-link active" data-bs-toggle="tab" href="#all-noti-tab" role="tab"
                                             aria-selected="true">
-                                            All (<%= allTasks.filter(task => task.statusFieldVal !== "Completed" && task.dateDueFieldVal.toLocaleString("pt-BR", {timeZone:"GMT", day: "numeric", month: "numeric", year:"numeric"}) <= newToday).map(task => task.dateDueFieldVal.toLocaleString("pt-BR", {timeZone:"GMT", day: "numeric", month: "numeric", year:"numeric"})).length %>)
+                                            All (<%= allTasks.filter(task => task.statusFieldVal !== "Completed" && task.dateDueFieldVal <= new Date().getTime()).map(task => task.dateDueFieldVal.toLocaleString("pt-BR", {timeZone:"GMT", day: "numeric", month: "numeric", year:"numeric"})).length %>)
                                         </a>
                                     </li>
                                 </ul>
@@ -101,7 +82,7 @@
                                 <div data-simplebar style="max-height: 300px;" class="pe-2">
                                     <% if (allTasks.filter(task => task.statusFieldVal !== "Completed").length > 0) { %>
 
-                                        <% allTasks.filter(task => task.statusFieldVal !== "Completed" && task.dateDueFieldVal.toLocaleString("pt-BR", {timeZone:"GMT", day: "numeric", month: "numeric", year:"numeric"}) <= newToday).forEach(function (task) { %>
+                                        <% allTasks.filter(task => task.statusFieldVal !== "Completed" && task.dateDueFieldVal <= new Date().getTime()).sort((a,b) => b.tasksTitleFieldVal - a.tasksTitleFieldVal).forEach(function (task) { %>
                                     <div class="text-reset notification-item d-block dropdown-item position-relative">
                                         <div class="d-flex">
                                             <div class="avatar-xs me-3">

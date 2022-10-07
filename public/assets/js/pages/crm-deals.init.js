@@ -68,28 +68,18 @@ addBtn.addEventListener('click', async function (event) {
         }
     }
 
-    
-
-
 });
-
 
 Array.from(editDealStageBtns).forEach(async function (btn) {
     btn.addEventListener("click", async function (e) {
-        // console.log(e.target.closest("itemId"))
-       // e.target.closest("ul").children[0].innerText;
        e.target.closest("itemIdContainer")
         let newItemId = e.target.closest('div').children[2].innerText
-        
-
 editStageBtn.addEventListener('click', async function (event) {
 
 if (editStageValue.value !== "") {
     console.log(newItemId)
     console.log(editStageValue.value)
-
     editedStageVal = editStageValue.value;
-
 
     try {
         // signify to the server this is a post request to our database, and include the all inputs of task stringified to an object to pass onto the db
@@ -119,12 +109,8 @@ if (editStageValue.value !== "") {
             showCloseButton: true
         });
         window.location.reload();
-
-
 }
-        
 });
-
     });
 });
 
