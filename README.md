@@ -45,3 +45,6 @@ Vancouver StarGazers Society APOD Web App with NASA API integration: https://git
 BillTrackr : https://github.com/Ash1eyC0des/bill-trackr
 
 Memeify: https://github.com/LucasFaustman/memeify/tree/main
+
+Machine Learning Brand Guesser: https://machine-brand-guesser.herokuapp.com/
+
