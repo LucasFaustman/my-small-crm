@@ -10,7 +10,6 @@ editStageBtn = document.getElementById("editdealstage-btn")
 editDealStageBtns = document.getElementsByClassName('editDealStageBtns')
 var editStageValue = document.getElementById('editStageValue')
 
-
 addBtn.addEventListener('click', async function (event) {
     event.preventDefault();
 
@@ -34,7 +33,6 @@ addBtn.addEventListener('click', async function (event) {
 
 
     try {
-        // signify to the server this is a post request to our database, and include the all inputs of task stringified to an object to pass onto the db
         const res = await fetch('/addDeal', {
             method: 'POST',
             body: JSON.stringify({ dealTitleVal,
@@ -48,7 +46,6 @@ addBtn.addEventListener('click', async function (event) {
         });
         const data = res
         console.log(data)
-
         document.getElementById("close-modal").click();
         clearFields();
         Swal.fire({
@@ -80,9 +77,7 @@ if (editStageValue.value !== "") {
     console.log(newItemId)
     console.log(editStageValue.value)
     editedStageVal = editStageValue.value;
-
     try {
-        // signify to the server this is a post request to our database, and include the all inputs of task stringified to an object to pass onto the db
         const res = await fetch('/editDealStage', {
             method: 'PUT',
             body: JSON.stringify({ newItemId, 
@@ -95,8 +90,6 @@ if (editStageValue.value !== "") {
         catch(err) {
             console.log(err)
         }
-    
-
     document.getElementById("editdealstage").click();
         Swal.fire({
             title: 'Success!',

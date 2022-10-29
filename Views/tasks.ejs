@@ -100,11 +100,8 @@
                         
                         <tbody class="list form-check-all" id="tasksList">
                                             <% if (tasks.filter(task => task.statusFieldVal !== "Completed").length > 0) { %>
-
                                             <% tasks.filter(task => task.statusFieldVal !== "Completed").forEach(function (task) { %>
-                                            <tr>
-                                                
-                                                
+                                            <tr> 
                                                 <td class="id" style="display:none;"><%= task._id %></td>
                                                 <td>
                                                     <div class="d-flex">
@@ -141,8 +138,6 @@
                                         
                                         <% } else { %>
                                                 <tr>
-                                                    
-                                                    
                                                     <td class="id" style="display:none;">1</td>
                                                     <td>
                                                         <div class="d-flex">
@@ -218,17 +213,13 @@
 
                             
                             <!--end card-body-->
-                        </div>
-
-                       
+                        </div>  
         </div>
         <!--end card-->
     </div>
     <!--end col-->
 </div>
 <!--end row-->
-
-
 
 <div class="modal fade flip" id="deleteOrder" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -281,11 +272,6 @@
                                     </select>
                                 </div>
                             </div>
-
-
-                            <!-- <label for="clientName-field" name='clientName-field' class="form-label">Lead Name</label>
-                            <input type="text" id="clientName-field" class="form-control" placeholder="Lead name"
-                                required /> -->
                         </div>
                         <!--end col-->
                         <div class="col-lg-6">

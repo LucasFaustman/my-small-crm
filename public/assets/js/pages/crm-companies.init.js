@@ -1,13 +1,4 @@
-/*
-Template Name: Velzon - Admin & Dashboard Template
-Author: Themesbrand
-Website: https://Themesbrand.com/
-Contact: Themesbrand@gmail.com
-File: CRM-companies Js File
-*/
 
-
-// list js
 var checkAll = document.getElementById("checkAll");
 if (checkAll) {
     checkAll.onclick = function () {
@@ -131,9 +122,6 @@ addBtn.addEventListener("click", async function (e) {
 editBtn.addEventListener("click", async function (e) {
     document.getElementById("exampleModalLabel").innerHTML = "Edit Company";
 
-    
-
-        
                 companyName = companyNameField.value
                 ownerName = ownerField.value
                 industryType = industry_typeField.value
@@ -142,15 +130,10 @@ editBtn.addEventListener("click", async function (e) {
                 employeeCount = employeeField.value
                 websiteField = websiteField.value
                 contactEmail = contact_emailField.value
-
-
-
-
             try {
                 const res = await fetch('/editCompany', {
-                    //update request
                     method: 'PUT',
-                    body: JSON.stringify({ id: itemId , //get all the values from the form and send off to the server
+                    body: JSON.stringify({ id: itemId ,
                         companyName,
                         ownerName,
                         industryType,
@@ -163,17 +146,12 @@ editBtn.addEventListener("click", async function (e) {
                     headers: { 'Content-Type': 'application/json' }
                 });
                 const data = await res.json()
-                
                 console.log(data)
-    
-    
                 }
                 catch(err) {
                     console.log(err)
                 }
 
-        
-  
     document.getElementById("close-modal").click();
     clearFields();
     Swal.fire({
@@ -218,11 +196,9 @@ function refreshCallbacks() {
                     });
 
                         try {
-                            //fetch the deletecompany route
-                            const res = await fetch('/deleteCompany', {
-                                //delete method
+                            const res = await fetch('/deleteCompany', {                   
                                 method: 'DELETE',
-                                body: JSON.stringify({ id: itemId }), //stringify the item id and send it off
+                                body: JSON.stringify({ id: itemId }), 
                                 headers: { 'Content-Type': 'application/json' }
                             });
                             const data = await res
@@ -231,7 +207,6 @@ function refreshCallbacks() {
                         catch (err) {
                             console.log(err)
                         }   
-                        // companyList.remove("id", isElem.outerHTML);
                         document.getElementById("deleteRecordModal").click();
                          window.location.reload();
                     });
@@ -240,7 +215,6 @@ function refreshCallbacks() {
 
     Array.from(editBtns).forEach( function (btn) {
         btn.addEventListener("click", function (e) {
-            //get all the values of the dataset to plug into the form when needing to edit
             e.target.closest("tr").children[1].innerText;
             itemId = e.target.closest("tr").children[0].innerText;
             companyNameField.value = e.target.closest("tr").children[1].innerText;
@@ -257,7 +231,6 @@ function refreshCallbacks() {
 
     Array.from(viewBtns).forEach( function (btn) {
         btn.addEventListener("click", function (e) {
-            //get all the values of the data set to plug into the card
             itemId = e.target.closest("tr").children[0].innerText;
             companyNameField.value = e.target.closest("tr").children[1].innerText;
             ownerField.value = e.target.closest("tr").children[2].innerText;

@@ -64,7 +64,6 @@ const userID = res.locals.user.id
 
 const userEmail = res.locals.user.email
 
-
 const userData = await User.findOne({email: userEmail})
 
 var total = await Task.countDocuments({owner:[userData._id]}); 
@@ -74,17 +73,11 @@ var pages = Math.ceil(total / perPage);
 const leadData = await crm_lead.findOne({owner: [userID]})
 
     try {
-
-
-        const allTaskItems = await Task.find({ owner:[userData._id]})
+    const allTaskItems = await Task.find({ owner:[userData._id]})
 
     const taskItems = await Task.find({ owner:[userData._id], statusFieldVal: {$nin: ['Completed']}}).skip((perPage * page) - perPage).limit(perPage).sort({ [thingToSort]: sortOrderInNumerics })
 
-
     const leadItems = await crm_lead.find({ owner:[userData._id]})
-
-    //render tasks.ejs with the tasks of the user, as well as the title, page title, and folder for the views. and the numbers of pages we have, and our current page for pagination
-
         
     res.render('tasks.ejs', {tasks: taskItems , allTasks: allTaskItems, sortOrder: sortOrder, thingToSort: thingToSort, current: page,  pages: pages, leads: leadItems, title: 'Tasks List', page_title: 'Upcoming Tasks', folder: 'Tasks'}
     )
@@ -96,26 +89,12 @@ const leadData = await crm_lead.findOne({owner: [userID]})
 
 }
 
-
-
-
-
-
 module.exports.deleteTaskItem_delete = async (req,res) => {
-    //delete request!
 
-    console.log(req.body.id)
-        //get task id
 const taskID = req.body.id
 
-
-
-
-    //use a try
     try {
-        //find oneanddelete from our id
         await Task.findOneAndDelete({  _id : taskID })
-        //send back that the task was deleted
         res.send('Task deleted')
     }
 
@@ -124,26 +103,20 @@ const taskID = req.body.id
     }
 
 }
-
-
 //edit task route
 
 module.exports.editTaskItem_put = async (req,res) => {
 
-    console.log(req.body)
-//get id 
 let id = req.body.id
 
-//use a try catch
 
 try {
-    await Task.findOneAndUpdate({_id: id}, {$set:{ //find one task and update. find one with the id of the one inside the ejs
-    tasksTitleFieldVal: req.body.tasksTitleFieldVal, //replace with all values inputted into the form
+    await Task.findOneAndUpdate({_id: id}, {$set:{ 
+    tasksTitleFieldVal: req.body.tasksTitleFieldVal, 
     clientNameFieldVal: req.body.clientNameFieldVal,
     dateDueFieldVal: req.body.dateDueFieldVal,
     statusFieldVal: req.body.statusFieldVal,
     priorityFieldVal: req.body.priorityFieldVal}});
-//send back that the task was edited
     res.send('task edited')
 } catch (err) {
     console.log(err)
@@ -165,22 +138,14 @@ const userData = await User.findOne({email: userEmail})
     try {
         const allTaskItems = await Task.find({ owner:[userData._id]})
 
-        //declare variable named dealItems that finds deals with the owner of userData._id
-
         const dealItems = await Deal.find({ owner:[userData._id]})
 
-
-        //declare a variable named taskItems that await to find tasks in the database with an owner of the users id
-
     const taskItems = await Task.find({ owner:[userData._id]}).sort({ dateDueFieldVal: 1 })
-
-    //render tasks.ejs with the tasks of the user, as well as the title, page title, and folder for the index views
         
     res.render('index.ejs', {tasks: taskItems , allTasks: allTaskItems, deals: dealItems, title: 'Dashboard', page_title: 'Dashboard', folder: 'Dashboards'}
     )
     
     }
-//if any errors, console log them
     catch(err) {
         console.log(err)
     }
@@ -203,43 +168,22 @@ module.exports.getCompletedTaskItems_get =  async (req,res) => {
     
     //make asc or desc into a numeric value that we can sort with
     let sortOrderInNumerics = sortOrder === 'asc' ? 1 : -1
-    
-    
-    
-    
+
     //pagination
     
     var perPage = 8;
     
     var page = req.params.page || 1
     
-    
-    
-    
-    
-    //get user id
-    
     const userID = res.locals.user.id
-    
-    
-        //get user email
-    const userEmail = res.locals.user.email
-    
-    //find user by email for leads
+
+    const userEmail = res.locals.user.email  
     
     const userData = await User.findOne({email: userEmail})
     
-    // total number of records from database for pagination 
-    
     var total = await Task.countDocuments({owner:[userData._id]}); 
-    
-    
-    
-    // Calculating number of pagination links required
+
     var pages = Math.ceil(total / perPage);
-    
-    
-    //find lead by id for tasks
     
     const leadData = await crm_lead.findOne({owner: [userID]})
     

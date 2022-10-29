@@ -13,15 +13,11 @@ if (err.message === 'Incorrect email and/or password.') {
     errors.password = err.message;
   };
 
-
-    //duplicate errors
-
     if (err.code === 11000) {
         errors.email = 'That email is already registered.'
         return errors;
     }
-
-    //validation errors
+    
     if (err.message.includes('user validation failed')) {
         Object.values(err.errors).forEach(({properties}) => {
             errors[properties.path] = properties.message;
@@ -31,9 +27,7 @@ if (err.message === 'Incorrect email and/or password.') {
     return errors
 }
 
-//create a max amount of time that token will be valid for
 const maxAge = 3 * 24 * 60 * 60
-//create token
 const createToken = (id) => {
     return jwt.sign({ id }, 'bigsecretpassword', {
         expiresIn: maxAge
@@ -68,25 +62,18 @@ module.exports.login_post = async (req, res) => {
     const { email, password } = req.body;
   
     try {
-        // declare user variable to async function, get User.login from the login function declared in user. pass in email and pw
       const user = await User.login(email, password);
 
       const token = createToken(user._id); //jwt token created
-        res.cookie('jwt', token, { httpOnly: true, maxAge : maxAge * 1000}); //cookie will last for 3 days
+        res.cookie('jwt', token, { httpOnly: true, maxAge : maxAge * 1000}); 
 
-
-      //if successful, respond back with user._id with cookie attached
       res.status(200).json({ user: user._id });
-      //if any errors, send back a response
     } catch (err) {
-        //grab whatever is returned
         const errors = handleErrors(err)
-        //then send errors
       res.status(400).json({ errors });
     }
   
   }
-
   module.exports.logout_get = (req,res) => {
       res.cookie('jwt', '', { maxAge: 1 })
       res.redirect('/')

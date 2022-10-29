@@ -20,7 +20,6 @@ if (!userData) {
     console.log('User not found.')
 }
 
-
 const dealData = await Deal.create({
     dealTitle: req.body.dealTitleVal,
     stage: req.body.stageValueVal,
@@ -48,50 +47,34 @@ await crm_lead.updateOne({
 //get deal
 module.exports.getDeals_get =  async (req,res) => {
 
-    const userID = res.locals.user.id
-     
-    const userEmail = res.locals.user.email
-
-
-    //find user by email for leads
-
+const userID = res.locals.user.id
+const userEmail = res.locals.user.email
 const userData = await User.findOne({email: userEmail})
-
-//find lead by id for deals
-
 const leadData = await crm_lead.findOne({owner: [userID]})
     
 try {
 
 
 const dealItems = await Deal.find({ owner:[userData._id]})
-
 const allTaskItems = await Task.find({ owner:[userData._id]}).sort({ dateDueFieldVal: 1 })
-
 const leadItems = await crm_lead.find({ owner:[userData._id]})
-
-
 const companyItems = await crm_company.find({ owner: [userData._id] })
 
     
-res.render('deals.ejs', {deals: dealItems , allTasks: allTaskItems, leads: leadItems, companies: companyItems, title: 'Deals', page_title: 'Deals', folder: 'CRM' }
+    res.render('deals.ejs', {deals: dealItems , allTasks: allTaskItems, leads: leadItems, companies: companyItems, title: 'Deals', page_title: 'Deals', folder: 'CRM' }
 )
 
 }
-catch(err) {
+    catch(err) {
     console.log(err)
-}
-    
+} 
     }
-
 
     //edit deal
 module.exports.editDealStage_put = async (req,res) => {
 
     let dealId = req.body.newItemId
     let newStage = req.body.editedStageVal
-
-
 try {
     await Deal.findOneAndUpdate({_id: dealId}, {$set:{ 
         stage: newStage

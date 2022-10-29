@@ -1,26 +1,16 @@
 const { checkUser } = require("../middlewar/authMiddleware");
 const authController = require('./authController');
 const mongoose = require('mongoose');
-
-
 const {crm_lead} = require('../Models/crm')
 const {crm_company} = require('../Models/crm')
 const User = require('../Models/user')
 const Task = require('../Models/task');
 const Deal = require('../Models/deals')
 
-
-
 //create a lead! 
 module.exports.addLead_post = async (req,res) => {
 //get user email
 const userEmail = res.locals.user.email
-
-
-
-//find user by email
-
-
 const userData = await User.findOne({email: userEmail})
 
 if (!userData) {
@@ -50,7 +40,6 @@ console.log(leadData._id)
 }
 
 module.exports.getLeads_get = async (req,res) => {
-
 
 //sorting
 
@@ -146,7 +135,6 @@ catch (err) {
 module.exports.getContactDetails_get = async(req,res) => {
 
     const userId = res.locals.user.id
-
     let contactId = req.params.itemId
 
     

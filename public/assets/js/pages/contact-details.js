@@ -1,30 +1,3 @@
-/*
-Template Name: Velzon - Admin & Dashboard Template
-Author: Themesbrand
-Website: https://Themesbrand.com/
-Contact: Themesbrand@gmail.com
-File: Project overview init js
-
-
-*/
-
-
-
-var checkAll = document.getElementById("checkAll");
-if (checkAll) {
-    checkAll.onclick = function () {
-        var checkboxes = document.querySelectorAll('.form-check-all input[type="checkbox"]');
-        for (var i = 0; i < checkboxes.length; i++) {
-            checkboxes[i].checked = this.checked;
-            if (checkboxes[i].checked) {
-                checkboxes[i].closest("tr").classList.add("table-active");
-            } else {
-                checkboxes[i].closest("tr").classList.remove("table-active");
-            }
-        }
-    };
-}
-
 document.getElementById("showModal").addEventListener("show.bs.modal", function (e) {
     if (e.relatedTarget.classList.contains("edit-item-btn")) {
         document.getElementById("exampleModalLabel").innerHTML = "Edit Task";
@@ -45,7 +18,6 @@ document.getElementById("showModal").addEventListener("show.bs.modal", function 
 var idField = document.getElementById("tasksId"),
     tasksTitleField = document.getElementById("taskName-field"),
     clientNameField = document.getElementById("clientName-field"),
-   // assignedtoNameField = 'Demo Assign', //document.getElementById("assignedtoName-field"),
     dateDueField = document.getElementById("duedate-field"),
     priorityField = document.getElementById("priority-field"),
     statusField = document.getElementById("ticket-status"),
@@ -59,24 +31,19 @@ var idField = document.getElementById("tasksId"),
 addBtn.addEventListener("click", async function (e) {
         e.preventDefault();
         if (
-           // projectNameField.value !== "" &&
             tasksTitleField.value !== "" &&
             clientNameField.value !== "" &&
             dateDueField.value !== "" &&
             priorityField.value !== "" &&
             statusField.value !== ""
         ) {
-    
-            //assign the value of each input of the form to a new variable
-            tasksTitleFieldVal = tasksTitleField.value
+                tasksTitleFieldVal = tasksTitleField.value
             clientNameFieldVal = clientNameField.value
             dateDueFieldVal = dateDueField.value,
             priorityFieldVal = priorityField.value
             statusFieldVal = statusField.value
 
             document.getElementById("close-modal").click();
-            // clearFields();
-            // count++;
             Swal.fire({
                 position: 'center',
                 icon: 'success',
@@ -87,7 +54,6 @@ addBtn.addEventListener("click", async function (e) {
             });
     
             try {
-                // signify to the server this is a post request to our database, and include the all inputs of task stringified to an object to pass onto the db
                 const res = await fetch('/addTaskItem', {
                     method: 'POST',
                     body: JSON.stringify({ tasksTitleFieldVal,
@@ -104,9 +70,6 @@ addBtn.addEventListener("click", async function (e) {
                 catch(err) {
                     console.log(err)
                 }
-    
-    
-    
         }
     });
 
@@ -115,7 +78,6 @@ addBtn.addEventListener("click", async function (e) {
         var editValues = tasksList.get({
             id: idField.value,
         });
-    
         if (
             tasksTitleField.value !== "" &&
             clientNameField.value !== "" &&
@@ -123,25 +85,17 @@ addBtn.addEventListener("click", async function (e) {
             priorityField.value !== "" &&
             statusField.value !== ""
         ) {
-    
-    
         Array.from(editValues).forEach(async function (x) {
-            isid = new DOMParser().parseFromString(x._values.id, "text/html");
-    
-    
-           
+            isid = new DOMParser().parseFromString(x._values.id, "text/html");    
                 tasksTitleFieldVal = tasksTitleField.value,
                 clientNameFieldVal = clientNameField.value,
                 dateDueFieldVal = dateDueField.value,
                 statusFieldVal = statusField.value,
                 priorityFieldVal = priorityField.value
-                
-            
                 try {
                     const res = await fetch('/editTaskItem', {
-                        //update request
                         method: 'PUT',
-                        body: JSON.stringify({ id: itemId , //get all the values from the form and send off to the server
+                        body: JSON.stringify({ id: itemId , 
                             tasksTitleFieldVal,
                             clientNameFieldVal,
                             dateDueFieldVal,
@@ -152,13 +106,10 @@ addBtn.addEventListener("click", async function (e) {
                     const data = await res
                     
                     console.log(data)
-        
-                    
                 }
                 catch (err) {
                     console.log(err)
                 }   
-            
         });
         document.getElementById("close-modal").click();
          window.location.reload();
@@ -171,11 +122,8 @@ addBtn.addEventListener("click", async function (e) {
             timer: 2000,
             showCloseButton: true
         });
-    
-    }
-    
+    }  
     });
-    
 
     function refreshCallbacks() {
         Array.from(removeBtns).forEach(async function (btn) {
@@ -206,11 +154,8 @@ addBtn.addEventListener("click", async function (e) {
                         });
             });
         });
-    
         Array.from(editBtns).forEach(function (btn) {
             btn.addEventListener("click", function (e) {
-    
-    
                 e.target.closest("tr").children[1].innerText;
                 itemId = e.target.closest("tr").children[0].innerText;
                 tasksTitleField.value = e.target.closest("tr").children[1].innerText;
@@ -223,12 +168,8 @@ addBtn.addEventListener("click", async function (e) {
         });
     
     }
-
-
     function clearFields() {
-
         tasksTitleField.value = "";
         clientNameField.value = "";
-        // assignedtoNameField.value = "";
         dateDueField.value = "";
     }

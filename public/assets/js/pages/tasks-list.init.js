@@ -1,21 +1,4 @@
 
-var checkAll = document.getElementById("checkAll");
-if (checkAll) {
-    checkAll.onclick = function () {
-        var checkboxes = document.querySelectorAll('.form-check-all input[type="checkbox"]');
-        for (var i = 0; i < checkboxes.length; i++) {
-            checkboxes[i].checked = this.checked;
-            if (checkboxes[i].checked) {
-                checkboxes[i].closest("tr").classList.add("table-active");
-            } else {
-                checkboxes[i].closest("tr").classList.remove("table-active");
-            }
-        }
-    };
-}
-
-
-
 var idField = document.getElementById("tasksId"),
     tasksTitleField = document.getElementById("taskName-field"),
     clientNameField = document.getElementById("clientName-field"),
@@ -27,27 +10,6 @@ var idField = document.getElementById("tasksId"),
     removeBtns = document.getElementsByClassName("remove-item-btn"),
     editBtns = document.getElementsByClassName("edit-item-btn");
 refreshCallbacks();
-
-
-
-function updateList() {
-    var values_status = document.querySelector(
-        "input[name=status]:checked"
-    ).value;
-
-    data = userList.filter(function (item) {
-        var statusFilter = false;
-
-        if (values_status == "All") {
-            statusFilter = true;
-        } else {
-            statusFilter = item.values().sts == values_status;
-        }
-        return statusFilter;
-    });
-
-    userList.update();
-}
 
 document.getElementById("showModal").addEventListener("show.bs.modal", function (e) {
     if (e.relatedTarget.classList.contains("edit-item-btn")) {

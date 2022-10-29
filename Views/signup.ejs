@@ -156,15 +156,9 @@
 <script src="assets/libs/particles.js/particles.js"></script>
 <!-- particles app js -->
 <script src="assets/js/pages/particles.app.js"></script>
-<!-- validation init -->
-<!-- <script src="assets/js/pages/form-validation.init.js"></script>
-
-<script src="assets/js/pages/passowrd-create.init.js"></script> -->
 
 <script>
-    //select the form so we can later add an event listener
     const form = document.querySelector('form');
-    //grab the error divs that we have in our input
     const emailError = document.querySelector('.email.error')
     const passwordError = document.querySelector('.password.error')
     const firstNameError = document.querySelector('.firstName.error')
@@ -175,14 +169,10 @@
     form.addEventListener('submit' , async (e) => {
         e.preventDefault();
 
-
-        //reset errors so the dom can be updated
-
         emailError.textContent = ''
         passwordError.textContent = ''
         firstNameError.textContent = ''
         lastNameError.textContent = ''
-        // get values
 
         const email = form.email.value;
         const password = form.password.value;
@@ -190,7 +180,6 @@
         const lastName = form.lastName.value;
 
         try {
-            // signify to the server this is a post request to our database, and include the email and password stringified to an object to pass onto the db
             const res = await fetch('/signup', {
                 method: 'POST',
                 body: JSON.stringify({ email, password, firstName, lastName }),
@@ -199,13 +188,11 @@
 
             const data = await res.json();
             if (data.errors) {
-                //if there are errors, update the dom to notify the user
                 emailError.textContent = data.errors.email
                 passwordError.textContent = data.errors.password
                 firstNameError.textContent = data.errors.firstName
                 lastNameError.textContent = data.errors.lastName
-            }
-            //if no errors, go to homepage  
+            } 
             if (data.user) {
                 location.assign('/');
             }

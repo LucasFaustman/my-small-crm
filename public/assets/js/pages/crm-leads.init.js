@@ -43,8 +43,6 @@ var table = document.getElementById("customerTable");
 // save all tr
 var tr = table.getElementsByTagName("tr");
 var trlist = table.querySelectorAll(".list tr");
-
-
 var tagInputField = new Choices('#taginput-choices', {
     removeItemButton: true,
   }
@@ -195,25 +193,19 @@ function refreshCallbacks() {
         btn.addEventListener("click", function (e) {
             e.target.closest("tr").children[1].innerText;
             itemId = e.target.closest("tr").children[0].innerText;
-
                     document.getElementById("delete-record").addEventListener("click", async function () {
-
                         try {
-                            //fetch the deleteLead route
                             const res = await fetch('/deleteLead', {
-                                //delete method
                                 method: 'DELETE',
-                                body: JSON.stringify({ id: itemId }), //stringify the item id and send it off
+                                body: JSON.stringify({ id: itemId }), 
                                 headers: { 'Content-Type': 'application/json' }
                             });
                             const data = await res
                             console.log(data.body)
-                    
                         }
                         catch (err) {
                             console.log(err)
                         }   
-
                         document.getElementById("deleteRecordModal").click();
                         window.location.reload();
                     });
@@ -222,31 +214,19 @@ function refreshCallbacks() {
 
     Array.from(editBtns).forEach(function (btn) {
         btn.addEventListener("click", function (e) {
-
             itemId = e.target.closest("tr").children[0].innerText;
-
-            // when editing a lead, get value from dom and input it into the form so users can easily update a lead
             leadNameField.value = e.target.closest("tr").children[1].innerText;
             company_nameField.value = e.target.closest("tr").children[2].innerText;
             leads_scoreField.value = e.target.closest("tr").children[3].innerText;
             phoneField.value = e.target.closest("tr").children[4].innerText;
             locationField.value = e.target.closest("tr").children[5].innerText;
-
-            //our tag badge
             let tagBadge = e.target.closest("tr").children[6].innerText.split(' ')
-            //if there are tags
             if(tagBadge){
-                //get the array and for eacdh element
                 Array.from(tagBadge).forEach((item) => {
-                    //set tag input field to each element of array
                     tagInputField.setChoiceByValue(e.target.closest("tr").children[6].innerText.split(' '));
                 })
             }
-
-            dateField.value = e.target.closest("tr").children[7].innerText;
-                    
-                    
-                
+            dateField.value = e.target.closest("tr").children[7].innerText;  
         });
     });
 }

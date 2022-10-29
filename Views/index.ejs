@@ -13,7 +13,6 @@
                                     <i class="ri-space-ship-line display-6 text-muted"></i>
                                 </div>
                                 <div class="flex-grow-1 ms-3">
-                                    <!-- filter out deals that dont include our current year, then map so that we convert each string to a number including any stringed numbers that might have commas in them, then add using reduce -->
                                     <h2 class="mb-0">$<span class="counter-value" data-target="<%= deals.filter(deal => deal.stage !== 'Lost' && deal.dueDate.includes(new Date().getFullYear())).map(deal => deal.value.includes(',') ? Number(deal.value.split(',').join('')) : Number(deal.value)).reduce((acc,num) => acc + num,0) %>">0</span></h2>
                                     <%=  console.log() %>
                                 </div>
@@ -28,7 +27,6 @@
                                     <i class="ri-exchange-dollar-line display-6 text-muted"></i>
                                 </div>
                                 <div class="flex-grow-1 ms-3">
-                                    <!-- filter out lost deals, deals that have a due date that isnt in our month, and deals that arent in our year. then map numbers using a ternary incase the value has a comma, then reduce to add -->
                                     <h2 class="mb-0">$<span class="counter-value" data-target="<%= deals.filter(deal => deal.stage !== 'Lost' && deal.dueDate.split('-')[1] == ((Number(new Date().getMonth() + 1)).toString().length > 1 ? ('0' + (Number(new Date().getMonth() + 1))) : (Number(new Date().getMonth() + 1))) && deal.dueDate.includes(new Date().getFullYear().toString())).map(deal => deal.value.includes(',') ? Number(deal.value.split(',').join('')) : Number(deal.value)).reduce((acc,num) => acc + num,0) %>">0</span></h2>
                                 </div>
                             </div>
@@ -42,7 +40,6 @@
                                     <i class="ri-pulse-line display-6 text-muted"></i>
                                 </div>
                                 <div class="flex-grow-1 ms-3">
-                                    <!-- filter out lost deals, and make sure due date is in our year, and monthy due date is correct. then get length-->
                                     <h2 class="mb-0"><span class="counter-value" data-target="<%= deals.filter(deal => deal.stage !== 'Lost' && deal.dueDate.split('-')[1] == ((Number(new Date().getMonth() + 1)).toString().length > 1 ? ('0' + (Number(new Date().getMonth() + 1))) : (Number(new Date().getMonth() + 1))) && deal.dueDate.includes(new Date().getFullYear().toString())).length %>">0</span></h2>
                                 </div>
                             </div>

@@ -47,15 +47,9 @@ await User.updateOne({
 //get companies
 module.exports.getCompanies_get = async (req,res) => {
 
-
 const userID = res.locals.user.id
-
-
 const userEmail = res.locals.user.email
-
 const userData = await User.findOne({email: userEmail})
-
-
 const leadData = await crm_lead.findOne({owner: [userID]})
 
 //sorting
@@ -69,34 +63,22 @@ let sortOrder = req.params.sort.split(' ')[1]
 //make asc or desc into a numeric value that we can sort with
 let sortOrderInNumerics = sortOrder === 'asc' ? 1 : -1
 
-    //pagination
+//pagination
 
 var perPage = 8;
 
 var page = req.params.page || 1
 
-
 var total = await crm_company.countDocuments({owner:[userData._id]}); 
-
 
 var pages = Math.ceil(total / perPage);
 
-
-
 try {
-
-
 const companies = await crm_company.find({ owner:[userData._id]}).skip((perPage * page) - perPage).limit(perPage).sort({ [thingToSort]: sortOrderInNumerics })
-
-
 const allCompanies = await crm_company.find({ owner:[userData._id]})
-
 const allTaskItems = await Task.find({ owner:[userData._id]}).sort({ dateDueFieldVal: 1 })
-
-
 const leadItems = await crm_lead.find({ owner:[userData._id]})
 
-    
 res.render('companies', { companies: companies, allTasks: allTaskItems, allCompanies: allCompanies, sortOrder: sortOrder, thingToSort: thingToSort, current: page,  pages: pages, leads: leadItems, title: 'Companies', page_title: 'Companies', folder: 'CRM' })
 }
 
@@ -127,13 +109,10 @@ const userData = await User.findOne({email: userEmail})
     }
 }
 
-
 //edit company
 module.exports.editCompany_put = async (req,res) => {
 
 let id = req.body.id
-
-
 
 try {
 
@@ -147,9 +126,7 @@ try {
     contact_email: req.body.contactEmail,
     industry_type: req.body.industryType
 }});
-
         res.send('Task edited')
-
 }
 
 catch (err) {
