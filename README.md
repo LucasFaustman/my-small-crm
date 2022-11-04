@@ -46,5 +46,7 @@ BillTrackr : https://github.com/Ash1eyC0des/bill-trackr
 
 Memeify: https://github.com/LucasFaustman/memeify/tree/main
 
-Machine Learning Brand Guesser: https://machine-brand-guesser.herokuapp.com/
+Machine Learning Brand Guesser: https://github.com/LucasFaustman/machine-brand-guesser
+
+Lucas Faustman Boutique: https://github.com/LucasFaustman/shopping-cart
 
