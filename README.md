@@ -23,6 +23,8 @@ Tech used: EJS, Node, Express, Javascript, MongoDB
 2. I would add an option for search or filtering through items. Currently there is only an option for sorting and pagination.
 
 3. I want to add an invoicing feature where users can keep track of invoices sent, paid, etc.
+
+4. I would like to add a drag and drop feature for moving deals in the pipeline.
  
 ## Lessons Learned:
 

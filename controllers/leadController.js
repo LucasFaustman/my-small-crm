@@ -34,9 +34,8 @@ await User.updateOne({
     $push: {leads: leadData._id}
 })
 
-console.log(leadData._id)
-
  res.send('lead added')
+
 }
 
 module.exports.getLeads_get = async (req,res) => {
