@@ -1,7 +1,5 @@
 <%- contentFor('HeaderCss') %>
 <%- contentFor('body') %>
-<%= console.log((new Date().getMonth()+1).toString())%>
-<%= console.log(deals.filter(deal => deal.stage !== 'Lost' && deal.dueDate.split('-')[1].length === 1 ? (0 + deal.dueDate.split('-')[1]) === ((new Date().getMonth()+1)) : deal.dueDate.split('-')[1] == ((new Date().getMonth()+1).toString())).length) %> %>
 <div class="row">
     <div class="col-xl-12">
         <div class="card crm-widget">

@@ -1,19 +1,4 @@
 
-var checkAll = document.getElementById("checkAll");
-if (checkAll) {
-    checkAll.onclick = function () {
-        var checkboxes = document.querySelectorAll('.form-check-all input[type="checkbox"]');
-        for (var i = 0; i < checkboxes.length; i++) {
-            checkboxes[i].checked = this.checked;
-            if (checkboxes[i].checked) {
-                checkboxes[i].closest("tr").classList.add("table-active");
-            } else {
-                checkboxes[i].closest("tr").classList.remove("table-active");
-            }
-        }
-    };
-}
-
 var idField = document.getElementById("id-field"),
     companyNameField = document.getElementById("companyname-field"),
     companyLogoImg = document.getElementById("companylogo-img"),
@@ -29,8 +14,7 @@ var idField = document.getElementById("id-field"),
     removeBtns = document.getElementsByClassName("remove-item-btn"),
     editBtns = document.getElementsByClassName("edit-item-btn");
     viewBtns = document.getElementsByClassName("view-item-btn");
-refreshCallbacks();
-
+    refreshCallbacks();
 document.getElementById("showModal").addEventListener("show.bs.modal", function (e) {
     if (e.relatedTarget.classList.contains("edit-item-btn")) {
         document.getElementById("exampleModalLabel").innerHTML = "Edit Company";
@@ -47,7 +31,6 @@ document.getElementById("showModal").addEventListener("show.bs.modal", function 
         document.getElementById("showModal").querySelector(".modal-footer").style.display = "none";
     }
 });
-ischeckboxcheck();
 
 document.getElementById("showModal").addEventListener("hidden.bs.modal", function () {
     clearFields();
@@ -60,18 +43,20 @@ var trlist = table.querySelectorAll(".list tr");
 
 var count = 11;
 addBtn.addEventListener("click", async function (e) {
+     locationField = document.getElementById('location-field')
+    e.preventDefault()
     if (
-        companyNameField.value !== "" &&
-        ownerField.value !== "" &&
-        industry_typeField.value !== "" &&
-        star_valueField.value !== "" &&
-        locationField.value !== "" &&
-        employeeField.value !== "" &&
-        websiteField.value !== "" &&
-        contact_emailField.value !== "" 
-
-    ) {
-
+        companyNameField.value === "" ||
+        ownerField.value === "" ||
+        industry_typeField.value === "" ||
+        star_valueField.value === "" ||
+        locationField.value === "" ||
+        employeeField.value === "" ||
+        websiteField.value === "" ||
+        contact_emailField.value === "" 
+    ){
+        document.getElementById('company-error').innerHTML = 'Please fill out all fields.'
+    } else{
         companyName = companyNameField.value
         ownerName = ownerField.value
         industryType = industry_typeField.value
@@ -80,23 +65,7 @@ addBtn.addEventListener("click", async function (e) {
         employeeCount = employeeField.value
         websiteField = websiteField.value
         contactEmail = contact_emailField.value
-
-
-        document.getElementById("close-modal").click();
-        clearFields();
-        refreshCallbacks();
-        Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Company inserted successfully!',
-            showConfirmButton: false,
-            timer: 2000,
-            showCloseButton: true
-        });
-
-
-        try {
-            // signify to the server this is a post request to our database, and include the all inputs of task stringified to an object to pass onto the db
+    try {
             const res = await fetch('/addCompany', {
                 method: 'POST',
                 body: JSON.stringify({ companyName,
@@ -109,18 +78,46 @@ addBtn.addEventListener("click", async function (e) {
                     contactEmail }),
                 headers: { 'Content-Type': 'application/json' }
             });
-            const data = await res
-            console.log(data)
-            window.location.reload();
+            const data = await res.json()
+             if (data.error) { 
+                    document.getElementById('company-error').innerHTML = data.error
+             }else {
+                    document.getElementById("close-modal").click();
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Company inserted successfully!',
+                        showConfirmButton: false,
+                        showCloseButton: true
+                    });
+                    window.location.reload();
+
+                }
         }
             catch(err) {
-                console.log(err)
+                document.getElementById('company-error').innerHTML = 'Server failure. Please try again later.'
             }
+
     }
 });
 
 editBtn.addEventListener("click", async function (e) {
     document.getElementById("exampleModalLabel").innerHTML = "Edit Company";
+    websiteField = document.getElementById('website-field')
+
+    if (
+        companyNameField.value === "" ||
+        ownerField.value === "" ||
+        industry_typeField.value === "" ||
+        star_valueField.value === "" ||
+        locationField.value === "" ||
+        employeeField.value === "" ||
+        websiteField.value === "" ||
+        contact_emailField.value === "" 
+
+    ){
+        document.getElementById('company-error').innerHTML = 'Please fill out all fields.'
+    } else {
 
                 companyName = companyNameField.value
                 ownerName = ownerField.value
@@ -146,36 +143,26 @@ editBtn.addEventListener("click", async function (e) {
                     headers: { 'Content-Type': 'application/json' }
                 });
                 const data = await res.json()
-                console.log(data)
+                if (data.error) { 
+                    document.getElementById('company-error').innerHTML = data.error
+             }else {
+                document.getElementById("close-modal").click();
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Company updated Successfully!',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    showCloseButton: true
+                });
+                window.location.reload();
+             }
                 }
                 catch(err) {
-                    console.log(err)
+                    document.getElementById('company-error').innerHTML = 'Server failure. Please try again later.'
                 }
-
-    document.getElementById("close-modal").click();
-    clearFields();
-    Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Company updated Successfully!',
-        showConfirmButton: false,
-        timer: 2000,
-        showCloseButton: true
-    });
-    window.location.reload();
-});
-
-function ischeckboxcheck() {
-    Array.from(document.getElementsByName("checkAll")).forEach(function (x) {
-        x.addEventListener("click", function (e) {
-            if (e.target.checked) {
-                e.target.closest("tr").classList.add("table-active");
-            } else {
-                e.target.closest("tr").classList.remove("table-active");
-            }
-        });
-    });
 }
+});
 
 function refreshCallbacks() {
     Array.from(removeBtns).forEach(async function (btn) {
@@ -183,9 +170,7 @@ function refreshCallbacks() {
             e.target.closest("tr").children[1].innerText;
             itemId = e.target.closest("tr").children[0].innerText;
                     document.getElementById("delete-record").addEventListener("click", async function () {
-
-                        clearFields();
-                    refreshCallbacks();
+                        refreshCallbacks()
                     Swal.fire({
                         position: 'center',
                         icon: 'success',
@@ -201,14 +186,17 @@ function refreshCallbacks() {
                                 body: JSON.stringify({ id: itemId }), 
                                 headers: { 'Content-Type': 'application/json' }
                             });
-                            const data = await res
-                            console.log(data.body)
+                            const data = await res.json()
+                if (data.error) { 
+                    document.getElementById('company-error').innerHTML = data.error
+                 } else {
+                            document.getElementById("deleteRecordModal").click();
+                            window.location.reload();
+                         }
                         }
-                        catch (err) {
-                            console.log(err)
-                        }   
-                        document.getElementById("deleteRecordModal").click();
-                         window.location.reload();
+                        catch(err) {
+                            document.getElementById('company-error').innerHTML = 'Server failure. Please try again later.'
+                        }
                     });
         });
     });

@@ -11,14 +11,24 @@ module.exports.addCompany_post = async (req,res) => {
 
 const userEmail = res.locals.user.email
 
-
 const userData = await User.findOne({email: userEmail})
 
-if (!userData) {
-    console.log('User not found.')
-}
-// extract the company payload , then create a new company with the info we got from the fetch
+const leadData = await crm_lead.findOne({owner: [userData._id], company: req.body.companyName, name: req.body.ownerName})
 
+const companySearch = await crm_company.findOne({owner: [userData._id], name: req.body.companyName})
+
+if (!leadData) {
+    return res.status(400).json({ error:'Company name and contact name does not match' });
+}
+
+if (companySearch) {
+    return res.status(400).json({ error:'Company already created.' });
+}
+
+
+if (!userData) {
+   return res.status(400).json({ message:'User not found' });
+}
 
 const companyData = await crm_company.create({
     name: req.body.companyName,
@@ -40,7 +50,7 @@ await User.updateOne({
     $push: {companies: companyData._id}
 })
 
-    res.send('Company added')
+     res.status(200).json({ message:'Company added' });
 
 }
 
@@ -83,7 +93,7 @@ res.render('companies', { companies: companies, allTasks: allTaskItems, allCompa
 }
 
 catch(err) {
-    console.log(err)
+    res.status(400).json({ error:'Server failure.' });
 }
 
 }
@@ -97,11 +107,9 @@ const userData = await User.findOne({email: userEmail})
 
     let id = req.body.id
 
-    console.log(id)
-
     try {
         await crm_company.findOneAndDelete({  _id : id })
-        res.send('Task deleted')
+        res.status(200).json({ message:'Company added' });
     }
 
     catch (err) {
@@ -112,7 +120,18 @@ const userData = await User.findOne({email: userEmail})
 //edit company
 module.exports.editCompany_put = async (req,res) => {
 
+const userEmail = res.locals.user.email
+
+const userData = await User.findOne({email: userEmail})
+
 let id = req.body.id
+
+const leadData = await crm_lead.findOne({owner: [userData], company: req.body.companyName, name: req.body.ownerName})
+
+if (!leadData) {
+    return res.status(400).json({ error:'Company name and contact name does not match' });
+}
+
 
 try {
 
@@ -126,10 +145,10 @@ try {
     contact_email: req.body.contactEmail,
     industry_type: req.body.industryType
 }});
-        res.send('Task edited')
+res.status(200).json({ message:'Company edited' });
 }
 
 catch (err) {
-    console.log(err)
+    res.status(400).json({ error:'Server failure.' });
 }
 }

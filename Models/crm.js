@@ -64,12 +64,15 @@ const companyschema = new mongoose.Schema({
     },
     employee: {
         type: String,
+        required: [true, 'please enter employee count']
     },
     website: {
-        type: String
+        type: String,
+        required: [true, 'please enter website']
     },
     contact_email: {
         type: String,
+        required: [true, 'please enter email']
     },
      owner: [{
         type: mongoose.Schema.Types.ObjectId,
