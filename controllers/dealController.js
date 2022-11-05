@@ -12,13 +12,14 @@ module.exports.addDeal_post = async (req,res) => {
 
 const userID = res.locals.user.id
 
+
 const leadData = await crm_lead.findOne({owner: [userID], name:  req.body.contactVal, company: req.body.companyNameVal})
 
 const userData = await User.findOne({_id: userID})
 
-if (!userData) {
-    console.log('User not found.')
-}
+if (!leadData || !userData) {
+    return res.status(400).json({ error:'Company name does not match' });
+ } 
 
 const dealData = await Deal.create({
     dealTitle: req.body.dealTitleVal,
@@ -40,8 +41,7 @@ await crm_lead.updateOne({
     $push: {deals: dealData._id}
 })
 
-    res.send('Company added')
-
+res.status(200).json({ message:'Deal added' });
 }
 
 //get deal

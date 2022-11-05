@@ -4,8 +4,8 @@ The Customer Relationship Management tool for Small Businesses. Users can keep t
 
 Link to project: https://my-small-crm.herokuapp.com/landing 
 
-Demo Email: demo@google.com
-Demo Password: demo12345
+Demo Email: demo@demo.com
+Demo Password: Demo12345
 
 <img src="https://media.giphy.com/media/gQ2QtVKxTjHQZWTxBT/giphy.gif" alt="myplayerio page overview" height="100%" />
 

@@ -1,4 +1,3 @@
-
 var idField = document.getElementById("id-field"),
     leadNameField = document.getElementById("leadname-field"),
     company_nameField = document.getElementById("company_name-field"),
@@ -15,12 +14,12 @@ refreshCallbacks();
 
 document.getElementById("showModal").addEventListener("show.bs.modal", function (e) {
     if (e.relatedTarget.classList.contains("edit-item-btn")) {
-        document.getElementById("exampleModalLabel").innerHTML = "Edit Lead";
+        document.getElementById("exampleModalLabel").innerHTML = "Edit Contact";
         document.getElementById("showModal").querySelector(".modal-footer").style.display = "block";
         document.getElementById("add-btn").style.display = "none";
         document.getElementById("edit-btn").style.display = "block";
     } else if (e.relatedTarget.classList.contains("add-btn")) {
-        document.getElementById("exampleModalLabel").innerHTML = "Add Lead";
+        document.getElementById("exampleModalLabel").innerHTML = "Add Contact";
         document.getElementById("showModal").querySelector(".modal-footer").style.display = "block";
         document.getElementById("edit-btn").style.display = "none";
         document.getElementById("add-btn").style.display = "block";
@@ -57,13 +56,18 @@ Array.from(tagInputFieldValue).forEach((tag, index) => {
 addBtn.addEventListener("click", async function (e) {
     e.preventDefault();
     if (
-        leadNameField.value !== "" &&
-        company_nameField.value !== "" &&
-        dateField.value !== "" &&
-        leads_scoreField.value !== "" &&
-        phoneField.value !== "" &&
-        locationField.value !== ""
+        leadNameField.value === "" ||
+        company_nameField.value === "" ||
+        dateField.value === "" ||
+        leads_scoreField.value === "" ||
+        phoneField.value === "" ||
+        locationField.value === ""
     ) {
+        document.getElementById('contact-errors').innerHTML = 'Please fill out all fields.'
+
+    } 
+    
+    else{
 
         leadNameField = leadNameField.value 
         company_nameField = company_nameField.value 
@@ -78,18 +82,6 @@ addBtn.addEventListener("click", async function (e) {
             tagHtmlValue += '<span class="badge badge-soft-primary me-1">' + tag + '</span>'
         })
 
-        document.getElementById("close-modal").click();
-        clearFields();
-        refreshCallbacks();
-        Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Lead inserted successfully!',
-            showConfirmButton: false,
-            timer: 2000,
-            showCloseButton: true
-        });
-
         try {
             // signify to the server this is a post request to our database, and include the all inputs of task stringified to an object to pass onto the db
             const res = await fetch('/addLead', {
@@ -103,23 +95,52 @@ addBtn.addEventListener("click", async function (e) {
                     tagInputFieldValue }),
                 headers: { 'Content-Type': 'application/json' }
             });
-            const data = await res
-            console.log(data)
-            window.location.reload();
+            const data = await res.json()
+            if (data.error) { 
+                document.getElementById('contact-errors').innerHTML = data.error
+            } else {
+                document.getElementById("close-modal").click();
+                clearFields();
+                refreshCallbacks();
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Lead inserted successfully!',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    showCloseButton: true
+                });
+                window.location.reload();
+            }
+            
         }
             catch(err) {
                 console.log(err)
             }
 
-
-    }
-
-    
+    } 
 });
 
 
 editBtn.addEventListener("click", async function (e) {
     document.getElementById("exampleModalLabel").innerHTML = "Edit Contact";
+
+
+    if (
+        leadNameField.value === "" ||
+        company_nameField.value === "" ||
+        dateField.value === "" ||
+        leads_scoreField.value === "" ||
+        phoneField.value === "" ||
+        locationField.value === ""
+    ) {
+        document.getElementById('contact-errors').innerHTML = 'Please fill out all fields.'
+
+    } 
+    
+    else{
+
+
 
         var tagInputFieldValue = tagInputField.getValue(true);
         var tagHtmlValue = '';
@@ -136,9 +157,8 @@ editBtn.addEventListener("click", async function (e) {
 
         try {
             const res = await fetch('/editLead', {
-                //update request
                 method: 'PUT',
-                body: JSON.stringify({ id: itemId , //get all the values from the form and send off to the server
+                body: JSON.stringify({ id: itemId , 
                     leadNameField,
                     company_nameField,
                     dateField,
@@ -148,31 +168,28 @@ editBtn.addEventListener("click", async function (e) {
                     tagInputFieldValue}),
                 headers: { 'Content-Type': 'application/json' }
             });
-            const data = await res
-            
-            console.log(data)
-
-            if (res.redirect) {
-                document.location.href = res.render
+            const data = await res.json()
+            if (data.error) { 
+                document.getElementById('contact-errors').innerHTML = data.error
+            } else {
+                document.getElementById("close-modal").click();
+                clearFields();
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Lead updated Successfully!',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    showCloseButton: true
+                });
+                window.location.reload();
             }
 
             }
             catch(err) {
                 console.log(err)
             }
-
-    document.getElementById("close-modal").click();
-    window.location.reload();
-    clearFields();
-    Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Lead updated Successfully!',
-        showConfirmButton: false,
-        timer: 2000,
-        showCloseButton: true
-    });
-
+    }
     
 });
 
@@ -200,14 +217,18 @@ function refreshCallbacks() {
                                 body: JSON.stringify({ id: itemId }), 
                                 headers: { 'Content-Type': 'application/json' }
                             });
-                            const data = await res
-                            console.log(data.body)
+                            const data = await res.json()
+                            if (data.error) { 
+                                document.getElementById('contact-errors').innerHTML = data.error
+                            } else {
+                                document.getElementById("deleteRecordModal").click();
+                                window.location.reload();
+                            }
+                            
                         }
                         catch (err) {
                             console.log(err)
                         }   
-                        document.getElementById("deleteRecordModal").click();
-                        window.location.reload();
                     });
         });
     });

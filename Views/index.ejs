@@ -1,5 +1,7 @@
 <%- contentFor('HeaderCss') %>
 <%- contentFor('body') %>
+<%= console.log((new Date().getMonth()+1).toString())%>
+<%= console.log(deals.filter(deal => deal.stage !== 'Lost' && deal.dueDate.split('-')[1].length === 1 ? (0 + deal.dueDate.split('-')[1]) === ((new Date().getMonth()+1)) : deal.dueDate.split('-')[1] == ((new Date().getMonth()+1).toString())).length) %> %>
 <div class="row">
     <div class="col-xl-12">
         <div class="card crm-widget">
@@ -14,7 +16,6 @@
                                 </div>
                                 <div class="flex-grow-1 ms-3">
                                     <h2 class="mb-0">$<span class="counter-value" data-target="<%= deals.filter(deal => deal.stage !== 'Lost' && deal.dueDate.includes(new Date().getFullYear())).map(deal => deal.value.includes(',') ? Number(deal.value.split(',').join('')) : Number(deal.value)).reduce((acc,num) => acc + num,0) %>">0</span></h2>
-                                    <%=  console.log() %>
                                 </div>
                             </div>
                         </div>
@@ -27,7 +28,7 @@
                                     <i class="ri-exchange-dollar-line display-6 text-muted"></i>
                                 </div>
                                 <div class="flex-grow-1 ms-3">
-                                    <h2 class="mb-0">$<span class="counter-value" data-target="<%= deals.filter(deal => deal.stage !== 'Lost' && deal.dueDate.split('-')[1] == ((Number(new Date().getMonth() + 1)).toString().length > 1 ? ('0' + (Number(new Date().getMonth() + 1))) : (Number(new Date().getMonth() + 1))) && deal.dueDate.includes(new Date().getFullYear().toString())).map(deal => deal.value.includes(',') ? Number(deal.value.split(',').join('')) : Number(deal.value)).reduce((acc,num) => acc + num,0) %>">0</span></h2>
+                                    <h2 class="mb-0">$<span class="counter-value" data-target="<%= deals.filter(deal => deal.stage !== 'Lost' && deal.dueDate.split('-')[1].length === 1 ? (0 + deal.dueDate.split('-')[1]) === ((new Date().getMonth()+1)) : deal.dueDate.split('-')[1] == ((new Date().getMonth()+1).toString())).map(deal => deal.value.includes(',') ? Number(deal.value.split(',').join('')) : Number(deal.value)).reduce((acc,num) => acc + num,0) %>">0</span></h2>
                                 </div>
                             </div>
                         </div>
@@ -40,7 +41,7 @@
                                     <i class="ri-pulse-line display-6 text-muted"></i>
                                 </div>
                                 <div class="flex-grow-1 ms-3">
-                                    <h2 class="mb-0"><span class="counter-value" data-target="<%= deals.filter(deal => deal.stage !== 'Lost' && deal.dueDate.split('-')[1] == ((Number(new Date().getMonth() + 1)).toString().length > 1 ? ('0' + (Number(new Date().getMonth() + 1))) : (Number(new Date().getMonth() + 1))) && deal.dueDate.includes(new Date().getFullYear().toString())).length %>">0</span></h2>
+                                    <h2 class="mb-0"><span class="counter-value" data-target="<%= deals.filter(deal => deal.stage !== 'Lost' && deal.dueDate.split('-')[1].length === 1 ? (0 + deal.dueDate.split('-')[1]) === ((new Date().getMonth()+1)) : deal.dueDate.split('-')[1] == ((new Date().getMonth()+1).toString())).length%>">0</span></h2>
                                 </div>
                             </div>
                         </div>
@@ -223,10 +224,12 @@
 
 <%- contentFor('FooterJs') %>
 
+<script type='text/javascript' src='/assets/libs/choices.js/public/assets/scripts/choices.min.js'></script>
+<script type='text/javascript' src='/assets/libs/flatpickr/flatpickr.min.js'></script>
+
 <!-- apexcharts -->
 <script src="/assets/libs/apexcharts/apexcharts.min.js"></script>
 
 <!-- Dashboard init -->
 <script src="/assets/js/pages/dashboard-crm.init.js"></script>
 
-<!-- App js -->

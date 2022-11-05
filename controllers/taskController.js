@@ -204,5 +204,3 @@ module.exports.getCompletedTaskItems_get =  async (req,res) => {
     
     }
     
-    
-    

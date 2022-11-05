@@ -17,6 +17,8 @@ if (!userData) {
     console.log('User not found.')
 }
 
+try {
+
 const leadData = await crm_lead.create({
     name: req.body.leadNameField,
     company: req.body.company_nameField,
@@ -34,8 +36,14 @@ await User.updateOne({
     $push: {leads: leadData._id}
 })
 
- res.send('lead added')
+res.status(200).json({ message:'Contact added' })
+}
 
+
+ catch(err) {
+    
+    res.status(400).json({ error:'Error adding contact.' });
+}
 }
 
 module.exports.getLeads_get = async (req,res) => {
@@ -96,11 +104,11 @@ const userData = await User.findOne({email: userEmail})
 
     try {
         await crm_lead.findOneAndDelete({  _id : id })
-        res.send('Task deleted')
+        res.status(200).json({ message:'Contact deleted' });
     }
 
     catch (err) {
-        console.log(err)
+        res.status(400).json({ error:'Error deleting contact' });
     }
 }
 
@@ -120,12 +128,11 @@ try {
         location: req.body.locationField,
         tags: req.body.tagInputFieldValue,}});
 
-        res.send('Task edited')
-
+        res.status(200).json({ message:'Contact edited' });
 }
 
 catch (err) {
-    console.log(err)
+    res.status(400).json({ error:'Error editing contact.' });
 }
 }
 
@@ -154,7 +161,7 @@ module.exports.getContactDetails_get = async(req,res) => {
 
     }
     catch (err) {
-        console.log(err)
+        res.status(400).json({ error:'Error getting contact details.' });
     }
 
 }

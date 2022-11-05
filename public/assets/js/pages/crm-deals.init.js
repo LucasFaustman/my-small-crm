@@ -14,14 +14,20 @@ addBtn.addEventListener('click', async function (event) {
     event.preventDefault();
 
     if(
-        dealTitle.value !== "" &&
-        contact.value !== "" &&
-        stageValue.value !== "" &&
-        dealValue.value !== "" &&
-        dueDate.value !== "" &&
-        companyName.value !== "" &&
-        contactDescription.value !== "" 
-    && dealTitle) {
+        dealTitle.value === "" ||
+        contact.value === "" ||
+        stageValue.value === "" ||
+        dealValue.value === "" ||
+        dueDate.value === "" ||
+        companyName.value === "" ||
+        contactDescription.value === "" 
+    || !dealTitle) {
+        document.getElementById('deal-error').innerHTML = 'Please fill out all fields.'
+    }
+
+
+
+    else {
 
     dealTitleVal = dealTitle.value
     contactVal = contact.value
@@ -44,8 +50,10 @@ addBtn.addEventListener('click', async function (event) {
                 contactDescriptionVal }),
             headers: { 'Content-Type': 'application/json' }
         });
-        const data = res
-        console.log(data)
+        const data = await res.json()
+        if (data.error == 'Company name does not match') { 
+            document.getElementById('deal-error').innerHTML = data.error
+    } else {
         document.getElementById("close-modal").click();
         clearFields();
         Swal.fire({
@@ -59,9 +67,9 @@ addBtn.addEventListener('click', async function (event) {
             showCloseButton: true
         });
         window.location.reload();
-    }
-        catch(err) {
-            console.log(err)
+    }}
+        catch(res) {
+            console.log(res)
         }
     }
 
