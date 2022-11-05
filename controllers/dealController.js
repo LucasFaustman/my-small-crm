@@ -66,7 +66,7 @@ const companyItems = await crm_company.find({ owner: [userData._id] })
 
 }
     catch(err) {
-    console.log(err)
+        return res.status(400).json(err);
 } 
     }
 
@@ -79,9 +79,9 @@ try {
     await Deal.findOneAndUpdate({_id: dealId}, {$set:{ 
         stage: newStage
     }});
-    res.send('deal edited')
+    res.status(200).json({ message:'Deal edited' });
 } catch (err) {
-    console.log(err)
+    return res.status(400).json(err);
 }
 };
 

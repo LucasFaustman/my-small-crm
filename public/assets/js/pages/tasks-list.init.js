@@ -40,16 +40,18 @@ var trlist = table.querySelectorAll(".list tr");
 var count = 11;
 addBtn.addEventListener("click", async function (e) {
     e.preventDefault();
+    
     if (
-       // projectNameField.value !== "" &&
-        tasksTitleField.value !== "" &&
-        clientNameField.value !== "" &&
-        dateDueField.value !== "" &&
-        priorityField.value !== "" &&
-        statusField.value !== ""
+        tasksTitleField.value === "" ||
+        clientNameField.value === "" ||
+        dateDueField.value === "" ||
+        priorityField.value === "" ||
+        statusField.value === ""
     ) {
-
-        //assign the value of each input of the form to a new variable
+        document.getElementById('task-error').innerHTML = 'Please fill out all fields.'
+    } 
+    
+    else{
         tasksTitleFieldVal = tasksTitleField.value
         clientNameFieldVal = clientNameField.value
         dateDueFieldVal = dateDueField.value,
@@ -99,27 +101,22 @@ editBtn.addEventListener("click", async function (e) {
     
 
     if (
-        tasksTitleField.value !== "" &&
-        clientNameField.value !== "" &&
-        dateDueField.value !== "" &&
-        priorityField.value !== "" &&
-        statusField.value !== ""
+        tasksTitleField.value === "" ||
+        clientNameField.value === "" ||
+        dateDueField.value === "" ||
+        priorityField.value === "" ||
+        statusField.value === ""
     ) {
-
-
+        document.getElementById('task-error').innerHTML = 'Please fill out all fields.'
+    } 
     
-
-
-       
+    else{
             tasksTitleFieldVal = tasksTitleField.value,
             clientNameFieldVal = clientNameField.value,
             dateDueFieldVal = dateDueField.value,
             statusFieldVal = statusField.value,
             priorityFieldVal = priorityField.value
-            console.log(dateDueFieldVal)
-
-            
-        
+ 
             try {
                 const res = await fetch('/editTaskItem', {
                     //update request

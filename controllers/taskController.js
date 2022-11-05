@@ -18,7 +18,8 @@ if (!leadData) {
     console.log('User not found.')
 } 
 
-const taskData = await Task.create({
+try{
+    const taskData = await Task.create({
     tasksTitleFieldVal: req.body.tasksTitleFieldVal,
     clientNameFieldVal: req.body.clientNameFieldVal,
     dateDueFieldVal: req.body.dateDueFieldVal,
@@ -34,8 +35,13 @@ await crm_lead.updateOne({
 }, {
     $push: {tasks: taskData._id}
 })
+res.status(200).json({ message:'Task Added' });
+}
 
-res.send('Task added')
+catch(err) {
+    return res.status(400).json({ error:'Server error.' });
+}
+
 }
 
 module.exports.getTaskItems_get =  async (req,res) => {
@@ -84,7 +90,7 @@ const leadData = await crm_lead.findOne({owner: [userID]})
     
     }
     catch(err) {
-        console.log(err)
+        return res.status(400).json({ error:'Server error.' });
     }
 
 }
@@ -95,11 +101,11 @@ const taskID = req.body.id
 
     try {
         await Task.findOneAndDelete({  _id : taskID })
-        res.send('Task deleted')
+        res.status(200).json({ message:'Task Added' });
     }
 
     catch (err) {
-        console.log(err)
+        return res.status(400).json(err);
     }
 
 }
@@ -117,9 +123,9 @@ try {
     dateDueFieldVal: req.body.dateDueFieldVal,
     statusFieldVal: req.body.statusFieldVal,
     priorityFieldVal: req.body.priorityFieldVal}});
-    res.send('task edited')
+    res.status(200).json({ message:'Task edited' });
 } catch (err) {
-    console.log(err)
+    return res.status(400).json(err);
 }
 }
 
@@ -147,7 +153,7 @@ const userData = await User.findOne({email: userEmail})
     
     }
     catch(err) {
-        console.log(err)
+        return res.status(400).json(err);
     }
 }
 
@@ -157,8 +163,6 @@ const userData = await User.findOne({email: userEmail})
 module.exports.getCompletedTaskItems_get =  async (req,res) => {
 
     //sorting
-    
-    console.log(req.params.sort)
     
     //the actual column we are sorting(ex. due date)
     let thingToSort = req.params.sort.split(' ')[0]
@@ -199,7 +203,7 @@ module.exports.getCompletedTaskItems_get =  async (req,res) => {
         
         }
         catch(err) {
-            console.log(err)
+            return res.status(400).json(err);
         }
     
     }

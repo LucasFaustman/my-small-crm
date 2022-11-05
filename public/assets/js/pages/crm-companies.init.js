@@ -91,7 +91,6 @@ addBtn.addEventListener("click", async function (e) {
                         showCloseButton: true
                     });
                     window.location.reload();
-
                 }
         }
             catch(err) {
@@ -187,9 +186,7 @@ function refreshCallbacks() {
                                 headers: { 'Content-Type': 'application/json' }
                             });
                             const data = await res.json()
-                if (data.error) { 
-                    document.getElementById('company-error').innerHTML = data.error
-                 } else {
+                if (!data.error) { 
                             document.getElementById("deleteRecordModal").click();
                             window.location.reload();
                          }
