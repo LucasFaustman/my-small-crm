@@ -1583,7 +1583,6 @@
 		initComponents();
 		resetLayout();
 		pluginData();
-		initLanguage();
 		isCollapseMenu();
 		initMenuItemScroll();
 	}
