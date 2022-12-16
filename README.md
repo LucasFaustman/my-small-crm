@@ -28,7 +28,7 @@ Tech used: EJS, Node, Express, Javascript, MongoDB
  
 ## Lessons Learned:
 
-- I learned how MVC architecture can be used to create a web application! I had to deepen my knowledge of Express and EJS in order for everything to work.
+- I learned how MVC architecture can be used to create a web application! I had to deepen my knowledge of Express, MongoDB, and Express in order for all areas of my application to interact with eachother.
 
 - I learned how I can use EJS for lots of different Javascript functions! In order to get data such as monthly revenue projected on the dashboard, I had to use the filter array method as well as reduce in order to get to the right number.
 
